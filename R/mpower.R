@@ -50,27 +50,26 @@ mpower <- function(effect_size, sample_size, k, hg, model, test_type = "two-tail
     stop("Sample size must be greater than 0")
   if(missing(k))
     stop("Need to specify anticipated number of studies")
+  if(k < 0)
+    stop("Number of studies must be greater than 0")
+  if(missing(model))
+    stop("Need to specify type of model")
   if(!(model %in% model_options))
     stop("Need to specify 'fixed' or 'random' effects model")
   if(!(test_type %in% test_type_options))
     stop("Need to specify one-tailed or two-tailed")
 
-  power <- compute_power(effect_size, sample_size, k, hg, model, test_type, p)
-  power_list <- list(power = power,
+  power_list <- list(power = compute_power(effect_size, sample_size, k, hg, model, test_type, p),
                      effect_size = effect_size,
                      sample_size =sample_size,
                      k = k,
                      hg = hg,
                      model = model,
                      test_type = test_type,
-                     p = p)
+                     p = p,
+                     df = compute_power_range(effect_size, sample_size, k, model, test_type, p = .05))
   attr(power_list, "class") <- "mpower"
   return(power_list)
-}
-
-compute_variance <- function(sample_size, effect_size){
-  return(
-    round(((sample_size+sample_size)/((sample_size)*(sample_size))) + ((effect_size^2)/(2*(sample_size+sample_size))),5))
 }
 
 compute_power <- function(effect_size, sample_size, k, hg, model, test_type, p){
@@ -89,145 +88,43 @@ compute_power <- function(effect_size, sample_size, k, hg, model, test_type, p){
 
   if(test_type == "two-tailed"){
     c_alpha <- qnorm(1-(p/2))
-    } else if (test_type =="one-tailed") {
-      c_alpha <- qnorm(1-(p))
-   }
+  } else if (test_type =="one-tailed") {
+    c_alpha <- qnorm(1-(p))
+  }
 
   power <- (1-pnorm(c_alpha - lambda)) + pnorm(-1*c_alpha - lambda)
   return(power)
 }
 
-#ompute_power(.3, 25, 10,1.667, model = "fixed", test_type = "one-tailed", p =.05)
+compute_variance <- function(sample_size, effect_size){
+  return(
+    round(((sample_size+sample_size)/((sample_size)*(sample_size))) + ((effect_size^2)/(2*(sample_size+sample_size))),5))
+}
 
-plot_power <- function(effect_size, sample_size, k, model, test_type, p = .05){
+compute_power_range <- function(effect_size, sample_size, k, model, test_type, p = .05){
 
   if(model == "fixed"){
-
     df <- tibble(es_v = rep(effect_size, times = 90),
                  n_v = rep(sample_size, times = 90),
                  k_v = rep(seq(1:30), times = 3))
     df <- df %>%
       mutate(power = mapply(compute_power,df$es_v,df$n_v,df$k_v, model = model, test_type = test_type,p = p))
-
-    plot <- ggplot(df, aes(x = df$k_v, y = df$power)) +
-      geom_line(size = 1) +
-      scale_x_continuous(breaks = c(5,10,15,20,25,30)) +
-      theme_light()
-
   } else if (model == "random"){
-
     df <- tibble(es_v = rep(effect_size,times = 90),
                n_v = rep(sample_size, times = 90),
                k_v = rep(seq(1:30), times = 3),
-               hg_v = rep(c(1.33,1.67,2), each = 30)) ## heterogenity rules of thumb (Check valentine and piggot)
+               hg_v = rep(c(1.33,1.67,2), each = 30))
     df <- df %>%
       mutate(power = mapply(compute_power,df$es_v,df$n_v,df$k_v,df$hg_v,model = model, test_type = test_type,p = p)) %>%
       mutate_at(vars(hg_v), factor)
-
-    plot <- ggplot(df, aes(x = k_v, y = power, color = df$hg_v)) +
-      geom_line(size = 1) +
-      scale_x_continuous(breaks = c(5,10,15,20,25,30)) +
-      theme_light()
-
   }
-return(plot)
+return(df)
 }
 
+## Methods
 
 
 
-## testing fixed effects estimate
-#mpower(.3, 25, 10, model = "fixed")
-
-# compute_power(.3, 25, 10,p = .05, model = "fixed")
-# compute_power(.3, 25, 10,hg = 1.667,p = .05, model = "random")
-## testing random effects with some level of heterogenity (e.g., 1.667)
-my_power <- mpower(.3,25,10,1.667,model = "random")
-
-## .3
-## 25
-## 10
-## model
-
-print.mpower <- function(obj) {
-  cat("Estimated Power Analysis for ", toupper(obj$model),"-effects Model \n\n", sep = "")
-  cat("Expected Effect Size       ", obj$effect_size, "\n")
-  cat("Expected Sample Size       ", obj$sample_size, "\n")
-  cat("Expected Number of Studies ", obj$k, "\n")
-  cat("Expected heterogenity(t^2) ", obj$hg, "\n\n")
-  cat("Estimated Power:           ", obj$power)
-}
-my_power
-
-
-
-
-
-#
-# df %>%
-#   mutate(power = mapply(compute_power,.$es_v,.$n_v,.$k_v,p, model))
-#
-
-
-
-
-#
-# compute_power()
-#
-#
-#
-#
-# es_v <- rep(es, times = 45)
-# n_v <- rep(n,time = 45)
-# k_v <- rep(seq(1:15), times = 3)
-# hg_v <- rep(c(1,3,5),each = 15)
-#
-# df1 <- tibble( es_v,n_v,k_v,hg_v)
-#
-# df_p <- df1 %>%
-#   mutate(new = mapply(test_power,df1$es_v,df1$n_v,df1$k_v,df1$hg_v)) %>%
-#   mutate_at(vars(hg_v), factor)
-#
-#
-#
-# ggplot(df_p, aes(x = k_v, y = new, linetype = hg_v)) + geom_line(size = 1) + theme_classic()
-#
-
-
-
-# Compute statistical Power
-#   if (fixed){
-#     lambda <- (effect_size/sqrt(compute_variance(sample_size, effect_size)/k))
-#     c_alpha <- qnorm(1-(p/2))
-#     return(1-pnorm(c_alpha - lambda)) + pnorm(-1*c_alpha - lambda)
-#
-#     } else {
-#
-#       if (missing(hg)){
-#       message("Error: Enter heterogenity value")
-#         }
-#
-#       else{
-#       lambda <- effect_size/sqrt((hg*compute_variance(sample_size, effect_size)/k))
-#       c_alpha <- qnorm(1-(p/2))
-#       return(1-pnorm(c_alpha - lambda)) + pnorm(-1*c_alpha - lambda)
-#     }
-#   }
-# }
-
-
-
-
-
-
-
-
-
-
-
-
-
-#
 # # test of homogenity Fixed effects
 # chi_crit <- qchisq(p = p,df = df, lower.tail=FALSE)
 # lambda = df * (1/1)  # tau / var
