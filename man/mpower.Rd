@@ -4,7 +4,7 @@
 \alias{mpower}
 \title{Compute Power for Meta-analysis}
 \usage{
-mpower(effect_size, sample_size, k, hg, p = 0.05, model)
+mpower(effect_size, sample_size, k, hg, model, test_type, p = 0.05)
 }
 \arguments{
 \item{effect_size}{anticipated magnitude of effect size.}
@@ -15,9 +15,11 @@ mpower(effect_size, sample_size, k, hg, p = 0.05, model)
 
 \item{hg}{anticipated heterogenity estimate (smalll = 1.33, moderate = 1.67, large = 2)}
 
-\item{p}{alpha level: p = .05 (DEFAULT)}
-
 \item{model}{Fixed-effects model (model = "fixed") or Random-effects model (model = "random")}
+
+\item{test_type}{one-tailed or two-tailed}
+
+\item{p}{alpha level: p = .05 (DEFAULT)}
 }
 \value{
 Estimated power
@@ -26,10 +28,4 @@ Estimated power
 the mpower() command allows for the calculation of statistical power for both fixed- and random-effects
 meta-analyis models. Currently, the anticpated summary effect size estimate should be standardized mean differences units
 (i.e, Cohen's d)
-}
-\examples{
-
-mpower(effect_size = .5, sample_size = 25, k = 10, hg = 1.67, model = "random")
-
-
 }
