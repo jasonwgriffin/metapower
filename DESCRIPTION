@@ -1,0 +1,20 @@
+Package: metapower
+Type: Package
+Title: Compute statistical power for meta-analysis
+Version: 0.0.0.9000
+Authors@R: person("Jason", "Griffin", email = "jasongriffin138@gmail.com", role = c("aut", "cre"))
+Description: Compute statistical power for meta-analysis
+    Use four spaces when indenting paragraphs within the Description.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Imports:
+    dplyr,
+    ggplot2,
+    knitr,
+    magrittr,
+    tibble,
+    testthat,
+    rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 7.0.2
