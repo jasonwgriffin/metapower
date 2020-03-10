@@ -33,9 +33,12 @@
 #' @import ggplot2
 #' @import tibble
 #' @import magrittr
+#' @importClassesFrom plot.mpower.R
+#' @importMethodsFrom print.mpower.R
+
 #' @export
 
-mpower <- function(effect_size, sample_size, k, hg, model, test_type = "two-tailed", p = .05){
+mpower <- function(effect_size, sample_size, k, hg = c("small", "medium", "large"), model, test_type = "two-tailed", p = .05){
 
   model_options <- c("fixed", "random")
   test_type_options <- c("one-tailed", "two-tailed")
@@ -82,10 +85,16 @@ compute_power <- function(effect_size, sample_size, k, hg, model, test_type, p){
     if (missing(hg)){
       message("Error: Enter heterogenity value")
     } else{
-      lambda <- effect_size/sqrt((hg*compute_variance(sample_size, effect_size)/k))
+        if(hg == "small"){
+          tau2 <- (1/3)*compute_variance(sample_size, effect_size)
+        } else if (hg == "medium"){
+          tau2 <- compute_variance(sample_size, effect_size)
+        } else if (hg == "large"){
+          tau2 <- 3*compute_variance(sample_size, effect_size)
+          }
+      lambda <- effect_size/sqrt((tau2 + compute_variance(sample_size, effect_size))/k)
     }
   }
-
   if(test_type == "two-tailed"){
     c_alpha <- qnorm(1-(p/2))
   } else if (test_type =="one-tailed") {
@@ -113,13 +122,82 @@ compute_power_range <- function(effect_size, sample_size, k, model, test_type, p
     df <- tibble(es_v = rep(effect_size,times = 90),
                n_v = rep(sample_size, times = 90),
                k_v = rep(seq(1:30), times = 3),
-               hg_v = rep(c(1.33,1.67,2), each = 30))
+               hg_v = rep(c("small","medium","large"), each = 30))
     df <- df %>%
       mutate(power = mapply(compute_power,df$es_v,df$n_v,df$k_v,df$hg_v,model = model, test_type = test_type,p = p)) %>%
       mutate_at(vars(hg_v), factor)
   }
 return(df)
 }
+
+
+# test of homogenity Fixed effects
+
+# p = .95
+# n = 20
+# k = 10
+# sd = 3
+# es = .2
+# tau = .3
+# #lambda <- (k*sqrt(compute_variance(40,.5)/k)*sd^2)/compute_variance(40,.5)
+#
+
+#
+#
+# ## Between Group Moderation
+# groups = 3
+# n = 15
+# diff = .4
+# x1 = 0
+# x2 = .1
+# x3 =.55
+# x_v = c(x1,x2,x3)
+# df = groups - 1
+# p = .95
+# ## fixed effects
+#
+# weight <- sum(rep(n-groups,n/groups))
+# overall_mean <- mean(x_v)
+# lambda_b <- sum(weight*(x_v-overall_mean)^2)
+# c_alpha <- qchisq(p,df,0, lower.tail = TRUE)
+#
+# power <- (1 - pchisq(c_alpha,df,lambda_b,lower.tail = TRUE))
+# ### random
+# var <- .083
+# tau <- .028
+# var_s <- var+tau
+# var_s <- .33
+#
+# weight_s = 1/sum(rep(1/var_s,n/groups))
+# lambda_b_s <- sum(weight_s*(x_v-overall_mean)^2)
+# power <- (1 - pchisq(c_alpha,df,lambda_b_s,lower.tail = TRUE))
+#
+# ## Withing group moderation
+#
+# #fixed
+# weight <-1/(1/(n-groups))
+# var <- round(sqrt(1/sum(rep(weight,n/groups))),2)
+# sd_v = c(1,1,4) ## user specified
+# lambda_w <- sum(rep(weight*(sd_v*var)^2,n/groups))
+# c_alpha_w <- qchisq(p, n-groups,0,lower.tail = TRUE)
+# power_w <- (1 - pchisq(c_alpha_w,n-groups,lambda_w,lower.tail = TRUE))
+# #random
+
+
+
+
+
+#
+# #power <- (1- pgamma(chi_crit/a, shape = b/2, scale = 2))   #alpha = shape, beta = scale
+#
+#
+#
+# lambda = df * (1/1)  # tau / var
+# a = 1+(lambda/(df + lambda))
+# b = df + (lambda^2/(df + 2*lambda))
+# x = chi_crit/a
+
+
 
 ## Methods
 
