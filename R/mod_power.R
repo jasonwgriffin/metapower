@@ -1,6 +1,5 @@
 #' @export
 
-
 n_groups = 3
 sample_size = 15
 diff = .4
@@ -19,7 +18,7 @@ mod_power <- function(n_groups, effect_sizes, sample_size,k, model = c("fixed", 
   c_alpha <- qchisq(1-p,df,0, lower.tail = TRUE)
   if(model == "fixed") {
     #weight <- sum(rep(sample_size-n_groups,sample_size/n_groups)) fishers z
-    weight <- sum(rep(compute_variance(sample_size,overall_effect_size)/k,sample_size/n_groups))
+    weight <- sum(rep(compute_variance(sample_size,overall_effect_size)/k,k/n_groups))
     lambda <- sum(weight*(effect_sizes-overall_effect_size)^2)
    } else if(model =="random") {
     v = d
