@@ -8,10 +8,12 @@ mpower(
   effect_size,
   sample_size,
   k,
-  hg,
-  model,
-  test_type = "two-tailed",
-  p = 0.05
+  hg = c("small", "medium", "large"),
+  es_type = c("Correlation", "d", "OR"),
+  model = c("fixed", "random"),
+  test_type = c("one-tailed", "two-tailed"),
+  p = 0.05,
+  sd = sd
 )
 }
 \arguments{

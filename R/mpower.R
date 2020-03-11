@@ -33,12 +33,17 @@
 #' @import ggplot2
 #' @import tibble
 #' @import magrittr
-#' @importClassesFrom plot.mpower.R
-#' @importMethodsFrom print.mpower.R
-
 #' @export
 
-mpower <- function(effect_size, sample_size, k, hg = c("small", "medium", "large"), model, test_type = "two-tailed", p = .05){
+mpower <- function(effect_size,
+                   sample_size,
+                   k,
+                   hg = c("small", "medium", "large"),
+                   es_type = c("Correlation", "d", "OR"),
+                   model = c("fixed", "random"),
+                   test_type = c("one-tailed", "two-tailed"),
+                   p = .05,
+                   sd = sd){
 
   model_options <- c("fixed", "random")
   test_type_options <- c("one-tailed", "two-tailed")
@@ -62,15 +67,23 @@ mpower <- function(effect_size, sample_size, k, hg = c("small", "medium", "large
   if(!(test_type %in% test_type_options))
     stop("Need to specify one-tailed or two-tailed")
 
+  if(es_type == "Correlation"){
+    effect_size = 2*effect_size/sqrt(1-effect_size^2)
+  }else if(es_type == "OR") {
+    effect_size = effect_size*(sqrt(3)/pi)
+    }
+
   power_list <- list(power = compute_power(effect_size, sample_size, k, hg, model, test_type, p),
                      effect_size = effect_size,
-                     sample_size =sample_size,
+                     sample_size = sample_size,
                      k = k,
                      hg = hg,
                      model = model,
                      test_type = test_type,
                      p = p,
-                     df = compute_power_range(effect_size, sample_size, k, model, test_type, p = .05))
+                     sd =sd,
+                     df = compute_power_range(effect_size, sample_size, k, model, test_type, p = .05),
+                     homo_test = homogen_mpower(effect_size, sample_size, k, hg, model, test_type, p, sd))
   attr(power_list, "class") <- "mpower"
   return(power_list)
 }
@@ -131,19 +144,7 @@ return(df)
 }
 
 
-# test of homogenity Fixed effects
 
-# p = .95
-# n = 20
-# k = 10
-# sd = 3
-# es = .2
-# tau = .3
-# #lambda <- (k*sqrt(compute_variance(40,.5)/k)*sd^2)/compute_variance(40,.5)
-#
-
-#
-#
 # ## Between Group Moderation
 # groups = 3
 # n = 15
