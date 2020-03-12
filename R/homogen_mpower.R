@@ -1,21 +1,14 @@
-# effect_size = .5
-# sample_size = 20
-# k = 10
-# p = .05
-# ## new params
-# sd = .5
-# tau = .3
-
-
 #' @export
 
 homogen_mpower <- function (effect_size, sample_size, k, hg, model, test_type, p, sd){
 
   df <- k-1
   c_alpha <- qchisq(1-p,df,0, lower.tail = TRUE)
+  weight = 1/round(compute_variance(sample_size, effect_size),2)
+
   if(model == "fixed"){
     lambda <- (k/compute_variance(sample_size, effect_size))*(compute_variance(sample_size, effect_size)/k)*(sd^2)
-    weight = 1/round(compute_variance(sample_size, effect_size),2)
+    #weight = 1/round(compute_variance(sample_size, effect_size),2)
     power <- (1 - pchisq(c_alpha,df,lambda,lower.tail = TRUE))
   } else if (model =="random"){
     if(hg == "small"){
