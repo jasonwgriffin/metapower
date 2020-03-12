@@ -1,17 +1,17 @@
 #' @export
 
-n_groups = 3
-sample_size = 15
-diff = .4
-x1 = 0
-x2 = .1
-x3 =.55
-effect_sizes = c(0,.1,.55)
-effect_sizes = .9069
-df = n_groups - 1
-p = .05
-k = 15
-sd_v = c(1,1,4)
+# n_groups = 3
+# sample_size = 15
+# diff = .4
+# x1 = 0
+# x2 = .1
+# x3 =.55
+# effect_sizes = c(0,.1,.55)
+# effect_sizes = .9069
+# df = n_groups - 1
+# p = .05
+# k = 15
+# sd_v = c(1,1,4)
 
 mod_power <- function(n_groups,
                       effect_sizes,
@@ -81,7 +81,7 @@ mod_power <- function(n_groups,
   return(power_list)
 }
 
-
-mod1 <- mod_power(3, c(0,.1,.55), sample_size = 15, k = 15, model = "random", hg = "small",p = .05, es_type = "Correlation",
-          sd_v = c(1,1,4))
-mod1
+#
+# mod1 <- mod_power(3, c(0,.1,.55), sample_size = 15, k = 15, model = "random", hg = "small",p = .05, es_type = "Correlation",
+#            sd_v = c(1,1,4))
+# mod1

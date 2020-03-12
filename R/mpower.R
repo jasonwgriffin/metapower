@@ -58,8 +58,8 @@ mpower <- function(effect_size,
     stop("Sample size must be greater than 0")
   if(missing(k))
     stop("Need to specify anticipated number of studies")
-  if(k < 0)
-    stop("Number of studies must be greater than 0")
+  if(k < 2)
+    stop("Number of studies must be greater than 1")
   if(missing(model))
     stop("Need to specify type of model")
   if(!(model %in% model_options))
@@ -91,7 +91,4 @@ mpower <- function(effect_size,
   return(power_list)
 }
 
-compute_variance <- function(sample_size, effect_size){
-  return(
-    round(((sample_size+sample_size)/((sample_size)*(sample_size))) + ((effect_size^2)/(2*(sample_size+sample_size))),5))
-}
+

@@ -13,7 +13,7 @@ mpower(
   model = c("fixed", "random"),
   test_type = c("one-tailed", "two-tailed"),
   p = 0.05,
-  sd = sd
+  sd
 )
 }
 \arguments{
