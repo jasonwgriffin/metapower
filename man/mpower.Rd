@@ -6,36 +6,51 @@
 \usage{
 mpower(
   effect_size,
+  sd,
   sample_size,
   k,
-  hg = c("small", "medium", "large"),
-  es_type = c("Correlation", "d", "OR"),
-  model = c("fixed", "random"),
-  test_type = c("one-tailed", "two-tailed"),
-  p = 0.05,
-  sd
+  es_type = c("d", "Correlation", "OR"),
+  model,
+  hg,
+  test_type = "two-tailed",
+  p = 0.05
 )
 }
 \arguments{
 \item{effect_size}{anticipated magnitude of effect size.}
 
+\item{sd}{expected difference in effeect sizes}
+
 \item{sample_size}{anticipated average number of participants per group}
 
 \item{k}{anticipated number of studies}
 
-\item{hg}{anticipated heterogenity estimate (smalll = 1.33, moderate = 1.67, large = 2)}
+\item{es_type}{Effect size metric: 'Correlation', 'd', or 'OR'}
 
 \item{model}{Fixed-effects model (model = "fixed") or Random-effects model (model = "random")}
+
+\item{hg}{anticipated heterogenity estimate (smalll = 1.33, moderate = 1.67, large = 2)}
 
 \item{test_type}{one-tailed or two-tailed}
 
 \item{p}{alpha level: p = .05 (DEFAULT)}
 }
 \value{
-Estimated power
+Estimated Power
 }
 \description{
 the mpower( ) command allows for the calculation of statistical power for both fixed- and random-effects
 meta-analyis models. Currently, the anticpated summary effect size estimate should be standardized mean differences units
 (i.e, Cohen's d)
+}
+\examples{
+mpower(effect_size = .5,
+sample_size = 10,
+k = 10,
+hg = "large",
+es_type = "d",
+model = "random",
+test_type = "two-tailed",
+sd = .5)
+
 }

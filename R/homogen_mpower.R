@@ -1,4 +1,6 @@
-#' @export
+
+#' @importFrom stats pchisq
+#' @importFrom stats qchisq
 
 homogen_mpower <- function (effect_size, sample_size, k, hg, model, test_type, p, sd){
 

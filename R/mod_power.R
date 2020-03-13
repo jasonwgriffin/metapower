@@ -1,17 +1,38 @@
+#' Compute Power for Categorical Moderation Meta-analysis
+#'
+#' mod_power( ) is an extension of mpower() and so it takes similiar inputs. The primary inputs are the effected effect sizes
+#' for each group and the expected within-group standard deviation in those groups
+#'
+#' @param n_groups Number of anticipated groups in moderation analysis.
+#'
+#' @param effect_sizes  Expected effect sizes of for each group.
+#'
+#' @param es_type Effect size metric: 'Correlation', 'd', or 'OR'.
+#'
+#' @param sample_size Expected number of participants per group.
+#'
+#' @param k Total expected number of studies.
+#'
+#' @param hg Expected heterogenity estimate (small, mdeium, large)
+#'
+#' @param model Fixed-effects model (model = "fixed") or Random-effects model (model = "random")
+#'
+#' @param p alpha level: p = .05 (DEFAULT)
+#'
+#' @param test_type one-tailed or two-tailed
+#'
+#' @param sd_within standard deviation within groups
+#'
+#' @return Estimated Power estimates for between and within-groups moderation
+#'
+#' @examples
+#' mod_power(3, c(0,.1,.55), sample_size = 15, k = 15,
+#' model = "random", hg = "small",p = .05, es_type = "Correlation",
+#' sd_within = c(1,1,4), test_type = "two-tailed")
+#'
+#' @importFrom stats pchisq
+#' @importFrom stats qchisq
 #' @export
-
-# n_groups = 3
-# sample_size = 15
-# diff = .4
-# x1 = 0
-# x2 = .1
-# x3 =.55
-# effect_sizes = c(0,.1,.55)
-# effect_sizes = .9069
-# df = n_groups - 1
-# p = .05
-# k = 15
-# sd_v = c(1,1,4)
 
 mod_power <- function(n_groups,
                       effect_sizes,
@@ -21,7 +42,8 @@ mod_power <- function(n_groups,
                       hg = c("small", "medium", "large"),
                       p = .05,
                       es_type = c("Correlation", "d", "OR"),
-                      sd_v) {
+                      test_type = c("two-tailed", "one-tailed"),
+                      sd_within) {
 
   if(es_type == "d"){
     effect_sizes <- effect_sizes/sqrt(effect_sizes^2 + (sample_size + sample_size)^2/(sample_size*sample_size))
@@ -36,8 +58,16 @@ mod_power <- function(n_groups,
   overall_effect_size <- mean(effect_sizes)
   df_b <- n_groups-1
   df_w <- k-n_groups
-  c_alpha_b <- qchisq(1-p,df_b,0, lower.tail = TRUE)
-  c_alpha_w <- qchisq(1-p, df_w,0,lower.tail = TRUE)
+
+
+  if(test_type == "two-tailed"){
+  c_alpha_b <- qchisq(1-(p/2),df_b,0, lower.tail = TRUE)
+  c_alpha_w <- qchisq(1-(p/2), df_w,0,lower.tail = TRUE)
+  } else if(test_type == "one-tailed"){
+    c_alpha_b <- qchisq(1-p,df_b,0, lower.tail = TRUE)
+    c_alpha_w <- qchisq(1-p, df_w,0,lower.tail = TRUE)
+  }
+
 
   if(model == "fixed") {
     hg = NA
@@ -49,7 +79,7 @@ mod_power <- function(n_groups,
     ##within-groups
     weight_w <-1/(1/(sample_size-n_groups))
     var_w <- round(sqrt(1/sum(rep(1/(1/(sample_size-3)),sample_size/n_groups))),2)
-    lambda_w <- sum(rep(weight_w*(sd_v*var_w)^2, sample_size/n_groups))
+    lambda_w <- sum(rep(weight_w*(sd_within*var_w)^2, sample_size/n_groups))
     power_w <- 1 - pchisq(c_alpha_w,df_w,lambda_w,lower.tail = TRUE)
    } else if(model =="random") {
      if(hg == "small"){
@@ -77,11 +107,7 @@ mod_power <- function(n_groups,
                      es_type = es_type,
                      df_b = df_b,
                      df_w = df_w)
-  attr(power_list, "class") <- "mod_power"
+  attr(power_list, "class") <- "modpower"
   return(power_list)
 }
 
-#
-# mod1 <- mod_power(3, c(0,.1,.55), sample_size = 15, k = 15, model = "random", hg = "small",p = .05, es_type = "Correlation",
-#            sd_v = c(1,1,4))
-# mod1
