@@ -5,7 +5,8 @@ print.mpower <- function(x,...) {
   cat(" Expected Effect Size:                    ", x$effect_size, "\n")
   cat(" Expected Sample Size:                    ", x$sample_size, "\n")
   cat(" Expected Number of Studies;              ", x$k, "\n")
-  cat(" Expected heterogenity(t^2):              ", x$hg, "\n\n")
+  cat(" Expected heterogenity (tau^2):           ", x$hg, "\n")
+  cat(" Expected between-study sd:               ", x$sd, "\n\n")
   cat(" Estimated Power:                         ", x$power, "\n")
   cat(" Estimated Power for Test of Homogeneity: ", x$homo_test)
 }

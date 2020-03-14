@@ -1,3 +1,5 @@
+#' @export
+#'
 power_plot <- function(obj){
 
   if(obj$model == "random"){

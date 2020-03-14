@@ -6,7 +6,7 @@
 #'
 #' @param effect_size  anticipated magnitude of effect size.
 #'
-#' @param sd expected difference in effeect sizes
+#' @param sd expected difference in effect sizes
 #'
 #' @param sample_size anticipated average number of participants per group
 #'
@@ -25,14 +25,8 @@
 #' @return Estimated Power
 #'
 #' @examples
-#' mpower(effect_size = .5,
-#' sample_size = 10,
-#' k = 10,
-#' hg = "large",
-#' es_type = "d",
-#' model = "random",
-#' test_type = "two-tailed",
-#' sd = .5)
+#' mpower(effect_size = .5, sample_size = 10, k = 10, hg = "large", es_type = "d",
+#'        model = "random", test_type = "two-tailed", sd = .5)
 #'
 #' @importFrom dplyr mutate
 #' @importFrom dplyr mutate_at
@@ -46,7 +40,7 @@
 #' @import magrittr
 #' @export
 
-mpower <- function(effect_size, sd, sample_size, k, es_type, model, hg, test_type = "two-tailed", p = .05){
+mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = "two-tailed", p = .05, sd = NULL){
 
   model_options <- c("fixed", "random")
   test_type_options <- c("one-tailed", "two-tailed")
@@ -64,15 +58,15 @@ mpower <- function(effect_size, sd, sample_size, k, es_type, model, hg, test_typ
   if(effect_size > 10)
     warning("Are you sure effect size is >10?")
 
-  ## sd integrity checks
-  if(missing(sd))
-    stop("Need to specify expected standard deviation of effect sizes")
-  if(!(is.numeric(sd)))
-    stop("sd must be numeric")
-  if(length(sd) > 1)
-    stop("sd must be a single number")
-  if(sd > 10)
-    warning("Are you sure standard deviation is >10?")
+  # ## sd integrity checks
+  # if(missing(sd))
+  #   stop("Need to specify expected standard deviation of effect sizes")
+  # if(!(is.numeric(sd)))
+  #   stop("sd must be numeric")
+  # if(length(sd) > 1)
+  #   stop("sd must be a single number")
+  # if(sd > 10)
+  #   warning("Are you sure standard deviation is >10?")
 
   ## sample_size integrity checks
   if(missing(sample_size))
@@ -135,11 +129,14 @@ mpower <- function(effect_size, sd, sample_size, k, es_type, model, hg, test_typ
                      model = model,
                      test_type = test_type,
                      p = p,
-                     sd =sd,
-                     df = compute_power_range(effect_size, sample_size, k, model, test_type, p),
-                     homo_test = homogen_mpower(effect_size, sample_size, k, hg, model, test_type, p, sd))
+                     df = compute_power_range(effect_size, sample_size, k, model, test_type, p))
+
+  if(!(missing(sd))){
+    power_list <- append(power_list, list(sd = sd, homo_test = homogen_mpower(effect_size, sample_size, k, hg, model, test_type, p, sd)))
+  } else {
+    power_list <- append(power_list, list(sd = NA, homo_test = NA))
+  }
+
   attr(power_list, "class") <- "mpower"
   return(power_list)
 }
-
-

@@ -6,20 +6,18 @@
 \usage{
 mpower(
   effect_size,
-  sd,
   sample_size,
   k,
-  es_type = c("d", "Correlation", "OR"),
+  es_type,
   model,
   hg,
   test_type = "two-tailed",
-  p = 0.05
+  p = 0.05,
+  sd = NULL
 )
 }
 \arguments{
 \item{effect_size}{anticipated magnitude of effect size.}
-
-\item{sd}{expected difference in effeect sizes}
 
 \item{sample_size}{anticipated average number of participants per group}
 
@@ -34,6 +32,8 @@ mpower(
 \item{test_type}{one-tailed or two-tailed}
 
 \item{p}{alpha level: p = .05 (DEFAULT)}
+
+\item{sd}{expected difference in effect sizes}
 }
 \value{
 Estimated Power
@@ -44,13 +44,7 @@ meta-analyis models. Currently, the anticpated summary effect size estimate shou
 (i.e, Cohen's d)
 }
 \examples{
-mpower(effect_size = .5,
-sample_size = 10,
-k = 10,
-hg = "large",
-es_type = "d",
-model = "random",
-test_type = "two-tailed",
-sd = .5)
+mpower(effect_size = .5, sample_size = 10, k = 10, hg = "large", es_type = "d",
+       model = "random", test_type = "two-tailed", sd = .5)
 
 }
