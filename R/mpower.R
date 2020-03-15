@@ -40,7 +40,7 @@
 #' @import magrittr
 #' @export
 
-mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = "two-tailed", p = .05, sd = NULL){
+mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = "two-tailed", p = .05, sd){
 
   model_options <- c("fixed", "random")
   test_type_options <- c("one-tailed", "two-tailed")
@@ -129,14 +129,15 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
                      model = model,
                      test_type = test_type,
                      p = p,
-                     df = compute_power_range(effect_size, sample_size, k, model, test_type, p))
-
-  if(!(missing(sd))){
-    power_list <- append(power_list, list(sd = sd, homo_test = homogen_mpower(effect_size, sample_size, k, hg, model, test_type, p, sd)))
-  } else {
-    power_list <- append(power_list, list(sd = NA, homo_test = NA))
-  }
-
+                     df = compute_power_range(effect_size, sample_size, k, model, test_type, p),
+                     homo_test = homogen_mpower(effect_size, sample_size, k, hg, model, test_type, p, sd),
+                     homo_range = compute_homogen_range(effect_size = effect_size,
+                                                                             sample_size = sample_size,
+                                                                             k = k,
+                                                                             model = model,
+                                                                             test_type = test_type,
+                                                                             p = p,
+                                                                             sd = sd))
   attr(power_list, "class") <- "mpower"
   return(power_list)
 }
