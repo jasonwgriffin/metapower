@@ -64,8 +64,9 @@ my_power <- mpower(effect_size = .25,
                    k = 50, 
                    hg = "large", 
                    es_type = "d",
-                   model = "random", 
-                   test_type = "two-tailed")
+                   model = "fixed", 
+                   test_type = "two-tailed",
+                    sd = 1)
 ```
 
 Note that we specify this a random-effects model (`model = "random`).
@@ -74,22 +75,22 @@ For fixed-effects model, use `model = "fixed"`.
 ``` r
 print(my_power)
 #> 
-#>  Estimated Power Analysis for: RANDOM-effects Model 
+#>  Estimated Power Analysis for: FIXED-effects Model 
 #> 
 #>  Expected Effect Size:                     0.25 
 #>  Expected Sample Size:                     20 
 #>  Expected Number of Studies;               50 
 #>  Expected heterogenity (tau^2):            large 
-#>  Expected between-study sd:                NA 
+#>  Expected between-study sd:                
 #> 
-#>  Estimated Power:                          0.7951118 
-#>  Estimated Power for Test of Homogeneity:  NA
+#>  Estimated Power:                          0.999846 
+#>  Estimated Power for Test of Homogeneity:  0.06242086
 ```
 
 The first part of the output shows the expected input values, where the
 main results are shown in the bottom portion, mainly, `Estimated Power`.
 Under this set of values, our power to detect a mean difference is
-79.51%. To visualize the power curve for these set of input parameters,
+99.98%. To visualize the power curve for these set of input parameters,
 use `power_plot()` to generate a `ggobject` that is fully customizable
 and by default, shows 10x as many studies as the user inputs.
 
@@ -109,27 +110,28 @@ In keeping with our face recognition example, we only need to specify
 the aditional arguement `sd =`:
 
 ``` r
-homogen_power <- mpower(effect_size = .25, 
-                   sd = .5,
+
+my_power <- mpower(effect_size = .25, 
                    sample_size = 20, 
                    k = 50, 
                    hg = "large", 
                    es_type = "d",
-                   model = "random", 
-                   test_type = "two-tailed")
-```
-
-``` r
-print(homogen_power)
+                   model = "fixed", 
+                   test_type = "two-tailed",
+                   sd = .5)
+my_power
 #> 
-#>  Estimated Power Analysis for: RANDOM-effects Model 
+#>  Estimated Power Analysis for: FIXED-effects Model 
 #> 
 #>  Expected Effect Size:                     0.25 
 #>  Expected Sample Size:                     20 
 #>  Expected Number of Studies;               50 
 #>  Expected heterogenity (tau^2):            large 
-#>  Expected between-study sd:                0.5 
+#>  Expected between-study sd:                
 #> 
-#>  Estimated Power:                          0.7951118 
-#>  Estimated Power for Test of Homogeneity:  1
+#>  Estimated Power:                          0.999846 
+#>  Estimated Power for Test of Homogeneity:  0.05293978
 ```
+
+Since we specified `sd`, we now see that the `Expected between-study sd`
+and the `Estimated Power for Test of Homogeneity` out is populated.

@@ -67,7 +67,8 @@ my_power <- mpower(effect_size = .25,
                    hg = "large", 
                    es_type = "d",
                    model = "fixed", 
-                   test_type = "two-tailed")
+                   test_type = "two-tailed",
+                    sd = 1)
 ```
 
 Note that we specify this a random-effects model (`model = "random`). 
@@ -90,31 +91,18 @@ In addition to estimating a main effect, researchers are often interested in tes
 
 
 ```{r}
-homogen_mpower(effect_size = .25, 
-                   sample_size = 20, 
-                   k = 50, 
-                   hg = "large", 
-                   model = "random", 
-                   test_type = "two-tailed",
-               p = .05)
-
-
 
 my_power <- mpower(effect_size = .25, 
                    sample_size = 20, 
                    k = 50, 
                    hg = "large", 
                    es_type = "d",
-                   model = "random", 
+                   model = "fixed", 
                    test_type = "two-tailed",
                    sd = .5)
 my_power
 ```
 
-```{r}
-homogen_power_plot(my_power)
-
-```
 
 Since we specified `sd`, we now see that the `Expected between-study sd` and the `Estimated Power for Test of Homogeneity` out is populated.
 
