@@ -129,15 +129,10 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
                      model = model,
                      test_type = test_type,
                      p = p,
+                     sd = sd,
                      df = compute_power_range(effect_size, sample_size, k, model, test_type, p),
                      homo_test = homogen_mpower(effect_size, sample_size, k, hg, model, test_type, p, sd),
-                     homo_range = compute_homogen_range(effect_size = effect_size,
-                                                                             sample_size = sample_size,
-                                                                             k = k,
-                                                                             model = model,
-                                                                             test_type = test_type,
-                                                                             p = p,
-                                                                             sd = sd))
+                     homo_range = compute_homogen_range(effect_size, sample_size,k, model, test_type, p, sd))
   attr(power_list, "class") <- "mpower"
   return(power_list)
 }

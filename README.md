@@ -64,9 +64,9 @@ my_power <- mpower(effect_size = .25,
                    k = 50, 
                    hg = "large", 
                    es_type = "d",
-                   model = "fixed", 
+                   model = "random", 
                    test_type = "two-tailed",
-                    sd = 1)
+                   sd = 1)
 ```
 
 Note that we specify this a random-effects model (`model = "random`).
@@ -75,24 +75,28 @@ For fixed-effects model, use `model = "fixed"`.
 ``` r
 print(my_power)
 #> 
-#>  Estimated Power Analysis for: FIXED-effects Model 
+#>  Estimated Power Analysis for: RANDOM-effects Model 
 #> 
 #>  Expected Effect Size:                     0.25 
 #>  Expected Sample Size:                     20 
 #>  Expected Number of Studies;               50 
 #>  Expected heterogenity (tau^2):            large 
-#>  Expected between-study sd:                
+#>  Expected between-study sd:                1 
 #> 
-#>  Estimated Power:                          0.999846 
-#>  Estimated Power for Test of Homogeneity:  0.06242086
+#>  Estimated Power:                          0.7951118 
+#>  Estimated Power for Test of Homogeneity:  1
 ```
 
 The first part of the output shows the expected input values, where the
 main results are shown in the bottom portion, mainly, `Estimated Power`.
 Under this set of values, our power to detect a mean difference is
-99.98%. To visualize the power curve for these set of input parameters,
-use `power_plot()` to generate a `ggobject` that is fully customizable
-and by default, shows 10x as many studies as the user inputs.
+79.51%. Furthermore, we can look at the power to detect heterogenity
+among included studies by examining the `Estimated Power for Test of
+Homogeneity` output, which for this set of values is 100%
+
+To visualize the power curve for these set of input parameters, use
+`power_plot()` to generate a `ggobject` that is fully customizable and
+by default, shows 10x as many studies as the user inputs.
 
 ``` r
 power_plot(my_power)
@@ -100,38 +104,58 @@ power_plot(my_power)
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
-# Example 2: Power for a test of homogeneity
-
-In addition to estimating a main effect, researchers are often
-interested in testing the homogenity of variance, which for
-fixed-effects models is ‘common variance’ for each study, whereas for
-random-effects models, this is the amount of variation between studies.
-In keeping with our face recognition example, we only need to specify
-the aditional arguement `sd =`:
+We can also visual the power curve for testing heterogenity among
+studies using `homogen_power_plot()` around our `mpower` object.
 
 ``` r
-
-my_power <- mpower(effect_size = .25, 
-                   sample_size = 20, 
-                   k = 50, 
-                   hg = "large", 
-                   es_type = "d",
-                   model = "fixed", 
-                   test_type = "two-tailed",
-                   sd = .5)
-my_power
-#> 
-#>  Estimated Power Analysis for: FIXED-effects Model 
-#> 
-#>  Expected Effect Size:                     0.25 
-#>  Expected Sample Size:                     20 
-#>  Expected Number of Studies;               50 
-#>  Expected heterogenity (tau^2):            large 
-#>  Expected between-study sd:                
-#> 
-#>  Estimated Power:                          0.999846 
-#>  Estimated Power for Test of Homogeneity:  0.05293978
+homogen_power_plot(my_power)
 ```
 
-Since we specified `sd`, we now see that the `Expected between-study sd`
-and the `Estimated Power for Test of Homogeneity` out is populated.
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+
+## Example 2: Power analysis for categorical moderators
+
+Although researchers are primarily interested in conducting
+meta-analysis to quantifying the main effect of a sepcific phenomenon,
+It is very common to evaluate the moderation of this overall effect
+based on a number of study and/or sample related chracteristics such as
+task paradigm. To compute the staistical power for the detection of
+categorical moderators, we use the function `mod_power()` and must
+include a few aditional arguments, mainly:
+
+1.  Expected number of groups:
+2.  Expected effect size of each group:
+3.  Expected standard deivation within ecah group:
+
+<!-- end list -->
+
+``` r
+my_moderation <- mod_power(n_groups = 3, 
+          effect_sizes = c(0,.1,.55), 
+          sample_size = 15, 
+          k = 15,
+          model = "fixed", 
+          hg = "large",
+          p = .05, 
+          es_type = "Correlation",
+          sd_within = c(1,1,4), 
+          test_type = "one-tailed")
+```
+
+``` r
+print(my_moderation)
+#> 
+#>  Estimated Power for Categorical Moderators: FIXED-effects Model 
+#> 
+#>  Number of groups:                              3 
+#>  Expected Effect Sizes:                         0 0.1 0.55 
+#>  Expected Sample Size(per group):               15 
+#>  Expected Number of Studies;                    15 
+#>  Expected heterogenity(t^2):                    NA 
+#> 
+#>  Estimated Power for between-group moderation:  0.8273296 
+#>  Estimated Power for within-group moderation:   0.825013
+```
+
+Given, this set of expected values, we have 82.73% to detect
+between-group differences and 82.5% to dtect within-group differences.

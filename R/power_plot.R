@@ -18,6 +18,7 @@ power_plot <- function(obj){
       scale_y_continuous(limits =c(0,1), breaks = c(0,.25,.5,.75,1)) +
       geom_point(aes(x = obj$k, y = obj$power), shape = 21, color = "black", fill = "red", size = 3) +
     xlab("Number of Studies") +
+    ggtitle("Estimated Meta-analytic power for main effects") +
     theme_classic() +
       theme(legend.position = c(1,0),
             legend.justification = c(1,0),
