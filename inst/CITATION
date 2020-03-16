@@ -1,0 +1,16 @@
+citHeader("To cite metapower in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "metapower: Statistical Power for Meta-analysis",
+  author   = "Jason W. Griffin",
+  journal  = ,
+  year     = "2020",
+  volume   = ,
+  number   = ,
+  pages    = ,
+  url      = "https://github.com/jasonwgriffin/metapower",
+  textVersion = paste(
+
+  )
+)
