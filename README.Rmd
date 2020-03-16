@@ -84,13 +84,13 @@ The first part of the output shows the expected input values, where the main res
 
 To visualize the power curve for these set of input parameters, use `power_plot()` to generate a `ggobject` that is fully customizable and by default, shows 10x as many studies as the user inputs.
 
-```{r fig.height=4, fig.width=7}
+```{r fig.height=4, fig.width=7, dpi = 300}
 power_plot(my_power)
 ```
 
 We can also visual the power curve for testing heterogenity among studies using `homogen_power_plot()` around our `mpower` object.
 
-```{r}
+```{r dpi = 300}
 homogen_power_plot(my_power)
 ```
 
@@ -122,6 +122,24 @@ print(my_moderation)
 
 Given, this set of expected values, we have `r round(my_moderation$power_b*100,2)`% to detect between-group differences and `r round(my_moderation$power_w*100,2)`% to dtect within-group differences.
 
+
+```{r}
+fr_moderation <- mod_power(n_groups = 2, 
+          effect_sizes = c(.3,.7), 
+          sample_size = 20, 
+          k = 50,
+          model = "random", 
+          hg = "large",
+          p = .05, 
+          es_type = "d",
+          sd_within = c(1,1), 
+          test_type = "one-tailed")
+
+```
+
+```{r}
+print(fr_moderation)
+```
 
 
 
