@@ -106,7 +106,12 @@ mod_power <- function(n_groups,
                      n_groups = n_groups,
                      es_type = es_type,
                      df_b = df_b,
-                     df_w = df_w)
+                     df_w = df_w,
+                     lambda_b = lambda_b,
+                     c_alpha_b = c_alpha_b,
+                     lambda_w = lambda_w,
+                     c_alpha_w = c_alpha_w,
+                     overall_effect_size = overall_effect_size)
   attr(power_list, "class") <- "modpower"
   return(power_list)
 }
