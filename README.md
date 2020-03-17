@@ -69,8 +69,6 @@ print(my_power)
 #>  Expected Sample Size:                     20 
 #>  Expected Number of Studies;               50 
 #>  Expected heterogenity (tau^2):            large 
-#>  Expected between-study sd:                1 
-#> 
 #>  Estimated Power:                          0.7951118 
 #>  Estimated Power for Test of Homogeneity:  1
 ```
@@ -116,15 +114,27 @@ Although researchers are primarily interested in conducting meta-analysis to qua
 
 ``` r
 my_moderation <- mod_power(n_groups = 3, 
-                           effect_sizes = c(0,.1,.55), 
-                           sample_size = 15, 
-                           k = 15,
-                           model = "fixed", 
-                           hg = "small",
-                           p = .05, 
-                           es_type = "Correlation",
-                           sd_within = c(1,1,4), 
-                           test_type = "one-tailed")
+                       effect_sizes = c(.1,.2,.6), 
+                       sample_size = 15, 
+                       k = 15,
+                       model = "fixed", 
+                       hg = "small",
+                       es_type = "Correlation",
+                       sd_within = c(1,1,4), 
+                       test_type = "one-tailed",
+                       p = .05)
+my_moderation
+#> 
+#>  Estimated Power for Categorical Moderators: FIXED-effects Model 
+#> 
+#>  Number of groups:                              3 
+#>  Expected Effect Sizes:                         0.1 0.2 0.6 
+#>  Expected Sample Size(per group):               15 
+#>  Expected Number of Studies;                    15 
+#>  Expected heterogenity(t^2):                    NA 
+#> 
+#>  Estimated Power for between-group moderation:  0.8260749 
+#>  Estimated Power for within-group moderation:   0.825013
 ```
 
 ``` r
@@ -133,16 +143,19 @@ print(my_moderation)
 #>  Estimated Power for Categorical Moderators: FIXED-effects Model 
 #> 
 #>  Number of groups:                              3 
-#>  Expected Effect Sizes:                         0 0.1 0.55 
+#>  Expected Effect Sizes:                         0.1 0.2 0.6 
 #>  Expected Sample Size(per group):               15 
 #>  Expected Number of Studies;                    15 
 #>  Expected heterogenity(t^2):                    NA 
 #> 
-#>  Estimated Power for between-group moderation:  0.8273296 
+#>  Estimated Power for between-group moderation:  0.8260749 
 #>  Estimated Power for within-group moderation:   0.825013
 ```
 
-Given, this set of expected values, we have 82.73% to detect between-group differences and 82.5% to detect within-group differences.
+Given, this set of expected values, we have 82.61% to detect between-group differences and 82.5% to detect within-group differences.
+
+References
+----------
 
 Issues
 ------

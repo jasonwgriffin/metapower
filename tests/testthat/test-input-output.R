@@ -31,9 +31,15 @@ test_that("Check input error messages", {
   expect_error(mpower(effect_size = 1,sd = .5, sample_size = 20, k = 10, hg = "small", es_type = "d"),"Need to specify 'fixed' or 'random' effects model")
   expect_error(mpower(effect_size = 1,sd = .5, sample_size = 20, k = 10, hg = "small", es_type = "d", model = 2),"Need to specify 'fixed' or 'random' effects model")
   expect_error(mpower(effect_size = 1,sd = .5, sample_size = 20, k = 10, hg = "small", es_type = "d", model = "rand"),"Need to specify 'fixed' or 'random' effects model")
-  ##heterogenity errors
+
+  ## fixed model specific errors
+  expect_error(mpower(effect_size = 1,sd = .5, sample_size = 20, k = 10, hg = "small", es_type = "d", model = "fixed"),"Fixed-effects models assume no heterogenity")
+
+  ## random model specific errors
+  expect_error(mpower(effect_size = 1,sd = .5, sample_size = 20, k = 10, es_type = "d", model = "random"),"Need to specify small, medium, or large heterogenity")
   expect_error(mpower(effect_size = 1,sd = .5, sample_size = 20, k = 10, es_type = "d", model = "random"), "Need to specify small, medium, or large heterogenity")
   expect_error(mpower(effect_size = 1,sd = .5, sample_size = 20, k = 10, hg = "moderate", es_type = "d", model = "random"), "Need to specify small, medium, or large heterogenity")
+
 })
 
 test_that("check that output is an 'mpower' class", {

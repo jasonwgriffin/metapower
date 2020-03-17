@@ -2,6 +2,7 @@
 output: github_document
 editor_options: 
   chunk_output_type: inline
+bibliography: "inst/metapower.bib" 
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -108,16 +109,16 @@ Although researchers are primarily interested in conducting meta-analysis to qua
 
 ```{r}
 my_moderation <- mod_power(n_groups = 3, 
-                           effect_sizes = c(0,.1,.55), 
-                           sample_size = 15, 
-                           k = 15,
-                           model = "fixed", 
-                           hg = "small",
-                           p = .05, 
-                           es_type = "Correlation",
-                           sd_within = c(1,1,4), 
-                           test_type = "one-tailed")
-
+                       effect_sizes = c(.1,.2,.6), 
+                       sample_size = 15, 
+                       k = 15,
+                       model = "fixed", 
+                       hg = "small",
+                       es_type = "Correlation",
+                       sd_within = c(1,1,4), 
+                       test_type = "one-tailed",
+                       p = .05)
+my_moderation
 ```
 
 ```{r}
@@ -125,6 +126,10 @@ print(my_moderation)
 ```
 
 Given, this set of expected values, we have `r round(my_moderation$power_b*100,2)`% to detect between-group differences and `r round(my_moderation$power_w*100,2)`% to detect within-group differences.
+
+## References
+
+<div id="refs"></div>
 
 ## Issues
 

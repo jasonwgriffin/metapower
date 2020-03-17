@@ -28,6 +28,16 @@
 #' mpower(effect_size = .5, sample_size = 10, k = 10, hg = "large", es_type = "d",
 #'        model = "random", test_type = "two-tailed", sd = .5)
 #'
+#' @references
+#'
+#' Bornstein, M., Hedges, L. V., Higgins, J. P. T. and Rothstein, H. R.(2009). Introduction to meta-analysis, Chichester, UK: Wiley.
+#'
+#' Hedges, L., Pigott, T. (2004). The Power of Statistical Tests for Moderators in Meta-Analysis Psychological Methods  9(4), 426-445.
+#' doi: https://dx.doi.org/10.1037/1082-989x.9.4.426
+#'
+#' Pigott, T. (2012). Advances in Meta-Analysis.
+#' doi: https://dx.doi.org/10.1007/978-1-4614-2278-5
+#'
 #' @importFrom dplyr mutate
 #' @importFrom dplyr mutate_at
 #' @importFrom dplyr vars
@@ -104,11 +114,23 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
   if(!(model %in% model_options))
     stop("Need to specify 'fixed' or 'random' effects model")
 
+  ## check for arguements that are not required for fixed models
+  if(model == "fixed"){
+    if (!missing(hg)){
+      stop("Fixed-effects models assume no heterogenity")
+    } else if (missing(hg)) {
+      hg = NULL
+    }
+  }
+
   ## random effects and heterogenity parameter
-  if(model == 'random' & missing(hg))
-    stop("Need to specify small, medium, or large heterogenity")
-  if(model == "random" & !(hg %in% hg_options))
-    stop("Need to specify small, medium, or large heterogenity")
+  if(model == 'random'){
+    if(missing(hg)){
+      stop("Need to specify small, medium, or large heterogenity")
+    } else if (!(hg %in% hg_options)){
+      stop("Need to specify small, medium, or large heterogenity")
+    }
+  }
 
   effect_size = abs(effect_size)
 
@@ -120,19 +142,37 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
     es_type = "d"
   }
 
-  power_list <- list(power = compute_power(effect_size, sample_size, k, hg, model, test_type, p, es_type),
-                     effect_size = effect_size,
-                     sample_size = sample_size,
-                     k = k,
-                     es_type = es_type,
-                     hg = hg,
-                     model = model,
-                     test_type = test_type,
-                     p = p,
-                     sd = sd,
-                     df = compute_power_range(effect_size, sample_size, k, model, test_type, p),
-                     homo_test = homogen_mpower(effect_size, sample_size, k, hg, model, test_type, p, sd),
-                     homo_range = compute_homogen_range(effect_size, sample_size,k, model, test_type, p, sd))
-  attr(power_list, "class") <- "mpower"
+  if(missing(sd)){
+    power_list <- list(power = compute_power(effect_size, sample_size, k, hg, model, test_type, p, es_type),
+                       effect_size = effect_size,
+                       sample_size = sample_size,
+                       k = k,
+                       es_type = es_type,
+                       hg = hg,
+                       model = model,
+                       test_type = test_type,
+                       p = p,
+                       sd = NULL,
+                       df = compute_power_range(effect_size, sample_size, k, model, test_type, p),
+                       homo_test = NULL)
+    attr(power_list, "class") <- "mpower"
+  } else if (!missing(sd)){
+    power_list <- list(power = compute_power(effect_size, sample_size, k, hg, model, test_type, p, es_type),
+                       effect_size = effect_size,
+                       sample_size = sample_size,
+                       k = k,
+                       es_type = es_type,
+                       hg = hg,
+                       model = model,
+                       test_type = test_type,
+                       p = p,
+                       sd = sd,
+                       df = compute_power_range(effect_size, sample_size, k, model, test_type, p),
+                       homo_test = homogen_mpower(effect_size, sample_size, k, hg, model, test_type, p, sd),
+                       homo_range = compute_homogen_range(effect_size, sample_size,k, model, test_type, p, sd))
+    attr(power_list, "class") <- "mpower"
+  }
+
   return(power_list)
+
 }

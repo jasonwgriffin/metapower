@@ -13,7 +13,7 @@ mpower(
   hg,
   test_type = "two-tailed",
   p = 0.05,
-  sd = NULL
+  sd
 )
 }
 \arguments{
@@ -47,4 +47,13 @@ meta-analyis models. Currently, the anticpated summary effect size estimate shou
 mpower(effect_size = .5, sample_size = 10, k = 10, hg = "large", es_type = "d",
        model = "random", test_type = "two-tailed", sd = .5)
 
+}
+\references{
+Borenstein, M., Hedges, L. V., Higgins, J. P. T. and Rothstein, H. R.(2009). Introduction to meta-analysis, Chichester, UK: Wiley.
+
+Hedges, L., Pigott, T. (2004). The Power of Statistical Tests for Moderators in Meta-Analysis Psychological Methods  9(4), 426-445.
+doi: https://dx.doi.org/10.1037/1082-989x.9.4.426
+
+Pigott, T. (2012). Advances in Meta-Analysis.
+doi: https://dx.doi.org/10.1007/978-1-4614-2278-5
 }

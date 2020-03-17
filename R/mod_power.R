@@ -38,50 +38,61 @@ mod_power <- function(n_groups,
                       effect_sizes,
                       sample_size,
                       k,
-                      model = c("fixed", "random"),
-                      hg = c("small", "medium", "large"),
-                      p = .05,
-                      es_type = c("Correlation", "d", "OR"),
-                      test_type = c("two-tailed", "one-tailed"),
+                      model,
+                      hg,
+                      p,
+                      es_type,
+                      test_type,
                       sd_within) {
 
   if(es_type == "d"){
     effect_sizes <- effect_sizes/sqrt(effect_sizes^2 + (sample_size + sample_size)^2/(sample_size*sample_size))
-    effect_sizes <- 0.5*log((1+effect_sizes)/(1-effect_sizes))
+    #effect_sizes <- 0.5*log((1+effect_sizes)/(1-effect_sizes))
   }else if(es_type == "OR") {
-    effect_sizes = effect_sizes*(sqrt(3)/pi)
+    effect_sizes <- effect_sizes*(sqrt(3)/pi)
     effect_sizes <- effect_sizes/sqrt(effect_sizes^2 + (sample_size + sample_size)^2/(sample_size*sample_size))
-    effect_sizes <- 0.5*log((1+effect_sizes)/(1-effect_sizes))
+    #effect_sizes <- 0.5*log((1+effect_sizes)/(1-effect_sizes))
   }
 
-  effect_sizes <- effect_sizes
-  overall_effect_size <- mean(effect_sizes)
+  effect_diff <- effect_sizes - effect_sizes[1]
+
+  if(es_type == "d"){
+    effect_diff <- 0.5*log((1+effect_diff)/(1-effect_diff))
+  }else if(es_type == "OR") {
+    effect_diff <- effect_diff*(sqrt(3)/pi)
+    effect_diff <- effect_diff/sqrt(effect_diff^2 + (sample_size + sample_size)^2/(sample_size*sample_size))
+    effect_diff <- 0.5*log((1+effect_diff)/(1-effect_diff))
+  } else if (es_type == "Correlation") {
+    effect_diff <- 0.5*log((1+effect_diff)/(1-effect_diff))
+  }
+
+  overall_effect_diff <- mean(effect_diff)
+
   df_b <- n_groups-1
   df_w <- k-n_groups
 
-
   if(test_type == "two-tailed"){
-  c_alpha_b <- qchisq(1-(p/2),df_b,0, lower.tail = TRUE)
-  c_alpha_w <- qchisq(1-(p/2), df_w,0,lower.tail = TRUE)
-  } else if(test_type == "one-tailed"){
-    c_alpha_b <- qchisq(1-p,df_b,0, lower.tail = TRUE)
-    c_alpha_w <- qchisq(1-p, df_w,0,lower.tail = TRUE)
+    c_alpha_b <- qchisq(1-(p/2),df_b,0, lower.tail = TRUE)
+    c_alpha_w <- qchisq(1-(p/2), df_w,0,lower.tail = TRUE)
+    } else if(test_type == "one-tailed"){
+      c_alpha_b <- qchisq(1-p,df_b,0, lower.tail = TRUE)
+      c_alpha_w <- qchisq(1-p, df_w,0,lower.tail = TRUE)
   }
-
 
   if(model == "fixed") {
     hg = NA
     ## between groups
     weight <- sum(rep(sample_size-n_groups,sample_size/n_groups))
-    #weight <- sum(rep(compute_variance(sample_size,overall_effect_size)/k,k/n_groups))
-    lambda_b <- sum(weight*(effect_sizes-overall_effect_size)^2)
+    #weight <- sum(rep(compute_variance(sample_size,overall_effect_diff)/k,k/n_groups))
+    lambda_b <- sum(weight*(effect_diff-overall_effect_diff)^2)
     power_b = 1 - pchisq(c_alpha_b,df_b,lambda_b,lower.tail = TRUE)
     ##within-groups
     weight_w <-1/(1/(sample_size-n_groups))
     var_w <- round(sqrt(1/sum(rep(1/(1/(sample_size-3)),sample_size/n_groups))),2)
     lambda_w <- sum(rep(weight_w*(sd_within*var_w)^2, sample_size/n_groups))
     power_w <- 1 - pchisq(c_alpha_w,df_w,lambda_w,lower.tail = TRUE)
-   } else if(model =="random") {
+
+    } else if(model =="random") {
      if(hg == "small"){
        tau2 <- (1/3)*(1/(sample_size - 3))
      } else if (hg == "medium"){
@@ -91,7 +102,7 @@ mod_power <- function(n_groups,
      }
      ## between groups
      weight_b <- 1/sum(rep(1/(1/(sample_size-3)+tau2),sample_size/n_groups))
-     lambda_b <- sum(weight_b*(effect_sizes-overall_effect_size)^2)
+     lambda_b <- sum(weight_b*(effect_diff-overall_effect_diff)^2)
      power_b = 1 - pchisq(c_alpha_b,df_b,lambda_b,lower.tail = TRUE)
      power_w <- NA
      }
@@ -99,6 +110,7 @@ mod_power <- function(n_groups,
   power_list <- list(power_b = power_b,
                      power_w = power_w,
                      effect_sizes = effect_sizes,
+                     effect_diff = effect_diff,
                      sample_size = sample_size,
                      k = k,
                      model = model,
@@ -111,7 +123,7 @@ mod_power <- function(n_groups,
                      c_alpha_b = c_alpha_b,
                      lambda_w = lambda_w,
                      c_alpha_w = c_alpha_w,
-                     overall_effect_size = overall_effect_size)
+                     overall_effect_diff = overall_effect_diff)
   attr(power_list, "class") <- "modpower"
   return(power_list)
 }
