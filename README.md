@@ -53,11 +53,11 @@ library(metapower)
 my_power <- mpower(effect_size = .25, 
                    sample_size = 20, 
                    k = 50, 
-                   hg = "large", 
+                   #hg = "large", 
                    es_type = "d",
-                   model = "random", 
+                   model = "fixed", 
                    test_type = "two-tailed",
-                   sd = 1)
+                   sd = 1)##
 ```
 
 Note that we specify this a random-effects model (`model = "random`). For fixed-effects model, use `model = "fixed"`.
@@ -65,17 +65,18 @@ Note that we specify this a random-effects model (`model = "random`). For fixed-
 ``` r
 print(my_power)
 #> 
-#>  Estimated Power Analysis for: RANDOM-effects Model 
+#>  Estimated Power Analysis for: FIXED-effects Model 
 #> 
 #>  Expected Effect Size:                     0.25 
 #>  Expected Sample Size:                     20 
 #>  Expected Number of Studies;               50 
-#>  Expected heterogenity (tau^2):            large 
-#>  Estimated Power:                          0.7951118 
-#>  Estimated Power for Test of Homogeneity:  1
+#>  Expected between-study sd:                1 
+#> 
+#>  Estimated Power:                          0.999846 
+#>  Estimated Power for Test of Homogeneity:  0.06242086
 ```
 
-The first part of the output shows the expected input values, where the main results are shown in the bottom portion, mainly, `Estimated Power`. Under this set of values, our power to detect a mean difference is 79.51%. Furthermore, we can look at the power to detect heterogeneity among included studies by examining the `Estimated Power for Test of Homogeneity` output, which for this set of values is 100%
+The first part of the output shows the expected input values, where the main results are shown in the bottom portion, mainly, `Estimated Power`. Under this set of values, our power to detect a mean difference is 99.98%. Furthermore, we can look at the power to detect heterogeneity among included studies by examining the `Estimated Power for Test of Homogeneity` output, which for this set of values is 6.24%
 
 To visualize the power curve for these set of input parameters, use `power_plot()` to generate a `ggobject` that is modifiable and by default, shows 10x as many studies as the user inputs.
 
@@ -90,11 +91,11 @@ For users wanting more flexibility in visualization, the `mpower` object contain
 ``` r
 str(my_power$df)
 #> Classes 'tbl_df', 'tbl' and 'data.frame':    744 obs. of  5 variables:
-#>  $ es_v        : num  0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 ...
-#>  $ n_v         : num  20 20 20 20 20 20 20 20 20 20 ...
-#>  $ k_v         : int  2 3 4 5 6 7 8 9 10 11 ...
-#>  $ Heterogenity: chr  "small" "small" "small" "small" ...
-#>  $ power       : num  0.161 0.219 0.276 0.332 0.386 ...
+#>  $ es_v       : num  0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 ...
+#>  $ n_v        : num  20 20 20 20 20 20 20 20 20 20 ...
+#>  $ k_v        : int  2 3 4 5 6 7 8 9 10 11 ...
+#>  $ Effect Size: num  0.125 0.125 0.125 0.125 0.125 0.125 0.125 0.125 0.125 0.125 ...
+#>  $ power      : num  0.0864 0.1051 0.1239 0.143 0.1621 ...
 ```
 
 We can also visual the power curve for testing heterogeneity among studies using `homogen_power_plot()` around our `mpower` object.

@@ -72,7 +72,7 @@ my_power <- mpower(effect_size = .25,
                    es_type = "d",
                    model = "fixed", 
                    test_type = "two-tailed",
-                   sd = 1)
+                   sd = 1)##
 ```
 
 Note that we specify this a random-effects model (`model = "random`). 
