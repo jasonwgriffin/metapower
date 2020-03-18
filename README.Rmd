@@ -67,12 +67,11 @@ To do this with `metapower`, we use the core function `mpower()`
 library(metapower)
 my_power <- mpower(effect_size = .25, 
                    sample_size = 20, 
-                   k = 50, 
-                   #hg = "large", 
+                   k = 30, 
+                   hg = "large", 
                    es_type = "d",
-                   model = "fixed", 
-                   test_type = "two-tailed",
-                   sd = 1)
+                   model = "random", 
+                   test_type = "two-tailed")
 
 ```
 
