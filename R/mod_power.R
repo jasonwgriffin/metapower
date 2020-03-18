@@ -26,9 +26,17 @@
 #' @return Estimated Power estimates for between and within-groups moderation
 #'
 #' @examples
-#' mod_power(3, c(0,.1,.55), sample_size = 15, k = 15,
-#' model = "random", hg = "small",p = .05, es_type = "Correlation",
-#' sd_within = c(1,1,4), test_type = "two-tailed")
+#' mod_power(
+#'  n_groups = 3,
+#'  effect_sizes = c(0,.1,.55),
+#'  sample_size = 15,
+#'  k = 15,
+#'  model = "random",
+#'  hg = "small",
+#'  es_type = "Correlation",
+#'  sd_within = c(1,1,4),
+#'  test_type = "two-tailed",
+#'  p = .05)
 #'
 #' @importFrom stats pchisq
 #' @importFrom stats qchisq
@@ -104,6 +112,7 @@ mod_power <- function(n_groups,
      weight_b <- 1/sum(rep(1/(1/(sample_size-3)+tau2),sample_size/n_groups))
      lambda_b <- sum(weight_b*(effect_diff-overall_effect_diff)^2)
      power_b = 1 - pchisq(c_alpha_b,df_b,lambda_b,lower.tail = TRUE)
+     lambda_w <- NULL
      power_w <- NA
      }
 

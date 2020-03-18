@@ -3,14 +3,9 @@ context("User Input/fucntion output errors")
 test_that("Check input error messages", {
   ## Effect Size errors
   expect_error(mpower(sd = .5, sample_size = 20, k = 10, hg = "small", es_type = "d", model = "random"), "Need to specify expected effect size")
-  expect_warning(mpower(effect_size = 11,sd = .5, sample_size = 20, k = 10, hg = "small", es_type = "d", model = "random"), "Are you sure effect size is >10?")
+  expect_warning(mpower(effect_size = 11, sample_size = 20, k = 10, hg = "small", es_type = "d", model = "random"), "Are you sure effect size is >10?")
   expect_error(mpower(effect_size = ".5", sd = .5, sample_size = 20, k = 10, hg = "small", es_type = "d", model = "random"), "effect_size must be numeric")
   expect_error(mpower(effect_size = c(.3,.7), sd = .5, sample_size = 20, k = 10, hg = "small", es_type = "d", model = "random"), "effect_size must be a single number")
-  ## sd errors
-  expect_error(mpower(effect_size = 1, sample_size = 20, k = 10, hg = "small", es_type = "d", model = "random"), "Need to specify expected standard deviation of effect sizes")
-  expect_warning(mpower(effect_size = 1, sd = 11, sample_size = 20, k = 10, hg = "small", es_type = "d", model = "random"), "Are you sure standard deviation is >10?")
-  expect_error(mpower(effect_size = 1, sd = ".5", sample_size = 20, k = 10, hg = "small", es_type = "d", model = "random"), "sd must be numeric")
-  expect_error(mpower(effect_size = 1, sd = c(.3,.7), sample_size = 20, k = 10, hg = "small", es_type = "d", model = "random"), "sd must be a single number")
   ## sample sizes errors
   expect_error(mpower(effect_size = 1, sd = .5, k = 10, hg = "small", es_type = "d", model = "random"), "Need to specify expected sample size")
   expect_error(mpower(effect_size = 1, sd = .5, sample_size = 0, k = 10, hg = "small", es_type = "d", model = "random"), "sample_size must be greater than 0")
@@ -43,7 +38,7 @@ test_that("Check input error messages", {
 })
 
 test_that("check that output is an 'mpower' class", {
-  expect_match(class(mpower(effect_size = 1,sd = .5, sample_size = 20, k = 10, hg = "small", es_type = "d", model = "random")), "mpower")
+  expect_match(class(mpower(effect_size = 1, sample_size = 20, k = 10, hg = "small", es_type = "d", model = "random")), "mpower")
 
 })
 #mpower(effect_size = 1,sd = .5, sample_size = 20, k = 10, hg = "small", es_type = "d", model = "random")

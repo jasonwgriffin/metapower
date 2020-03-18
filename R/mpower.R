@@ -25,8 +25,13 @@
 #' @return Estimated Power
 #'
 #' @examples
-#' mpower(effect_size = .5, sample_size = 10, k = 10, hg = "large", es_type = "d",
-#'        model = "random", test_type = "two-tailed", sd = .5)
+#' mpower(effect_size = .5,
+#' sample_size = 10,
+#' k = 10,
+#' hg = "large",
+#' es_type = "d",
+#' model = "random",
+#' test_type = "two-tailed")
 #'
 #' @references
 #'
@@ -142,7 +147,7 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
     es_type = "d"
   }
 
-  if(missing(sd)){
+  if(missing(sd) & model == "fixed"){
     power_list <- list(power = compute_power(effect_size, sample_size, k, hg, model, test_type, p, es_type),
                        effect_size = effect_size,
                        sample_size = sample_size,
@@ -156,7 +161,24 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
                        df = compute_power_range(effect_size, sample_size, k, model, test_type, p),
                        homo_test = NULL)
     attr(power_list, "class") <- "mpower"
-  } else if (!missing(sd)){
+
+    } else if (missing(sd) & model =="random"){
+      power_list <- list(power = compute_power(effect_size, sample_size, k, hg, model, test_type, p, es_type),
+                         effect_size = effect_size,
+                         sample_size = sample_size,
+                         k = k,
+                         es_type = es_type,
+                         hg = hg,
+                         model = model,
+                         test_type = test_type,
+                         p = p,
+                         sd = NULL,
+                         df = compute_power_range(effect_size, sample_size, k, model, test_type, p),
+                         homo_test = homogen_mpower(effect_size, sample_size, k, hg, model, test_type, p, sd),
+                         homo_range = compute_homogen_range(effect_size, sample_size,k, model, test_type, p, sd))
+      attr(power_list, "class") <- "mpower"
+
+  } else if (!missing(sd) & model == "fixed"){
     power_list <- list(power = compute_power(effect_size, sample_size, k, hg, model, test_type, p, es_type),
                        effect_size = effect_size,
                        sample_size = sample_size,
@@ -171,6 +193,8 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
                        homo_test = homogen_mpower(effect_size, sample_size, k, hg, model, test_type, p, sd),
                        homo_range = compute_homogen_range(effect_size, sample_size,k, model, test_type, p, sd))
     attr(power_list, "class") <- "mpower"
+  } else if (!missing(sd) & model == "random"){
+    stop("sd arguement is not required for random-effects models")
   }
 
   return(power_list)

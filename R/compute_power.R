@@ -21,7 +21,7 @@ compute_power <- function(effect_size, sample_size, k, hg, model, test_type, p, 
     c_alpha <- qnorm(1-(p/2))
   } else if (test_type =="one-tailed") {
     c_alpha <- qnorm(1-(p))
-  b}
+  }
 
   power <- (1-pnorm(c_alpha - lambda)) + pnorm(-1*c_alpha - lambda)
   return(power)

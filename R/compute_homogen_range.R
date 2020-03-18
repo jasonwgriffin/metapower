@@ -20,7 +20,7 @@ compute_homogen_range <- function(effect_size, sample_size, k, model, test_type,
                             sd = homo_df$SD))
 
      } else if (model == "random"){
-
+       sd <- NA
        homo_df <- tibble(Heterogenity = rep(c("small","medium","large"), each = (k*range_factor-1)),
                        k_v = rep(seq(2,range_factor*k),times = 3),
                        es_v = effect_size,

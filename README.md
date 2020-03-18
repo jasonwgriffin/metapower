@@ -11,6 +11,8 @@ The primary goal of metapower is to compute statistical power for meta-analyses.
 2.  Test of homogeneity for between-study variance
 3.  Categorical moderator analyses of the mean effect size
 
+All mathematical calculations are derived from L. V. Hedges & Pigott (2004), Bornstein, Hedges, Higgins, & Rothstein (2009), and T. D. Pigott (2012).
+
 Installation
 ------------
 
@@ -156,6 +158,12 @@ Given, this set of expected values, we have 82.61% to detect between-group diffe
 
 References
 ----------
+
+Bornstein, M., Hedges, L. V., Higgins, J., & Rothstein, H. (2009). *Introduction to meta-analysis*. Hoboken, NJ: Wiley.
+
+Hedges, L. V., & Pigott, T. D. (2004). The power of statistical tests for moderators in meta-analysis. *Psychological Methods*, *9*(4), 426–445. <https://doi.org/10.1037/1082-989x.9.4.426>
+
+Pigott, T. D. (2012). *Advances in meta-analysis*. NewYork, NY: Springer.
 
 Issues
 ------

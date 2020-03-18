@@ -13,6 +13,7 @@ homogen_mpower <- function (effect_size, sample_size, k, hg, model, test_type, p
     #weight = 1/round(compute_variance(sample_size, effect_size),2)
     power <- (1 - pchisq(c_alpha,df,lambda,lower.tail = TRUE))
   } else if (model =="random"){
+    sd <- NA
     if(hg == "small"){
       tau2 <- (1/3)*compute_variance(sample_size, effect_size)
     } else if (hg == "medium"){

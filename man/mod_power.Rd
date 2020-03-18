@@ -9,11 +9,11 @@ mod_power(
   effect_sizes,
   sample_size,
   k,
-  model = c("fixed", "random"),
-  hg = c("small", "medium", "large"),
-  p = 0.05,
-  es_type = c("Correlation", "d", "OR"),
-  test_type = c("two-tailed", "one-tailed"),
+  model,
+  hg,
+  p,
+  es_type,
+  test_type,
   sd_within
 )
 }
@@ -46,8 +46,16 @@ mod_power( ) is an extension of mpower() and so it takes similiar inputs. The pr
 for each group and the expected within-group standard deviation in those groups
 }
 \examples{
-mod_power(3, c(0,.1,.55), sample_size = 15, k = 15,
-model = "random", hg = "small",p = .05, es_type = "Correlation",
-sd_within = c(1,1,4), test_type = "two-tailed")
+mod_power(
+ n_groups = 3,
+ effect_sizes = c(0,.1,.55),
+ sample_size = 15,
+ k = 15,
+ model = "random",
+ hg = "small",
+ es_type = "Correlation",
+ sd_within = c(1,1,4),
+ test_type = "two-tailed",
+ p = .05)
 
 }
