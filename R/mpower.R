@@ -4,23 +4,23 @@
 #' meta-analyis models. Currently, the anticpated summary effect size estimate should be standardized mean differences units
 #'(i.e, Cohen's d)
 #'
-#' @param effect_size  anticipated magnitude of effect size.
+#' @param effect_size  Expected effect size magnitude.
 #'
-#' @param sd expected difference in effect sizes
+#' @param sample_size Expected number of participants (per group).
 #'
-#' @param sample_size anticipated average number of participants per group
-#'
-#' @param k anticipated number of studies
+#' @param k Expected number of studies.
 #'
 #' @param es_type Effect size metric: 'Correlation', 'd', or 'OR'
 #'
 #' @param model Fixed-effects model (model = "fixed") or Random-effects model (model = "random")
 #'
-#' @param hg anticipated heterogenity estimate (smalll = 1.33, moderate = 1.67, large = 2)
+#' @param hg Expected heterogenity: "small", "medium", or "large".
 #'
-#' @param test_type one-tailed or two-tailed
+#' @param sd (Optional) Fixed-effects models only: Expected standard deviation of among all effect sizes
 #'
-#' @param p alpha level: p = .05 (DEFAULT)
+#' @param test_type Alternative hypothesis: "two-tailed" (default) or "one-tailed"
+#'
+#' @param p alpha level: p = .05 (default)
 #'
 #' @return Estimated Power
 #'

@@ -17,23 +17,23 @@ mpower(
 )
 }
 \arguments{
-\item{effect_size}{anticipated magnitude of effect size.}
+\item{effect_size}{Expected effect size magnitude.}
 
-\item{sample_size}{anticipated average number of participants per group}
+\item{sample_size}{Expected number of participants (per group).}
 
-\item{k}{anticipated number of studies}
+\item{k}{Expected number of studies.}
 
 \item{es_type}{Effect size metric: 'Correlation', 'd', or 'OR'}
 
 \item{model}{Fixed-effects model (model = "fixed") or Random-effects model (model = "random")}
 
-\item{hg}{anticipated heterogenity estimate (smalll = 1.33, moderate = 1.67, large = 2)}
+\item{hg}{Expected heterogenity: "small", "medium", or "large".}
 
-\item{test_type}{one-tailed or two-tailed}
+\item{test_type}{Alternative hypothesis: "two-tailed" (default) or "one-tailed"}
 
-\item{p}{alpha level: p = .05 (DEFAULT)}
+\item{p}{alpha level: p = .05 (default)}
 
-\item{sd}{expected difference in effect sizes}
+\item{sd}{(Optional) Fixed-effects models only: Expected standard deviation of among all effect sizes}
 }
 \value{
 Estimated Power
