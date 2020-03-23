@@ -70,8 +70,8 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
     stop("effect_size must be numeric")
   if(length(effect_size) > 1)
     stop("effect_size must be a single number")
-  if(effect_size > 10)
-    warning("Are you sure effect size is >10?")
+  if(effect_size < 0)
+    stop("effect_size must be greater than zero")
 
   # ## sd integrity checks
   # if(missing(sd))
@@ -108,6 +108,11 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
     stop("Need to specify effect size as 'd', 'Correlation', or 'OR'")
   if(!(es_type %in% es_type_options))
     stop("Need to specify effect size as 'd', 'Correlation', or 'OR'")
+  ## d
+  if(es_type == 'd' & effect_size > 10)
+    warning("Are you sure effect size is >10?")
+  if(es_type == 'Correlation' & effect_size > 1)
+    stop("Correlation cannot be above 1")
 
   ## test_type errors
   if(!(test_type %in% test_type_options))
@@ -142,9 +147,14 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
   if(es_type == "Correlation"){
     effect_size = 2*effect_size/sqrt(1-effect_size^2)
     es_type = "d"
-  }else if(es_type == "OR") {
+    if(!missing(sd))
+      sd = 2*sd/sqrt(1-sd^2)
+
+    }else if(es_type == "OR") {
     effect_size = effect_size*(sqrt(3)/pi)
     es_type = "d"
+    if(!missing(sd))
+    sd = sd*(sqrt(3)/pi)
   }
 
   if(missing(sd) & model == "fixed"){
@@ -159,7 +169,8 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
                        p = p,
                        sd = NULL,
                        df = compute_power_range(effect_size, sample_size, k, model, test_type, p),
-                       homo_test = NULL)
+                       homo_test = NULL,
+                       homo_range = NULL)
     attr(power_list, "class") <- "mpower"
 
     } else if (missing(sd) & model =="random"){

@@ -55,8 +55,7 @@ my_power <- mpower(effect_size = .25,
                    k = 30, 
                    hg = "large", 
                    es_type = "d",
-                   model = "random", 
-                   test_type = "two-tailed")
+                   model = "random")
 ```
 
 Note that we specify this a random-effects model (`model = "random`). For fixed-effects model, use `model = "fixed"`.
