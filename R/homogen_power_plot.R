@@ -12,7 +12,9 @@ homogen_power_plot <- function(obj){
   if (obj$model == "fixed"){
     if (is.null(obj$homo_test))
       stop("Must enter expected sd value to plot power curve: mpower(sd = )")
-    obj$homo_range <- obj$homo_range %>% dplyr::filter(obj$homo_range$k_v == obj$k)
+    else{
+      obj$homo_range <- obj$homo_range %>% dplyr::filter(obj$homo_range$k_v == obj$k)
+    }
 
     #obj$homo_range$SD <- as.factor(obj$homo_range$SD)
     p <- ggplot(obj$homo_range, aes(x = obj$homo_range$SD, y = obj$homo_range$power,group = obj$homo_range$k_v)) + geom_line(size = 1) +

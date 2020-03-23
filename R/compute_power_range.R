@@ -1,21 +1,68 @@
 
-compute_power_range <- function(effect_size, sample_size, k, model, test_type, p = .05){
+compute_power_range <- function(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, con_table){
 
-  if(model == "fixed"){
-    df <- tibble(es_v = rep(effect_size, times = 3*5*k-6),
-                 n_v = rep(sample_size, times = 3*5*k-6),
-                 k_v = rep(seq(2,5*k-1), times = 3),
-                 `Effect Size` = rep(c((effect_size/2), effect_size, (effect_size*2)), each = 5*k-2))
+  range_factor <- 5
+
+  if(es_type == "d"){
+    if(model == "fixed"){
+    df <- tibble(k_v = rep(seq(2,range_factor*k), times = 3),
+                 EffectSize = rep(c((effect_size/2), effect_size, (effect_size*2)), each = range_factor*k-1),
+                 es_v = effect_size,
+                 n_v = sample_size,
+                 Heterogenity = 0)
     df <- df %>%
-      mutate(power = mapply(compute_power,df$`Effect Size`,df$n_v,df$k_v, model = model, test_type = test_type,p = p))
-  } else if (model == "random"){
-    df <- tibble(es_v = rep(effect_size,times = 3*5*k-6),
-                 n_v = rep(sample_size, times = 3*5*k-6),
-                 k_v = rep(seq(2,5*k-1), times = 3),
-                 Heterogenity = rep(c("small","medium","large"), each = 5*k-2))
+      mutate(variance = mapply(compute_variance, sample_size, df$EffectSize, es_type))
     df <- df %>%
-      mutate(power = mapply(compute_power,df$es_v,df$n_v,df$k_v,df$Heterogenity,model = model, test_type = test_type,p = p))
+      mutate(power = mapply(compute_power, df$EffectSize, df$variance, df$n_v, df$k_v, es_type, model, df$Heterogenity, test_type, p))
+
+    } else if (model == "random"){
+    df <- tibble(k_v = rep(seq(2,range_factor*k), times = 3),
+                 es_v = effect_size,
+                 n_v = sample_size,
+                 Heterogenity = rep(c("small","medium","large"), each = range_factor*k-1))
+    df <- df %>%
+      mutate(variance = mapply(compute_variance, sample_size, df$es_v, es_type))
+    df <- df %>%
+      mutate(power = mapply(compute_power,df$es_v, df$variance, df$n_v,df$k_v, es_type, model, df$Heterogenity, test_type, p))
   }
   return(df)
+
+    }else if (es_type == "Correlation"){
+      if(effect_size*2 >= 2.64){
+        max = 2.64
+      }else{
+        max = effect_size*2
+      }
+      if(model == "fixed"){
+        df <- tibble(k_v = rep(seq(2,range_factor*k), times = 3),
+                     EffectSize = rep(c((effect_size/2), effect_size, max), each = range_factor*k-1),
+                     es_v = effect_size,
+                     n_v = sample_size,
+                     Heterogenity = 0)
+        df <- df %>%
+          mutate(variance = mapply(compute_variance, sample_size, df$EffectSize, es_type))
+        df <- df %>%
+          mutate(power = mapply(compute_power, df$EffectSize, df$variance, df$n_v, df$k_v, es_type, model, df$Heterogenity, test_type, p))
+
+      } else if (model == "random"){
+        df <- tibble(k_v = rep(seq(2,range_factor*k), times = 3),
+                     es_v = effect_size,
+                     n_v = sample_size,
+                     Heterogenity = rep(c("small","medium","large"), each = range_factor*k-1))
+        df <- df %>%
+          mutate(variance = mapply(compute_variance, sample_size, df$es_v, es_type))
+        df <- df %>%
+          mutate(power = mapply(compute_power,df$es_v, df$variance, df$n_v,df$k_v, es_type, model, df$Heterogenity, test_type, p))
+      }
+      return(df)
+
+
+
+}else if (es_type =="OR"){
+
+
+  }
 }
+
+
 

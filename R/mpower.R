@@ -55,7 +55,7 @@
 #' @import magrittr
 #' @export
 
-mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = "two-tailed", p = .05, sd){
+mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = "two-tailed", p = .05, sd, con_table){
 
   model_options <- c("fixed", "random")
   test_type_options <- c("one-tailed", "two-tailed")
@@ -108,11 +108,21 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
     stop("Need to specify effect size as 'd', 'Correlation', or 'OR'")
   if(!(es_type %in% es_type_options))
     stop("Need to specify effect size as 'd', 'Correlation', or 'OR'")
-  ## d
+  ## effect size
   if(es_type == 'd' & effect_size > 10)
     warning("Are you sure effect size is >10?")
   if(es_type == 'Correlation' & effect_size > 1)
     stop("Correlation cannot be above 1")
+  if(es_type == 'Correlation' & effect_size < 0)
+    stop("Correlation must be above 0")
+  if(es_type == 'OR' & effect_size < 0)
+    stop("Odds ratio cannot be below 0")
+  if(es_type == "OR" & missing(con_table))
+    stop("For Odds Ratio, must enter contigency table (cont_table)")
+  if(es_type == "OR" & !missing(con_table))
+      if(length(con_table) != 4)
+        stop("con_table must reflect a 2x2 contingency table with the form c(a,b,c,d)")
+
 
   ## test_type errors
   if(!(test_type %in% test_type_options))
@@ -145,20 +155,29 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
   effect_size = abs(effect_size)
 
   if(es_type == "Correlation"){
-    effect_size = 2*effect_size/sqrt(1-effect_size^2)
-    es_type = "d"
+    #effect_size = 2*effect_size/sqrt(1-effect_size^2)
+    effect_size = .5*log((1 + effect_size)/(1 - effect_size))
+    #es_type = "d"
     if(!missing(sd))
-      sd = 2*sd/sqrt(1-sd^2)
+      if(sd >= 1){
+        stop("Expected sd correlation must be betweeen 0 and 1")
 
+      }else{
+        sd <- .5*log((1 + effect_size)/(1 - effect_size))
+      }
     }else if(es_type == "OR") {
-    effect_size = effect_size*(sqrt(3)/pi)
-    es_type = "d"
+
+      effect_size = log(effect_size) ## changes odds ratio to log odds
+    #es_type = "d"
     if(!missing(sd))
-    sd = sd*(sqrt(3)/pi)
+      sd = log(sd)
   }
 
+  variance <- compute_variance(sample_size, effect_size, es_type, con_table)
+
   if(missing(sd) & model == "fixed"){
-    power_list <- list(power = compute_power(effect_size, sample_size, k, hg, model, test_type, p, es_type),
+    power_list <- list(variance = variance,
+                       power = compute_power(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p),
                        effect_size = effect_size,
                        sample_size = sample_size,
                        k = k,
@@ -168,13 +187,15 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
                        test_type = test_type,
                        p = p,
                        sd = NULL,
-                       df = compute_power_range(effect_size, sample_size, k, model, test_type, p),
+                       df = compute_power_range(effect_size, sample_size, k, es_type, model, hg, test_type, p),
                        homo_test = NULL,
                        homo_range = NULL)
     attr(power_list, "class") <- "mpower"
 
+
     } else if (missing(sd) & model =="random"){
-      power_list <- list(power = compute_power(effect_size, sample_size, k, hg, model, test_type, p, es_type),
+      power_list <- list(variance = variance,
+                         power = compute_power(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p),
                          effect_size = effect_size,
                          sample_size = sample_size,
                          k = k,
@@ -184,13 +205,14 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
                          test_type = test_type,
                          p = p,
                          sd = NULL,
-                         df = compute_power_range(effect_size, sample_size, k, model, test_type, p),
-                         homo_test = homogen_mpower(effect_size, sample_size, k, hg, model, test_type, p, sd),
-                         homo_range = compute_homogen_range(effect_size, sample_size,k, model, test_type, p, sd))
+                         df = compute_power_range(effect_size, sample_size, k, es_type, model, hg, test_type, p),
+                         homo_test = homogen_mpower(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p),
+                         homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, model, hg, test_type, p))
       attr(power_list, "class") <- "mpower"
 
   } else if (!missing(sd) & model == "fixed"){
-    power_list <- list(power = compute_power(effect_size, sample_size, k, hg, model, test_type, p, es_type),
+    power_list <- list(variance = variance,
+                       power = compute_power(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p),
                        effect_size = effect_size,
                        sample_size = sample_size,
                        k = k,
@@ -200,11 +222,12 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
                        test_type = test_type,
                        p = p,
                        sd = sd,
-                       df = compute_power_range(effect_size, sample_size, k, model, test_type, p),
-                       homo_test = homogen_mpower(effect_size, sample_size, k, hg, model, test_type, p, sd),
-                       homo_range = compute_homogen_range(effect_size, sample_size,k, model, test_type, p, sd))
+                       df = compute_power_range(effect_size, sample_size, k, es_type, model, hg, test_type, p),
+                       homo_test = homogen_mpower(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p, sd),
+                       homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, model, hg, test_type, p))
     attr(power_list, "class") <- "mpower"
-  } else if (!missing(sd) & model == "random"){
+
+    } else if (!missing(sd) & model == "random"){
     stop("sd arguement is not required for random-effects models")
   }
 
