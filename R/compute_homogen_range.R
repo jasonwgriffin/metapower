@@ -35,8 +35,8 @@ if (es_type == "d"){
 
     if(model == "fixed"){
 
-      homo_df <- tibble(SD = rep(seq(0,6), each = (k*range_factor-1)),
-                        k_v = rep(seq(2,range_factor*k),times = 7),
+      homo_df <- tibble(SD = rep(seq(0,2.6, by = .1), each = (k*range_factor-1)),
+                        k_v = rep(seq(2,range_factor*k),times = 27),
                         es_v = effect_size,
                         n_v = sample_size,
                         Heterogenity = 0)
