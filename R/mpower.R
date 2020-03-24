@@ -163,7 +163,7 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
         stop("Expected sd correlation must be betweeen 0 and 1")
 
       }else{
-        sd <- .5*log((1 + effect_size)/(1 - effect_size))
+        sd <- .5*log((1 + sd)/(1 - sd))
       }
     }else if(es_type == "OR") {
 
@@ -187,7 +187,7 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
                        test_type = test_type,
                        p = p,
                        sd = NULL,
-                       df = compute_power_range(effect_size, sample_size, k, es_type, model, hg, test_type, p),
+                       df = compute_power_range(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, variance),
                        homo_test = NULL,
                        homo_range = NULL)
     attr(power_list, "class") <- "mpower"
@@ -205,9 +205,9 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
                          test_type = test_type,
                          p = p,
                          sd = NULL,
-                         df = compute_power_range(effect_size, sample_size, k, es_type, model, hg, test_type, p),
+                         df = compute_power_range(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, variance),
                          homo_test = homogen_mpower(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p),
-                         homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, model, hg, test_type, p))
+                         homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, variance))
       attr(power_list, "class") <- "mpower"
 
   } else if (!missing(sd) & model == "fixed"){
@@ -222,9 +222,9 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
                        test_type = test_type,
                        p = p,
                        sd = sd,
-                       df = compute_power_range(effect_size, sample_size, k, es_type, model, hg, test_type, p),
+                       df = compute_power_range(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, variance),
                        homo_test = homogen_mpower(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p, sd),
-                       homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, model, hg, test_type, p))
+                       homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, variance))
     attr(power_list, "class") <- "mpower"
 
     } else if (!missing(sd) & model == "random"){
