@@ -16,11 +16,20 @@
 #'
 #' @param hg Expected heterogenity: "small", "medium", or "large".
 #'
-#' @param sd (Optional) Fixed-effects models only: Expected standard deviation of among all effect sizes
-#'
 #' @param test_type Alternative hypothesis: "two-tailed" (default) or "one-tailed"
 #'
 #' @param p alpha level: p = .05 (default)
+#'
+#' @param sd (Optional) Fixed-effects models only: Expected standard deviation of among all effect sizes
+#'
+#' @param con_table Only relevant for Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+#'
+#' \tabular{lcc}{
+#'  2x2 Table   \tab Group 1 \tab Group 2 \cr
+#'  Present     \tab a       \tab b       \cr
+#'  Not Present \tab c       \tab d       \cr
+#'}
+#'
 #'
 #' @return Estimated Power
 #'
@@ -61,7 +70,7 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
   test_type_options <- c("one-tailed", "two-tailed")
   hg_options <- c("small", "medium", "large")
   es_type_options <- c("d","Correlation", "OR")
-  hg_options <- c("small", "medium", "large")
+
 
   ## Effect size integrity checks
   if(missing(effect_size))
@@ -115,13 +124,17 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
     stop("Correlation cannot be above 1")
   if(es_type == 'Correlation' & effect_size < 0)
     stop("Correlation must be above 0")
-  if(es_type == 'OR' & effect_size < 0)
-    stop("Odds ratio cannot be below 0")
+
+  if(es_type == 'OR' & effect_size <= 1)
+    stop("Odds ratio should be above 1")
   if(es_type == "OR" & missing(con_table))
     stop("For Odds Ratio, must enter contigency table (cont_table)")
-  if(es_type == "OR" & !missing(con_table))
+  if(es_type == "OR" & !missing(con_table)){
       if(length(con_table) != 4)
-        stop("con_table must reflect a 2x2 contingency table with the form c(a,b,c,d)")
+        stop("con_table must reflect a 2x2 contingency table with the form c(a,b,c,d). see documentation")
+      if(sample_size != sum(con_table))
+        stop("Entered sample size should equal the sum of the contigency table")
+    }
 
 
   ## test_type errors

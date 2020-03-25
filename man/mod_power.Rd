@@ -9,12 +9,13 @@ mod_power(
   effect_sizes,
   sample_size,
   k,
+  es_type,
   model,
   hg,
-  p,
-  es_type,
   test_type,
-  sd_within
+  p,
+  sd_within,
+  con_table
 )
 }
 \arguments{
@@ -26,17 +27,25 @@ mod_power(
 
 \item{k}{Total expected number of studies.}
 
+\item{es_type}{Effect size metric: 'Correlation', 'd', or 'OR'.}
+
 \item{model}{Fixed-effects model (model = "fixed") or Random-effects model (model = "random")}
 
 \item{hg}{Expected heterogenity estimate (small, mdeium, large)}
 
-\item{p}{alpha level: p = .05 (DEFAULT)}
-
-\item{es_type}{Effect size metric: 'Correlation', 'd', or 'OR'.}
-
 \item{test_type}{one-tailed or two-tailed}
 
+\item{p}{alpha level: p = .05 (DEFAULT)}
+
 \item{sd_within}{standard deviation within groups}
+
+\item{con_table}{Only relevant for Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+
+\tabular{lcc}{
+ 2x2 Table   \tab Group 1 \tab Group 2 \cr
+ Present     \tab a       \tab b       \cr
+ Not Present \tab c       \tab d       \cr
+}}
 }
 \value{
 Estimated Power estimates for between and within-groups moderation

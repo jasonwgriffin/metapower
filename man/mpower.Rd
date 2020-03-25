@@ -13,7 +13,8 @@ mpower(
   hg,
   test_type = "two-tailed",
   p = 0.05,
-  sd
+  sd,
+  con_table
 )
 }
 \arguments{
@@ -34,6 +35,14 @@ mpower(
 \item{p}{alpha level: p = .05 (default)}
 
 \item{sd}{(Optional) Fixed-effects models only: Expected standard deviation of among all effect sizes}
+
+\item{con_table}{Only relevant for Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+
+\tabular{lcc}{
+ 2x2 Table   \tab Group 1 \tab Group 2 \cr
+ Present     \tab a       \tab b       \cr
+ Not Present \tab c       \tab d       \cr
+}}
 }
 \value{
 Estimated Power
