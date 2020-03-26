@@ -95,38 +95,35 @@ For users wanting more flexibility in visualization, the `mpower` object contain
 str(my_power$df)
 ```
 
-We can also visual the power curve for testing heterogeneity among studies using `homogen_power_plot()` around our `mpower` object.
-
-```{r dpi = 300}
-homogen_power_plot(my_power)
-```
-
-## Example 2: Power analysis moderation analysis (categorical variables)
+## Example 2: Power analysis for moderation analysis (categorical variables)
 
 Although researchers are primarily interested in conducting meta-analysis to quantify the main effect of a specific phenomenon, It is very common to evaluate the moderation of this overall effect based on a number of study- and/or sample-related characteristics such as task paradigm or age group (e.g., children, adolescents, adults). To compute the statistical power for the detection of categorical moderators, we use the function `mod_power()` with a few additional arguments, mainly:
 
-1. Expected number of groups:
-2. Expected effect size of each group:
-3. Expected standard deviation within each group:
+1. Expected number of groups (`n_groups`):
+2. Expected effect size of each group`effect_sizes`:
+
+...*for our meta-analysis of face recognition deficits in autism*
+
+We may expect that face recognition tasks have larger effect sizes then face perception tasks; therefore, we specify 2 groups and their respective expected effect sizes:
+1. `n_groups` = 2
+2. `effect_sizes` = c(.2,.5)
+
 
 ```{r}
-my_moderation <- mod_power(n_groups = 3, 
-                       effect_sizes = c(.1,.2,.6), 
-                       sample_size = 15, 
-                       k = 15,
-                       model = "fixed", 
-                       hg = "small",
-                       es_type = "Correlation",
-                       sd_within = c(1,1,4), 
-                       test_type = "one-tailed",
-                       p = .05)
+my_moderation <- mod_power(n_groups = 2, 
+                           effect_sizes = c(.2,.5), 
+                           es_type = "d",
+                           sample_size = 20,
+                           k = 20,
+                           hg = "large",
+                           model = "random")
 ```
 
 ```{r}
 print(my_moderation)
 ```
 
-Given, this set of expected values, we have `r round(my_moderation$power_b*100,2)`% to detect between-group differences and `r round(my_moderation$power_w*100,2)`% to detect within-group differences.
+Given, this set of expected values, we have `r round(my_moderation$power_b*100,2)`% to detect between-group differences between face perception and face recognition deficits in ASD based on these set of expectations.
 
 ## References
 

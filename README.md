@@ -69,6 +69,7 @@ print(my_power)
 #>  Expected Sample Size:                     20 
 #>  Expected Number of Studies;               30 
 #>  Expected heterogenity (tau^2):            large 
+#> 
 #>  Estimated Power:                          0.57799 
 #>  Estimated Power for Test of Homogeneity:  1
 ```
@@ -87,60 +88,53 @@ For users wanting more flexibility in visualization, the `mpower` object contain
 
 ``` r
 str(my_power$df)
-#> Classes 'tbl_df', 'tbl' and 'data.frame':    444 obs. of  5 variables:
+#> Classes 'tbl_df', 'tbl' and 'data.frame':    447 obs. of  6 variables:
+#>  $ k_v         : int  2 3 4 5 6 7 8 9 10 11 ...
 #>  $ es_v        : num  0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 ...
 #>  $ n_v         : num  20 20 20 20 20 20 20 20 20 20 ...
-#>  $ k_v         : int  2 3 4 5 6 7 8 9 10 11 ...
 #>  $ Heterogenity: chr  "small" "small" "small" "small" ...
+#>  $ variance    : num  0.101 0.101 0.101 0.101 0.101 ...
 #>  $ power       : num  0.161 0.219 0.276 0.332 0.386 ...
 ```
 
-We can also visual the power curve for testing heterogeneity among studies using `homogen_power_plot()` around our `mpower` object.
-
-``` r
-homogen_power_plot(my_power)
-```
-
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
-
-Example 2: Power analysis moderation analysis (categorical variables)
----------------------------------------------------------------------
+Example 2: Power analysis for moderation analysis (categorical variables)
+-------------------------------------------------------------------------
 
 Although researchers are primarily interested in conducting meta-analysis to quantify the main effect of a specific phenomenon, It is very common to evaluate the moderation of this overall effect based on a number of study- and/or sample-related characteristics such as task paradigm or age group (e.g., children, adolescents, adults). To compute the statistical power for the detection of categorical moderators, we use the function `mod_power()` with a few additional arguments, mainly:
 
-1.  Expected number of groups:
-2.  Expected effect size of each group:
-3.  Expected standard deviation within each group:
+1.  Expected number of groups (`n_groups`):
+2.  Expected effect size of each group`effect_sizes`:
+
+...*for our meta-analysis of face recognition deficits in autism*
+
+We may expect that face recognition tasks have larger effect sizes then face perception tasks; therefore, we specify 2 groups and their respective expected effect sizes: 1. `n_groups` = 2 2. `effect_sizes` = c(.2,.5)
 
 ``` r
-my_moderation <- mod_power(n_groups = 3, 
-                       effect_sizes = c(.1,.2,.6), 
-                       sample_size = 15, 
-                       k = 15,
-                       model = "fixed", 
-                       hg = "small",
-                       es_type = "Correlation",
-                       sd_within = c(1,1,4), 
-                       test_type = "one-tailed",
-                       p = .05)
+my_moderation <- mod_power(n_groups = 2, 
+                           effect_sizes = c(.2,.5), 
+                           es_type = "d",
+                           sample_size = 20,
+                           k = 20,
+                           hg = "large",
+                           model = "random")
 ```
 
 ``` r
 print(my_moderation)
 #> 
-#>  Estimated Power for Categorical Moderators: FIXED-effects Model 
+#>  Estimated Power for Categorical Moderators: RANDOM-effects Model 
 #> 
-#>  Number of groups:                              3 
-#>  Expected Effect Sizes:                         0.1 0.2 0.6 
-#>  Expected Sample Size(per group):               15 
-#>  Expected Number of Studies;                    15 
-#>  Expected heterogenity(t^2):                    NA 
+#>  Number of groups:                              2 
+#>  Expected Effect Sizes:                         0.2 0.5 
+#>  Expected Sample Size(per group):               20 
+#>  Expected Number of Studies;                    20 
+#>  Expected heterogenity(t^2):                    large 
 #> 
-#>  Estimated Power for between-group moderation:  0.8260749 
-#>  Estimated Power for within-group moderation:   0.825013
+#>  Estimated Power for between-group moderation:  0.02513259 
+#>  Estimated Power for within-group moderation:   NA
 ```
 
-Given, this set of expected values, we have 82.61% to detect between-group differences and 82.5% to detect within-group differences.
+Given, this set of expected values, we have 2.51% to detect between-group differences between face perception and face recognition deficits in ASD based on these set of expectations.
 
 References
 ----------

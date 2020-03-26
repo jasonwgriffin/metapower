@@ -57,8 +57,8 @@ mod_power <- function(n_groups,
                       es_type,
                       model,
                       hg,
-                      test_type,
-                      p,
+                      test_type = "two-tailed",
+                      p = .05,
                       sd_within,
                       con_table) {
 
