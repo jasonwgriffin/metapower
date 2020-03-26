@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-metapower <img src = 'man/figures/logo.png' align = "right" height = "180" />
+metapoweR <img src = 'man/figures/logo.png' align = "right" height = "180" />
 =============================================================================
 
 <!-- badges: start -->
@@ -16,12 +16,6 @@ All mathematical calculations are derived from L. V. Hedges & Pigott (2004), Bor
 Installation
 ------------
 
-You can install the released version of metapower from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("metapower")
-```
-
 And the development version from [GitHub](https://github.com/) with:
 
 ``` r
@@ -30,7 +24,7 @@ devtools::install_github("jasonwgriffin/metapower")
 ```
 
 Example 1: Computing power to detect mean difference effect size
-================================================================
+----------------------------------------------------------------
 
 Suppose that we plan to meta-analyze all published findings to compute a summary effect size estimate for the group difference between typically developing individuals and individuals with autism on a measure of face recognition ability. In order to plan the study accordingly, we must choose plausible values for the following:
 
@@ -82,7 +76,7 @@ To visualize the power curve for these set of input parameters, use `power_plot(
 power_plot(my_power)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 For users wanting more flexibility in visualization, the `mpower` object contains a dataframe `$df` containing all data populating the `ggobject`,
 

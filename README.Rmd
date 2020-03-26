@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# metapower <img src = 'man/figures/logo.png' align = "right" height = "180" />
+# metapoweR <img src = 'man/figures/logo.png' align = "right" height = "180" />
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -32,10 +32,11 @@ All mathematical calculations are derived from @hedges2004, @bornstein2009, and 
 
 ## Installation
 
-You can install the released version of metapower from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("metapower")
+```{r include = FALSE}
+#You can install the released version of metapower from [CRAN](https://CRAN.R-project.org) with:
+#
+#
+#install.packages("metapower")
 ```
 
 And the development version from [GitHub](https://github.com/) with:
@@ -45,7 +46,7 @@ And the development version from [GitHub](https://github.com/) with:
 devtools::install_github("jasonwgriffin/metapower")
 ```
 
-# Example 1: Computing power to detect mean difference effect size
+## Example 1: Computing power to detect mean difference effect size
 
 Suppose that we plan to meta-analyze all published findings to compute a summary effect size estimate for the group difference between typically developing individuals and individuals with autism on a measure of face recognition ability. In order to plan the study accordingly, we must choose plausible values for the following:
 
