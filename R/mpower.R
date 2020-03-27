@@ -34,13 +34,8 @@
 #' @return Estimated Power
 #'
 #' @examples
-#' mpower(effect_size = .5,
-#' sample_size = 10,
-#' k = 10,
-#' hg = "large",
-#' es_type = "d",
-#' model = "random",
-#' test_type = "two-tailed")
+#' mpower(effect_size = .5, sample_size = 10, k = 10, es_type = "d",
+#'        hg = "large", model = "random", test_type = "two-tailed")
 #'
 #' @references
 #'
@@ -168,25 +163,17 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
   effect_size = abs(effect_size)
 
   if(es_type == "Correlation"){
-    #effect_size = 2*effect_size/sqrt(1-effect_size^2)
-    effect_size = .5*log((1 + effect_size)/(1 - effect_size))
-    #es_type = "d"
-    if(!missing(sd))
-      if(sd >= 1){
-        stop("Expected sd correlation must be betweeen 0 and 1")
 
-      }else{
-        sd <- .5*log((1 + sd)/(1 - sd))
-      }
+    effect_size = .5*log((1 + effect_size)/(1 - effect_size))
+
     }else if(es_type == "OR") {
 
-      effect_size = log(effect_size) ## changes odds ratio to log odds
-    #es_type = "d"
-    if(!missing(sd))
-      sd = log(sd)
-  }
+      effect_size = log(effect_size)
 
-  variance <- compute_variance(sample_size, effect_size, es_type, con_table)
+      }
+
+# Compute common variance
+variance <- compute_variance(sample_size, effect_size, es_type, con_table)
 
   if(missing(sd) & model == "fixed"){
     power_list <- list(variance = variance,

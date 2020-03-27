@@ -12,8 +12,8 @@ mod_power(
   es_type,
   model,
   hg,
-  test_type,
-  p,
+  test_type = "two-tailed",
+  p = 0.05,
   sd_within,
   con_table
 )
@@ -31,7 +31,7 @@ mod_power(
 
 \item{model}{Fixed-effects model (model = "fixed") or Random-effects model (model = "random")}
 
-\item{hg}{Expected heterogenity estimate (small, mdeium, large)}
+\item{hg}{Expected heterogenity estimate (small, medium, large)}
 
 \item{test_type}{one-tailed or two-tailed}
 
@@ -51,8 +51,8 @@ mod_power(
 Estimated Power estimates for between and within-groups moderation
 }
 \description{
-mod_power( ) is an extension of mpower() and so it takes similiar inputs. The primary inputs are the effected effect sizes
-for each group and the expected within-group standard deviation in those groups
+mod_power( ) is an extension of mpower() and so it takes similiar inputs. The primary inputs are the expected effect sizes
+for each group and the expected within-group standard deviations in those groups.
 }
 \examples{
 mod_power(

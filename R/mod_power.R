@@ -1,7 +1,7 @@
 #' Compute Power for Categorical Moderation Meta-analysis
 #'
-#' mod_power( ) is an extension of mpower() and so it takes similiar inputs. The primary inputs are the effected effect sizes
-#' for each group and the expected within-group standard deviation in those groups
+#' mod_power( ) is an extension of mpower() and so it takes similiar inputs. The primary inputs are the expected effect sizes
+#' for each group and the expected within-group standard deviations in those groups.
 #'
 #' @param n_groups Number of anticipated groups in moderation analysis.
 #'
@@ -13,7 +13,7 @@
 #'
 #' @param k Total expected number of studies.
 #'
-#' @param hg Expected heterogenity estimate (small, mdeium, large)
+#' @param hg Expected heterogenity estimate (small, medium, large)
 #'
 #' @param model Fixed-effects model (model = "fixed") or Random-effects model (model = "random")
 #'
@@ -104,6 +104,8 @@ mod_power <- function(n_groups,
     stop("k must be a single number")
   if(k < 2)
     stop("k must be greater than 1")
+  if((k/n_groups)%%1!=0)
+    stop("Number of studies must be a multiple of n_groups")
 
   ## es_type
   if(missing(es_type))

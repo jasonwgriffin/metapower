@@ -5,13 +5,25 @@ metapoweR <img src = 'man/figures/logo.png' align = "right" height = "180" />
 
 <!-- badges: start -->
 <!-- badges: end -->
-The primary goal of metapower is to compute statistical power for meta-analyses. Currently, metapower is designed to compute statistical power for the following under fixed- and random-effects models:
+The primary goal of metapower is to compute statistical power for meta-analyses. Currently, metapower has the following functionality:
 
-1.  Mean effect size difference between groups (e.g., Cohen's *d*)
-2.  Test of homogeneity for between-study variance
-3.  Categorical moderator analyses of the mean effect size
+Computation of statistical power for:
 
-All mathematical calculations are derived from L. V. Hedges & Pigott (2004), Bornstein, Hedges, Higgins, & Rothstein (2009), and T. D. Pigott (2012).
+1.  Summary main effects sizes
+2.  Test of homogeneity for between-study variance (for Random-effects models).
+3.  Test of homogenity for within-study variance
+4.  Categorical moderator analyses
+
+metapower can currently handle the following designs and effect sizes:
+
+1.  Standardized mean difference: Cohen's *d*
+2.  Correlation betwen two continous variables: Correlatiion Coefficient (via Fisher's r-to-z transformation)
+3.  Probability of Success/Faluire: Odds Ratio
+
+Visualization of power curves for
+
+1.  Main effects
+2.  Between-study variance (for Random-effects models)
 
 Installation
 ------------
@@ -97,15 +109,18 @@ Example 2: Power analysis for moderation analysis (categorical variables)
 Although researchers are primarily interested in conducting meta-analysis to quantify the main effect of a specific phenomenon, It is very common to evaluate the moderation of this overall effect based on a number of study- and/or sample-related characteristics such as task paradigm or age group (e.g., children, adolescents, adults). To compute the statistical power for the detection of categorical moderators, we use the function `mod_power()` with a few additional arguments, mainly:
 
 1.  Expected number of groups (`n_groups`):
-2.  Expected effect size of each group`effect_sizes`:
+2.  Expected effect size of each group(`effect_sizes`):
 
 ...*for our meta-analysis of face recognition deficits in autism*
 
-We may expect that face recognition tasks have larger effect sizes then face perception tasks; therefore, we specify 2 groups and their respective expected effect sizes: 1. `n_groups` = 2 2. `effect_sizes` = c(.2,.5)
+We may expect that face recognition tasks have larger effect sizes then face perception tasks; therefore, we specify 2 groups and their respective expected effect sizes:
+
+1.  `n_groups = 2`
+2.  `effect_sizes = c(.2,.5)`
 
 ``` r
-my_moderation <- mod_power(n_groups = 2, 
-                           effect_sizes = c(.2,.5), 
+my_mod <- mod_power(n_groups = 4, 
+                           effect_sizes = c(1,4,5,6), 
                            es_type = "d",
                            sample_size = 20,
                            k = 20,
@@ -114,24 +129,26 @@ my_moderation <- mod_power(n_groups = 2,
 ```
 
 ``` r
-print(my_moderation)
+print(my_mod)
 #> 
 #>  Estimated Power for Categorical Moderators: RANDOM-effects Model 
 #> 
-#>  Number of groups:                              2 
-#>  Expected Effect Sizes:                         0.2 0.5 
+#>  Number of groups:                              4 
+#>  Expected Effect Sizes:                         1 4 5 6 
 #>  Expected Sample Size(per group):               20 
 #>  Expected Number of Studies;                    20 
 #>  Expected heterogenity(t^2):                    large 
 #> 
-#>  Estimated Power for between-group moderation:  0.02513259 
+#>  Estimated Power for between-group moderation:  0.2132226 
 #>  Estimated Power for within-group moderation:   NA
 ```
 
-Given, this set of expected values, we have 2.51% to detect between-group differences between face perception and face recognition deficits in ASD based on these set of expectations.
+Given, this set of expected values, we have 21.32% to detect between-group differences between face perception and face recognition deficits in ASD based on these set of expectations. As expected, moderator effects are much harder to detect and more studies are required, especially when heterogenity is high.
 
 References
 ----------
+
+All mathematical calculations are derived from L. V. Hedges & Pigott (2004), Bornstein, Hedges, Higgins, & Rothstein (2009), and T. D. Pigott (2012).
 
 Bornstein, M., Hedges, L. V., Higgins, J., & Rothstein, H. (2009). *Introduction to meta-analysis*. Hoboken, NJ: Wiley.
 

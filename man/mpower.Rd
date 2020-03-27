@@ -53,13 +53,8 @@ meta-analyis models. Currently, the anticpated summary effect size estimate shou
 (i.e, Cohen's d)
 }
 \examples{
-mpower(effect_size = .5,
-sample_size = 10,
-k = 10,
-hg = "large",
-es_type = "d",
-model = "random",
-test_type = "two-tailed")
+mpower(effect_size = .5, sample_size = 10, k = 10, es_type = "d",
+       hg = "large", model = "random", test_type = "two-tailed")
 
 }
 \references{
