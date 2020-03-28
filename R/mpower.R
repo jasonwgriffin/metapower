@@ -59,7 +59,7 @@
 #' @import magrittr
 #' @export
 
-mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = "two-tailed", p = .05, sd, con_table){
+mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed", p = .05, sd, con_table){
 
   model_options <- c("fixed", "random")
   test_type_options <- c("one-tailed", "two-tailed")
@@ -137,28 +137,28 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
     stop("Need to specify two-tailed or one-tailed")
 
   # model
-  if(missing(model))
-    stop("Need to specify 'fixed' or 'random' effects model")
-  if(!(model %in% model_options))
-    stop("Need to specify 'fixed' or 'random' effects model")
+  #if(missing(model))
+  #  stop("Need to specify 'fixed' or 'random' effects model")
+  #if(!(model %in% model_options))
+  #  stop("Need to specify 'fixed' or 'random' effects model")
 
   ## check for arguements that are not required for fixed models
-  if(model == "fixed"){
-    if (!missing(hg)){
-      stop("Fixed-effects models assume no heterogenity")
-    } else if (missing(hg)) {
-      hg = NULL
-    }
-  }
+  #if(model == "fixed"){
+  #  if (!missing(hg)){
+  #    stop("Fixed-effects models assume no heterogenity")
+  #  } else if (missing(hg)) {
+  #    hg = NULL
+  #  }
+  #}
 
   ## random effects and heterogenity parameter
-  if(model == 'random'){
-    if(missing(hg)){
-      stop("Need to specify small, medium, or large heterogenity")
-    } else if (!(hg %in% hg_options)){
-      stop("Need to specify small, medium, or large heterogenity")
-    }
-  }
+  #if(model == 'random'){
+  #  if(missing(hg)){
+  #    stop("Need to specify small, medium, or large heterogenity")
+  #  } else if (!(hg %in% hg_options)){
+  #    stop("Need to specify small, medium, or large heterogenity")
+  #  }
+  #}
 
   effect_size = abs(effect_size)
 
@@ -175,62 +175,60 @@ mpower <- function(effect_size, sample_size, k, es_type, model, hg, test_type = 
 # Compute common variance
 variance <- compute_variance(sample_size, effect_size, es_type, con_table)
 
-  if(missing(sd) & model == "fixed"){
-    power_list <- list(variance = variance,
-                       power = compute_power(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p),
-                       effect_size = effect_size,
-                       sample_size = sample_size,
-                       k = k,
-                       es_type = es_type,
-                       hg = hg,
-                       model = model,
-                       test_type = test_type,
-                       p = p,
-                       sd = NULL,
-                       df = compute_power_range(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, variance),
-                       homo_test = NULL,
-                       homo_range = NULL)
-    attr(power_list, "class") <- "mpower"
+#if(missing(sd) & model == "fixed"){
 
+power_list <- list(variance = variance,
+                   power = compute_power(effect_size, variance, sample_size, k, es_type, test_type, p),
+                   effect_size = effect_size,
+                   sample_size = sample_size,
+                   k = k,
+                   es_type = es_type,
+                   test_type = test_type,
+                   p = p,
+                   sd = NULL,
+                   df = compute_power_range(effect_size, sample_size, k, es_type, test_type, p),
+                   homo_test = NULL,
+                   homo_range = NULL)
+attr(power_list, "class") <- "mpower"
 
-    } else if (missing(sd) & model =="random"){
-      power_list <- list(variance = variance,
-                         power = compute_power(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p),
-                         effect_size = effect_size,
-                         sample_size = sample_size,
-                         k = k,
-                         es_type = es_type,
-                         hg = hg,
-                         model = model,
-                         test_type = test_type,
-                         p = p,
-                         sd = NULL,
-                         df = compute_power_range(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, variance),
-                         homo_test = homogen_mpower(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p),
-                         homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, variance))
-      attr(power_list, "class") <- "mpower"
-
-  } else if (!missing(sd) & model == "fixed"){
-    power_list <- list(variance = variance,
-                       power = compute_power(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p),
-                       effect_size = effect_size,
-                       sample_size = sample_size,
-                       k = k,
-                       es_type = es_type,
-                       hg = hg,
-                       model = model,
-                       test_type = test_type,
-                       p = p,
-                       sd = sd,
-                       df = compute_power_range(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, variance),
-                       homo_test = homogen_mpower(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p, sd),
-                       homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, variance))
-    attr(power_list, "class") <- "mpower"
-
-    } else if (!missing(sd) & model == "random"){
-    stop("sd arguement is not required for random-effects models")
-  }
-
-  return(power_list)
-
+return(power_list)
 }
+
+  #   } else if (missing(sd) & model =="random"){
+  #     power_list <- list(variance = variance,
+  #                        power = compute_power(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p),
+  #                        effect_size = effect_size,
+  #                        sample_size = sample_size,
+  #                        k = k,
+  #                        es_type = es_type,
+  #                        hg = hg,
+  #                        model = model,
+  #                        test_type = test_type,
+  #                        p = p,
+  #                        sd = NULL,
+  #                        df = compute_power_range(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, variance),
+  #                        homo_test = homogen_mpower(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p),
+  #                        homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, variance))
+  #     attr(power_list, "class") <- "mpower"
+  #
+  # } else if (!missing(sd) & model == "fixed"){
+  #   power_list <- list(variance = variance,
+  #                      power = compute_power(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p),
+  #                      effect_size = effect_size,
+  #                      sample_size = sample_size,
+  #                      k = k,
+  #                      es_type = es_type,
+  #                      hg = hg,
+  #                      model = model,
+  #                      test_type = test_type,
+  #                      p = p,
+  #                      sd = sd,
+  #                      df = compute_power_range(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, variance),
+  #                      homo_test = homogen_mpower(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p, sd),
+  #                      homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, model, hg, test_type, p, sd, variance))
+  #   attr(power_list, "class") <- "mpower"
+  #
+  #   } else if (!missing(sd) & model == "random"){
+  #   stop("sd arguement is not required for random-effects models")
+  # }
+

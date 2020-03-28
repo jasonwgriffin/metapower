@@ -9,47 +9,37 @@
 
 power_plot <- function(obj){
 
-  if (obj$model == "fixed"){
+  ## set aesthetic
+  p_aes <- list(geom_line(size = 1),
+    scale_x_continuous(limits = c(2,max(obj$df$k_v)), breaks = c(seq(2,max(obj$df$k_v),by = round(max(obj$df$k_v)*.10,0)))),
+    scale_y_continuous(limits =c(0,1), breaks = c(0,.25,.5,.75,1)),
+    #geom_point(aes(x = obj$k, y = obj$power), shape = 21, color = "black", fill = "red", size = 3),
+    xlab("Number of Studies"),
+    ylab("Power"),
+    theme_classic(),
+    theme(legend.position = c(1,0),
+          legend.justification = c(1,0),
+          legend.background = element_rect(colour = 'black', fill = 'white', linetype='solid')))
 
-    obj$df$EffectSize <- as.factor(obj$df$EffectSize)
-    p <- ggplot(obj$df, aes(x = obj$df$k_v, y = obj$df$power, linetype = obj$df$EffectSize))
+  rand_dat <- obj$df %>%
+    dplyr::filter(es_v == effect_size) %>%
+    dplyr::select(k_v, starts_with("rand")) %>%
+    tidyr::pivot_longer(-k_v, names_to = "power_type", values_to = "power")
 
-    if(obj$es_type == "d"){
-      p <- p + labs(linetype = "Effect Size (d)") +
-        ggtitle("Estimated Meta-analytic Power for Cohen's d")
-      }else if (obj$es_type == "Correlation"){
-      p <- p + labs(linetype = "Effect Size(corr)") +
-        ggtitle("Estimated Meta-analytic Power for Correlation")
-      }else if (obj$es_type =="OR"){
-      p <- p +labs(linetype = "Effect Size(log Odds)") +
-        ggtitle("Estimated Meta-analytic Power(log Odds)")
-      }
+  obj$df$es_v <- as.factor(obj$df$es_v)
 
-  }else if (obj$model == "random"){
+  fixed_plot <- ggplot(obj$df, aes(x = obj$df$k_v, y = obj$df$fixed_power, linetype = obj$df$es_v)) +
+    p_aes +
+    ggtitle("Fixed-Effects Model") +
+    labs(linetype = "Effect Size")
 
-    p <- ggplot(obj$df, aes(x = obj$df$k_v, y = obj$df$power, linetype = obj$df$Heterogenity)) +
-      labs(linetype = "Heterogenity")
-    if(obj$es_type == "d"){
-      p <- p + ggtitle("Estimated Meta-analytic Power for Cohen's d")
-    }else if (obj$es_type == "Correlation"){
-      p <- p + ggtitle("Estimated Meta-analytic Power for Correlation")
-    }else if (obj$es_type == "OR"){
-      p <- p + ggtitle("Estimated Meta-analytic Power(log Odds)")
-    }
+  random_plot <- ggplot(rand_dat, aes(x = k_v, y = power, group = power_type, color = power_type)) +
+    p_aes +
+    ggtitle("Random-Effects Model") +
+    scale_color_manual(name = "Heterogenity",
+                       labels = c("Large", "Moderate", "Low"),
+                       values = c("red","blue","green"))
 
-  }
-
-  p <- p + geom_line(size = 1) +
-      scale_x_continuous(limits = c(2,max(obj$df$k_v)), breaks = c(seq(2,max(obj$df$k_v),by = round(max(obj$df$k_v)*.10,0)))) +
-      scale_y_continuous(limits =c(0,1), breaks = c(0,.25,.5,.75,1)) +
-      geom_point(aes(x = obj$k, y = obj$power), shape = 21, color = "black", fill = "red", size = 3) +
-    xlab("Number of Studies") +
-    ylab("Power") +
-    theme_classic() +
-      theme(legend.position = c(1,0),
-            legend.justification = c(1,0),
-            legend.background = element_rect(colour = 'black', fill = 'white', linetype='solid'))
-
+  p <- plot_grid(fixed_plot, random_plot, ncol = 1)
   return (p)
-
 }

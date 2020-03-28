@@ -1,20 +1,12 @@
 
-compute_power <- function(effect_size, variance, sample_size, k, es_type, model, hg, test_type, p){ # sd
-  #sd <- NULL
-  # Compute statistical Power
-  if (model == "fixed"){
-    lambda <- effect_size/(sqrt(variance/k))
-  } else if (model == "random"){
 
-      if(hg == "small"){
-        tau2 <- (1/3)*variance
-      } else if (hg == "medium"){
-        tau2 <- variance
-      } else if (hg == "large"){
-        tau2 <- 3*variance
-      }
-      lambda <- effect_size/sqrt((tau2 + variance)/k)
-    }
+compute_power <- function(effect_size, variance, sample_size, k, es_type, test_type, p){
+  # noncentraility parameter
+    fixed_lambda <- effect_size/(sqrt(variance/k))
+    random_lambda_s <- effect_size/sqrt(((1/3)*variance + variance)/k) #small
+    random_lambda_m <- effect_size/sqrt(((1)*variance + variance)/k) #moderate
+    random_lambda_l <- effect_size/sqrt(((3)*variance + variance)/k) #large
+  # critical value
 
   if(test_type == "two-tailed"){
     c_alpha <- qnorm(1-(p/2))
@@ -22,6 +14,11 @@ compute_power <- function(effect_size, variance, sample_size, k, es_type, model,
     c_alpha <- qnorm(1-(p))
   }
 
-  power <- (1-pnorm(c_alpha - lambda)) + pnorm(-1*c_alpha - lambda)
-  return(power)
+  main_effect_power <- tibble(
+    fixed_power    = (1-pnorm(c_alpha - fixed_lambda)) + pnorm(-1*c_alpha - fixed_lambda),
+    random_power_s = (1-pnorm(c_alpha - random_lambda_s)) + pnorm(-1*c_alpha - random_lambda_s),
+    random_power_m = (1-pnorm(c_alpha - random_lambda_m )) + pnorm(-1*c_alpha - random_lambda_m),
+    random_power_l = (1-pnorm(c_alpha - random_lambda_l)) + pnorm(-1*c_alpha - random_lambda_l))
+
+  return(main_effect_power)
 }
