@@ -186,9 +186,9 @@ power_list <- list(variance = variance,
                    test_type = test_type,
                    p = p,
                    sd = NULL,
-                   df = compute_power_range(effect_size, sample_size, k, es_type, test_type, p),
-                   homo_test = NULL,
-                   homo_range = NULL)
+                   df = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table),
+                   homo_power = homogen_power(effect_size, variance, sample_size, k, es_type, test_type, p),
+                   homo_range = compute_homogen_range(effect_size, variance, sample_size, k, es_type, test_type, p, sd))
 attr(power_list, "class") <- "mpower"
 
 return(power_list)

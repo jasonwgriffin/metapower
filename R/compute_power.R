@@ -1,5 +1,3 @@
-
-
 compute_power <- function(effect_size, variance, sample_size, k, es_type, test_type, p){
   # noncentraility parameter
     fixed_lambda <- effect_size/(sqrt(variance/k))

@@ -14,9 +14,15 @@ print.mpower <- function(x,...) {
     cat(" Fixed-Effects Model                           ", x$power$fixed_power, "\n")
     cat(" Random-Effects Model (Low Heterogenity):      ", x$power$random_power_s, "\n")
     cat(" Random-Effects Model (Moderate Heterogenity): ", x$power$random_power_m, "\n")
-    cat(" Random-Effects Model (Large Heterogenity):    ", x$power$random_power_l, "\n")
+    cat(" Random-Effects Model (Large Heterogenity):    ", x$power$random_power_l, "\n\n")
 
     cat(" Estimated Power: Test of Homogenity \n\n")
+
+    cat(" Fixed-Efects Model                            ", x$homo_power$fixed_power, "\n")
+    cat(" Random-Effects Model (Low Heterogenity):      ", x$homo_power$random_power_s, "\n")
+    cat(" Random-Effects Model (Moderate Heterogenity): ", x$homo_power$random_power_m, "\n")
+    cat(" Random-Effects Model (Large Heterogenity):    ", x$homo_power$random_power_l, "\n")
+
     #cat(" Fixed-Effects (): ", x$homo_test)
 
 }

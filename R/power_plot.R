@@ -41,5 +41,6 @@ power_plot <- function(obj){
                        values = c("red","blue","green"))
 
   p <- plot_grid(fixed_plot, random_plot, ncol = 1)
+
   return (p)
 }
