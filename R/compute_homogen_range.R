@@ -10,7 +10,7 @@ compute_homogen_range <- function(effect_size, variance, sample_size, k, es_type
                       k_v = rep(seq(2,range_factor*k),times = 7),
                       es_v = effect_size,
                       n_v = sample_size,
-                      variance =mapply(compute_variance, sample_size, effect_size, es_type))
+                      variance = mapply(compute_variance, sample_size, effect_size, es_type))
     homo_range <- cbind.data.frame(homo_range, as.data.frame((t(mapply(homogen_power, homo_range$es_v, homo_range$variance, homo_range$n_v, homo_range$k_v, es_type, test_type, p, homo_range$SD)))) %>%
                                      dplyr::mutate_all(as.numeric))
     return(homo_range)

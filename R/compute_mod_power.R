@@ -20,17 +20,19 @@ compute_mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, t
 
   ## between groups
   fixed_weight_c <- sum(rep(1/variance,sample_size/n_groups))
-  fixed_lambda_b <- sum(weight_c*(effect_sizes-overall_effect_diff)^2)
-  fixed_power_b <- 1 - pchisq(c_alpha_b,df_b,lambda_b,lower.tail = TRUE)
+  fixed_lambda_b <- sum(fixed_weight_c*(effect_sizes-overall_effect_diff)^2)
+  fixed_power_b <- 1 - pchisq(c_alpha_b,df_b,fixed_lambda_b,lower.tail = TRUE)
   ##within-groups
   fixed_weight_w <-1/variance
-  fixed_var_w <- round(sqrt(1/sum(rep(weight_w,sample_size/n_groups))),2)
-  if(!missing(sd_within)){
-    fixed_lambda_w <- sum(rep(weight_w*(sd_within*var_w)^2, sample_size/n_groups))
-    fixed_power_w <- 1 - pchisq(c_alpha_w,df_w,lambda_w,lower.tail = TRUE)
+  fixed_var_w <- round(sqrt(1/sum(rep(fixed_weight_w,sample_size/n_groups))),2)
+
+  if(missing(sd_within)){
+    sd_within <- NA
+    fixed_lambda_w <- NA
+    fixed_power_w <- NA
     } else {
-      fixed_lambda_w <- NA
-      fixed_power_w <- NA
+      fixed_lambda_w <- sum(rep(fixed_weight_w*(sd_within*fixed_var_w)^2, sample_size/n_groups))
+      fixed_power_w <- 1 - pchisq(c_alpha_w,df_w,fixed_lambda_w,lower.tail = TRUE)
       }
 
   tau2_s <- (1/3)*variance
@@ -38,29 +40,46 @@ compute_mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, t
   tau2_l <- (3)*variance
 
   ## between groups
-  random_weight_b <- 1/sum(rep(1/(variance+tau2),sample_size/n_groups))
-  random_lambda_b <- sum(weight_b*(effect_sizes-overall_effect_diff)^2)
-  random_power_b <- 1 - pchisq(c_alpha_b,df_b,lambda_b,lower.tail = TRUE)
-  random_lambda_w <- NULL
+  random_weight_b_s <- 1/sum(rep(1/(variance+tau2_s),sample_size/n_groups))
+  random_weight_b_m <- 1/sum(rep(1/(variance+tau2_m),sample_size/n_groups))
+  random_weight_b_l <- 1/sum(rep(1/(variance+tau2_l),sample_size/n_groups))
+
+  random_lambda_b_s <- sum(random_weight_b_s*(effect_sizes-overall_effect_diff)^2)
+  random_lambda_b_m <- sum(random_weight_b_m*(effect_sizes-overall_effect_diff)^2)
+  random_lambda_b_l <- sum(random_weight_b_l*(effect_sizes-overall_effect_diff)^2)
+
+  random_power_b_s <- 1 - pchisq(c_alpha_b,df_b,random_lambda_b_s,lower.tail = TRUE)
+  random_power_b_m <- 1 - pchisq(c_alpha_b,df_b,random_lambda_b_m,lower.tail = TRUE)
+  random_power_b_l <- 1 - pchisq(c_alpha_b,df_b,random_lambda_b_l,lower.tail = TRUE)
+
+  random_lambda_w <- NA
   random_power_w <- NA
 
-  mod_power_list <- list(df_b = df_b,
-                         df_w = df_w,
-                         c_alpha_b = c_alpha_b,
-                         c_alpha_w = c_alpha_w,
-                         fixed_weight_c = fixed_weight_c,
-                         fixed_lambda_b = fixed_lambda_b,
-                         fixed_power_b = fixed_power_b,
-                         fixed_weight_w = fixed_weight_w,
-                         fixed_var_w = fixed_var_w,
-                         fixed_lambda_w = fixed_lambda_w,
-                         fixed_power_w = fixed_power_w,
-                         tau2_s = tau2_s,
-                         tau2_m = tau2_m,
-                         tau2_l = tau2_l,
-                         random_weight_b = random_weight_b,
-                         random_lambda_b = random_lambda_b,
-                         random_power_b = random_power_b,
-                         random_lambda_w = random_lambda_w,
-                         random_power_w = random_power_w)
+  mode_power_list <- tibble(fixed_power_b = fixed_power_b,
+                            fixed_power_w = fixed_power_w,
+                            random_power_b_s = random_power_b_s,
+                            random_power_b_m = random_power_b_m,
+                            random_power_b_l = random_power_b_l)
+
+
+
+  # mod_power_list <- list(df_b = df_b,
+  #                        df_w = df_w,
+  #                        c_alpha_b = c_alpha_b,
+  #                        c_alpha_w = c_alpha_w,
+  #                        fixed_weight_c = fixed_weight_c,
+  #                        fixed_lambda_b = fixed_lambda_b,
+  #                        fixed_power_b = fixed_power_b,
+  #                        fixed_weight_w = fixed_weight_w,
+  #                        fixed_var_w = fixed_var_w,
+  #                        fixed_lambda_w = fixed_lambda_w,
+  #                        fixed_power_w = fixed_power_w,
+  #                        tau2_s = tau2_s,
+  #                        tau2_m = tau2_m,
+  #                        tau2_l = tau2_l,
+  #                        random_weight_b = random_weight_b,
+  #                        random_lambda_b = random_lambda_b,
+  #                        random_power_b = random_power_b,
+  #                        random_lambda_w = random_lambda_w,
+  #                        random_power_w = random_power_w)
 }

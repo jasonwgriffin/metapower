@@ -35,7 +35,7 @@ compute_power_range <- function(effect_size, sample_size, k, es_type, test_type,
                  es_v = es_v,
                  effect_size = effect_size,
                  n_v = sample_size,
-                 variance = mapply(compute_variance, sample_size, es_v, es_type, con_table))
+                 variance = mapply(compute_variance, sample_size, es_v, es_type))
   df <- cbind.data.frame(df, as.data.frame((t(mapply(compute_power, df$es_v, df$variance, df$n_v, df$k_v, es_type, test_type, p)))) %>%
                            dplyr::mutate_all(as.numeric))
   return(df)

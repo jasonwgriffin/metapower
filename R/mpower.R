@@ -59,7 +59,7 @@
 #' @import magrittr
 #' @export
 
-mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed", p = .05, sd, con_table){
+mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed", p = .05, sd = NULL, con_table = NULL){
 
   model_options <- c("fixed", "random")
   test_type_options <- c("one-tailed", "two-tailed")
@@ -185,9 +185,9 @@ power_list <- list(variance = variance,
                    es_type = es_type,
                    test_type = test_type,
                    p = p,
-                   sd = NULL,
+                   sd = sd,
                    df = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table),
-                   homo_power = homogen_power(effect_size, variance, sample_size, k, es_type, test_type, p),
+                   homo_power = homogen_power(effect_size, variance, sample_size, k, es_type, test_type, p, sd),
                    homo_range = compute_homogen_range(effect_size, variance, sample_size, k, es_type, test_type, p, sd))
 attr(power_list, "class") <- "mpower"
 

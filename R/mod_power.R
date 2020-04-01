@@ -59,14 +59,14 @@ mod_power <- function(n_groups,
                       hg,
                       test_type = "two-tailed",
                       p = .05,
-                      sd_within,
-                      con_table) {
+                      sd_within = NULL,
+                      con_table = NULL) {
 
   ## Arguement Integrity Checks
 
-  model_options <- c("fixed", "random")
+  #model_options <- c("fixed", "random")
   test_type_options <- c("one-tailed", "two-tailed")
-  hg_options <- c("small", "medium", "large")
+  #hg_options <- c("small", "medium", "large")
   es_type_options <- c("d","Correlation", "OR")
 
   #n_groups
@@ -135,28 +135,28 @@ mod_power <- function(n_groups,
     }
 
   # model
-  if(missing(model))
-    stop("Need to specify 'fixed' or 'random' effects model")
-  if(!(model %in% model_options))
-    stop("Need to specify 'fixed' or 'random' effects model")
+  #if(missing(model))
+  #  stop("Need to specify 'fixed' or 'random' effects model")
+  #if(!(model %in% model_options))
+  #  stop("Need to specify 'fixed' or 'random' effects model")
 
   ## check for arguements that are not required for fixed models
-  if(model == "fixed"){
-    if (!missing(hg)){
-      stop("Fixed-effects models assume no heterogenity")
-    } else if (missing(hg)) {
-      hg = NULL
-    }
-  }
+  #if(model == "fixed"){
+  #  if (!missing(hg)){
+  #    stop("Fixed-effects models assume no heterogenity")
+  #  } else if (missing(hg)) {
+  #    hg = NULL
+  #  }
+  #}
 
   ## random effects and heterogenity parameter
-  if(model == 'random'){
-    if(missing(hg)){
-      stop("Need to specify small, medium, or large heterogenity")
-    } else if (!(hg %in% hg_options)){
-      stop("Need to specify small, medium, or large heterogenity")
-    }
-  }
+  #if(model == 'random'){
+  #  if(missing(hg)){
+  #    stop("Need to specify small, medium, or large heterogenity")
+  #  } else if (!(hg %in% hg_options)){
+   #   stop("Need to specify small, medium, or large heterogenity")
+  #  }
+  #}
 
   ## test_type errors
   if(!(test_type %in% test_type_options))
@@ -176,7 +176,14 @@ mod_power <- function(n_groups,
     effect_sizes = log(effect_sizes) ## changes odds ratio to log odds
   }
 
-  mod_power_list <- compute_mod_power(n_groups, effect_sizes, sample_size, k, es_type, test_type = "two-tailed", p = .05, sd_within, con_table)
+  mod_power_list <- list(mod_power = compute_mod_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, sd_within, con_table),
+                         n_groups = n_groups,
+                         effect_sizes = effect_sizes,
+                         sample_size = sample_size,
+                         k = k,
+                         es_type = es_type,
+                         sd_within = sd_within,
+                         con_table = con_table)
   attr(mod_power_list, "class") <- "modpower"
   return(mod_power_list)
 }

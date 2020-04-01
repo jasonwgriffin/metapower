@@ -8,7 +8,7 @@ homogen_power <- function (effect_size, variance, sample_size, k, es_type, test_
   c_alpha <- qchisq(1-p,df,0, lower.tail = TRUE)
   weight = 1/round(variance,2)
 
-  if(!missing(sd)){
+  if(!is.null(sd)){
   ##fixed power
   fixed_lambda <- (k/variance)*(variance/k)*(sd^2)
   fixed_power <- (1 - pchisq(c_alpha,df,fixed_lambda,lower.tail = TRUE))
