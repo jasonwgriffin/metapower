@@ -1,4 +1,3 @@
-
 compute_variance <- function(sample_size, effect_size, es_type, con_table){
 
   if(es_type == "d"){

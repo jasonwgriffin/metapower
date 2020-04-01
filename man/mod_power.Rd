@@ -10,12 +10,10 @@ mod_power(
   sample_size,
   k,
   es_type,
-  model,
-  hg,
   test_type = "two-tailed",
   p = 0.05,
-  sd_within,
-  con_table
+  sd_within = NULL,
+  con_table = NULL
 )
 }
 \arguments{
@@ -28,10 +26,6 @@ mod_power(
 \item{k}{Total expected number of studies.}
 
 \item{es_type}{Effect size metric: 'Correlation', 'd', or 'OR'.}
-
-\item{model}{Fixed-effects model (model = "fixed") or Random-effects model (model = "random")}
-
-\item{hg}{Expected heterogenity estimate (small, medium, large)}
 
 \item{test_type}{one-tailed or two-tailed}
 
@@ -60,8 +54,6 @@ mod_power(
  effect_sizes = c(0,.1,.55),
  sample_size = 15,
  k = 15,
- model = "random",
- hg = "small",
  es_type = "Correlation",
  sd_within = c(1,1,4),
  test_type = "two-tailed",

@@ -13,10 +13,6 @@
 #'
 #' @param k Total expected number of studies.
 #'
-#' @param hg Expected heterogenity estimate (small, medium, large)
-#'
-#' @param model Fixed-effects model (model = "fixed") or Random-effects model (model = "random")
-#'
 #' @param p alpha level: p = .05 (DEFAULT)
 #'
 #' @param test_type one-tailed or two-tailed
@@ -39,8 +35,6 @@
 #'  effect_sizes = c(0,.1,.55),
 #'  sample_size = 15,
 #'  k = 15,
-#'  model = "random",
-#'  hg = "small",
 #'  es_type = "Correlation",
 #'  sd_within = c(1,1,4),
 #'  test_type = "two-tailed",
@@ -55,8 +49,6 @@ mod_power <- function(n_groups,
                       sample_size,
                       k,
                       es_type,
-                      model,
-                      hg,
                       test_type = "two-tailed",
                       p = .05,
                       sd_within = NULL,

@@ -8,7 +8,7 @@ print.modpower <- function(x,...) {
   cat(" Expected Sample Size (per group): ", x$sample_size, "\n")
   cat(" Expected Number of Studies:       ", x$k, "\n\n")
 
-  cat(" Moderator analysis                                           ", "Power\n\n")
+  cat(" Esimated Power \n\n")
 
   cat(" Fixed-Effects Model (Between-Group):                         ", x$mod_power$fixed_power_b, "\n")
   cat(" Fixed-Effects Model (Within-Group):                          ", x$mod_power$fixed_power_w, "\n")

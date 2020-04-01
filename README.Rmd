@@ -1,7 +1,7 @@
 ---
 output: github_document
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
 bibliography: "inst/metapower.bib"
 csl: "inst/apa.csl"
 ---
@@ -27,7 +27,7 @@ The primary goal of metapower is to compute statistical power for meta-analyses.
 Computation of statistical power for:
 
 1. Summary main effects sizes
-2. Test of homogeneity for between-study variance (for Random-effects models). 
+2. Test of homogeneity for between-group variance (for Random-effects models). 
 3. Test of homogenity for within-study variance
 4. Categorical moderator analyses
 
@@ -36,11 +36,6 @@ metapower can currently handle the following designs and effect sizes:
 4. Standardized mean difference: Cohen's *d*
 5. Correlation betwen two continous variables: Correlatiion Coefficient (via Fisher's r-to-z transformation)
 6. Probability of Success/Faluire: Odds Ratio
-
-Visualization of power curves for
-
-7. Main effects
-8. Between-study variance (for Random-effects models)
 
 ## Installation
 
@@ -58,33 +53,25 @@ And the development version from [GitHub](https://github.com/) with:
 devtools::install_github("jasonwgriffin/metapower")
 ```
 
-## Example 1: Computing power to detect mean difference effect size
+## Computing Meta-analytic Power
 
 Suppose that we plan to meta-analyze all published findings to compute a summary effect size estimate for the group difference between typically developing individuals and individuals with autism on a measure of face recognition ability. In order to plan the study accordingly, we must choose plausible values for the following:
 
 1. Expected effect size
 2. Expected sample size per group
 3. Expected number of studies
-4. Expected degree of heterogeneity (only for Random-effects model)
 
 ...*for our meta-analysis of face recognition deficits in autism*
 
 1. We expect that face recognition deficits in ASD are small (Cohen's d = 0.25)
 2. Sample sizes in autism research are generally small. We expect the average group size to be 20.
 3. Face recognition is frequently studied in autism; therefore, we expect to find 50 studies.
-4. Autism is notoriously heterogeneous. We expect large heterogeneity between-studies.
 
 To do this with `metapower`, we use the core function `mpower()`
 
 ```{r}
 library(metapower)
-my_power <- mpower(effect_size = .25, 
-                   sample_size = 20, 
-                   k = 30, 
-                   hg = "large", 
-                   es_type = "d",
-                   model = "random")
-
+my_power <- mpower(effect_size = .25, sample_size = 20, k = 30, es_type = "d")
 ```
 
 Note that we specify this a random-effects model (`model = "random`). 
@@ -94,11 +81,11 @@ For fixed-effects model, use `model = "fixed"`.
 print(my_power)
 ```
 
-The first part of the output shows the expected input values, where the main results are shown in the bottom portion, mainly, `Estimated Power`. Under this set of values, our power to detect a mean difference is `r round(my_power$power*100,2)`%. Furthermore, we can look at the power to detect heterogeneity among included studies by examining the `Estimated Power for Test of Homogeneity` output, which for this set of values is `r round(my_power$homo_test*100,2)`%
+The first part of the output shows the expected input values, where the main results are shown in the bottom portion, mainly, `Estimated Power`. Under this set of values, our power to detect a mean difference under a Fixed-Effects model is  `r round(my_power$power$fixed_power*100,2)`%. Furthermore, we can look at the power under a Random-Effects model under various heterogenity levels (e.g., Low, Moderate, Large). For the output regarding `Estimated Power: Test of Homogenity`, please see below
 
 To visualize the power curve for these set of input parameters, use `power_plot()` to generate a `ggobject` that is modifiable and by default, shows 10x as many studies as the user inputs. 
 
-```{r fig.height=4, fig.width=7, dpi = 300}
+```{r fig.height=6, fig.width=7, dpi = 300}
 power_plot(my_power)
 ```
 
@@ -106,6 +93,21 @@ For users wanting more flexibility in visualization, the `mpower` object contain
 
 ```{r}
 str(my_power$df)
+```
+
+## Power for the Test of Homogeneity
+
+For Fixed-Effects Model, the test of homogeneity examines whether the amount of variation among effect sizes is greater than that of sampling error alone. TO compute this, you must use the arguement `sd` to assign a value representing the average difference between the effect sizes and the mean effect. 
+```{r}
+(homogen_power <- mpower(effect_size = .25, sample_size = 20, k = 30, es_type = "d", sd = 3))
+```
+
+For Random-Effects models, the test of homogeneity evaluates whether the variance component, $\tau^2$, is different than zero. metapower automatically uses small, moderate, and large values of $\tau^2$. 
+
+We can visualize this across a range with `homogen_power_plot`
+
+```{r fig.height=6, fig.width=7, dpi = 300}
+homogen_power_plot(homogen_power)
 ```
 
 ## Example 2: Power analysis for moderation analysis (categorical variables)
@@ -121,24 +123,22 @@ We may expect that face recognition tasks have larger effect sizes then face per
 
 1. `n_groups = 2`
 2. `effect_sizes = c(.2,.5)`
-
+3. `sd_within = (1,4)`
 
 ```{r}
-my_mod <- mod_power(n_groups = 4, 
-                           effect_sizes = c(1,4,5,6), 
-                           es_type = "d",
-                           sample_size = 20,
-                           k = 20,
-                           hg = "large",
-                           model = "random")
+my_mod <- mod_power(n_groups = 2, 
+                    effect_sizes = c(.2,.5), 
+                    es_type = "d",
+                    sample_size = 20,
+                    k = 10,
+                    sd_within = c(1,4))
 ```
 
 ```{r}
 print(my_mod)
-
 ```
 
-Given, this set of expected values, we have `r round(my_mod$power_b*100,2)`% to detect between-group differences between face perception and face recognition deficits in ASD based on these set of expectations. As expected, moderator effects are much harder to detect and more studies are required, especially when heterogenity is high.
+Given, this set of expected values, we have `r round(my_mod$mod_power$fixed_power_b*100,2)`% to detect between-group differences under a Fixed-Effects model. As expected, moderator effects are much harder to detect and more studies are required, especially when heterogenity is high.
 
 ## References
 

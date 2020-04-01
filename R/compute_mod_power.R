@@ -26,7 +26,7 @@ compute_mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, t
   fixed_weight_w <-1/variance
   fixed_var_w <- round(sqrt(1/sum(rep(fixed_weight_w,sample_size/n_groups))),2)
 
-  if(missing(sd_within)){
+  if(is.null(sd_within)){
     sd_within <- NA
     fixed_lambda_w <- NA
     fixed_power_w <- NA
@@ -55,31 +55,9 @@ compute_mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, t
   random_lambda_w <- NA
   random_power_w <- NA
 
-  mode_power_list <- tibble(fixed_power_b = fixed_power_b,
-                            fixed_power_w = fixed_power_w,
-                            random_power_b_s = random_power_b_s,
-                            random_power_b_m = random_power_b_m,
-                            random_power_b_l = random_power_b_l)
-
-
-
-  # mod_power_list <- list(df_b = df_b,
-  #                        df_w = df_w,
-  #                        c_alpha_b = c_alpha_b,
-  #                        c_alpha_w = c_alpha_w,
-  #                        fixed_weight_c = fixed_weight_c,
-  #                        fixed_lambda_b = fixed_lambda_b,
-  #                        fixed_power_b = fixed_power_b,
-  #                        fixed_weight_w = fixed_weight_w,
-  #                        fixed_var_w = fixed_var_w,
-  #                        fixed_lambda_w = fixed_lambda_w,
-  #                        fixed_power_w = fixed_power_w,
-  #                        tau2_s = tau2_s,
-  #                        tau2_m = tau2_m,
-  #                        tau2_l = tau2_l,
-  #                        random_weight_b = random_weight_b,
-  #                        random_lambda_b = random_lambda_b,
-  #                        random_power_b = random_power_b,
-  #                        random_lambda_w = random_lambda_w,
-  #                        random_power_w = random_power_w)
+  mod_power_list <- tibble(fixed_power_b = fixed_power_b,
+                           fixed_power_w = fixed_power_w,
+                           random_power_b_s = random_power_b_s,
+                           random_power_b_m = random_power_b_m,
+                           random_power_b_l = random_power_b_l)
 }

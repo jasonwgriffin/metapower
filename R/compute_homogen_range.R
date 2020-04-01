@@ -1,4 +1,4 @@
-compute_homogen_range <- function(effect_size, variance, sample_size, k, es_type, test_type, p, sd, con_table){
+compute_homogen_range <- function(effect_size, sample_size, k, es_type, test_type, p, sd, con_table){
 
   if(missing(con_table))
     con_table = NA
@@ -15,7 +15,7 @@ compute_homogen_range <- function(effect_size, variance, sample_size, k, es_type
                                      dplyr::mutate_all(as.numeric))
     return(homo_range)
 
-  }else if (es_type =="OR"){
+    }else if (es_type =="OR"){
 
     variance <- compute_variance(sample_size, effect_size, es_type, con_table)
     homo_range <- tibble(SD = rep(seq(0,6), each = (k*range_factor-1)),

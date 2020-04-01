@@ -9,12 +9,10 @@ mpower(
   sample_size,
   k,
   es_type,
-  model,
-  hg,
   test_type = "two-tailed",
   p = 0.05,
-  sd,
-  con_table
+  sd = NULL,
+  con_table = NULL
 )
 }
 \arguments{
@@ -25,10 +23,6 @@ mpower(
 \item{k}{Expected number of studies.}
 
 \item{es_type}{Effect size metric: 'Correlation', 'd', or 'OR'}
-
-\item{model}{Fixed-effects model (model = "fixed") or Random-effects model (model = "random")}
-
-\item{hg}{Expected heterogenity: "small", "medium", or "large".}
 
 \item{test_type}{Alternative hypothesis: "two-tailed" (default) or "one-tailed"}
 
@@ -53,8 +47,7 @@ meta-analyis models. Currently, the anticpated summary effect size estimate shou
 (i.e, Cohen's d)
 }
 \examples{
-mpower(effect_size = .5, sample_size = 10, k = 10, es_type = "d",
-       hg = "large", model = "random", test_type = "two-tailed")
+mpower(effect_size = .5, sample_size = 10, k = 10, es_type = "d")
 
 }
 \references{

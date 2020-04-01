@@ -21,10 +21,35 @@ power_plot <- function(obj){
           legend.justification = c(1,0),
           legend.background = element_rect(colour = 'black', fill = 'white', linetype='solid')))
 
+  if(class(obj) == "mpower"){
+
+    rand_dat <- obj$df %>%
+      dplyr::filter(obj$df$es_v == obj$effect_size) %>%
+      dplyr::select(obj$df$k_v, dplyr::starts_with("rand")) %>%
+      tidyr::pivot_longer(-obj$df$k_v, names_to = "power_type", values_to = "power")
+
+    obj$df$es_v <- as.factor(obj$df$es_v)
+
+    fixed_plot <- ggplot(obj$df, aes(x = obj$df$k_v, y = obj$df$fixed_power, linetype = obj$df$es_v)) +
+      p_aes +
+      ggtitle("Fixed-Effects Model") +
+      labs(linetype = "Effect Size")
+
+    random_plot <- ggplot(rand_dat, aes(x = rand_dat$k_v, y = rand_dat$power, group = rand_dat$power_type, color = rand_dat$power_type)) +
+      p_aes +
+      ggtitle("Random-Effects Model") +
+      scale_color_manual(name = "Heterogenity",
+                         labels = c("Large", "Moderate", "Low"),
+                         values = c("red","blue","green"))
+
+    p <- cowplot::plot_grid(fixed_plot, random_plot, ncol = 1)
+
+  }else if (class(obj) == "modpower"){
+
   rand_dat <- obj$df %>%
-    dplyr::filter(es_v == effect_size) %>%
-    dplyr::select(k_v, starts_with("rand")) %>%
-    tidyr::pivot_longer(-k_v, names_to = "power_type", values_to = "power")
+    dplyr::filter(obj$df$es_v == obj$effect_size) %>%
+    dplyr::select(obj$df$k_v, dplyr::starts_with("rand")) %>%
+    tidyr::pivot_longer(-obj$df$k_v, names_to = "power_type", values_to = "power")
 
   obj$df$es_v <- as.factor(obj$df$es_v)
 
@@ -33,14 +58,17 @@ power_plot <- function(obj){
     ggtitle("Fixed-Effects Model") +
     labs(linetype = "Effect Size")
 
-  random_plot <- ggplot(rand_dat, aes(x = k_v, y = power, group = power_type, color = power_type)) +
+  random_plot <- ggplot(rand_dat, aes(x = rand_dat$k_v, y = rand_dat$power, group = rand_dat$power_type, color = rand_dat$power_type)) +
     p_aes +
     ggtitle("Random-Effects Model") +
     scale_color_manual(name = "Heterogenity",
                        labels = c("Large", "Moderate", "Low"),
                        values = c("red","blue","green"))
 
-  p <- plot_grid(fixed_plot, random_plot, ncol = 1)
+  p <- cowplot::plot_grid(fixed_plot, random_plot, ncol = 1)
+
+  }
 
   return (p)
+
 }
