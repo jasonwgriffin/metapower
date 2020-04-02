@@ -9,6 +9,10 @@
 
 power_plot <- function(obj){
 
+  if(class(obj) != "mpower")
+    stop("Object must be of class: mpower")
+
+
   ## set aesthetic
   p_aes <- list(geom_line(size = 1),
     scale_x_continuous(limits = c(2,max(obj$df$k_v)), breaks = c(seq(2,max(obj$df$k_v),by = round(max(obj$df$k_v)*.10,0)))),
