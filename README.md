@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-metapoweR <img src = 'man/figures/metapower_sticker.tiff' align = "right" height = "180" />
-===========================================================================================
+metapoweR <img src = 'man/figures/metapower_sticker.png' align = "right" height = "180" />
+==========================================================================================
 
 <!-- badges: start -->
 <!-- badges: end -->
