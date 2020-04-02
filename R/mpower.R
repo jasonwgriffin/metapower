@@ -1,8 +1,7 @@
 #' Compute Power for Meta-analysis
 #'
-#' the mpower( ) command allows for the calculation of statistical power for both fixed- and random-effects
-#' meta-analyis models. Currently, the anticpated summary effect size estimate should be standardized mean differences units
-#'(i.e, Cohen's d)
+#' Computes statistical power for meta-analytic main effects, tests of homogeneity, and categorical moderator models under
+#' both fixed- and random-effects models.
 #'
 #' @param effect_size  Expected effect size magnitude.
 #'
@@ -10,22 +9,21 @@
 #'
 #' @param k Expected number of studies.
 #'
-#' @param es_type Effect size metric: 'Correlation', 'd', or 'OR'
+#' @param es_type 'Correlation', 'd', or 'OR'
 #'
-#' @param test_type Alternative hypothesis: "two-tailed" (default) or "one-tailed"
+#' @param test_type "two-tailed" or "one-tailed"
 #'
-#' @param p alpha level: p = .05 (default)
+#' @param p Significance level (Type I error probability)
 #'
 #' @param sd (Optional) Fixed-effects models only: Expected standard deviation of among all effect sizes
 #'
-#' @param con_table Only relevant for Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+#' @param con_table (Optional) For Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 #'
 #' \tabular{lcc}{
 #'  2x2 Table   \tab Group 1 \tab Group 2 \cr
 #'  Present     \tab a       \tab b       \cr
 #'  Not Present \tab c       \tab d       \cr
 #'}
-#'
 #'
 #' @return Estimated Power
 #'

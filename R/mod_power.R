@@ -1,25 +1,25 @@
 #' Compute Power for Categorical Moderation Meta-analysis
 #'
-#' mod_power( ) is an extension of mpower() and so it takes similiar inputs. The primary inputs are the expected effect sizes
-#' for each group and the expected within-group standard deviations in those groups.
+#' Computes statistical power for categorical moderator models under fixed- and random-effects models
+#'
 #'
 #' @param n_groups Number of anticipated groups in moderation analysis.
 #'
 #' @param effect_sizes  Expected effect sizes of for each group.
 #'
-#' @param es_type Effect size metric: 'Correlation', 'd', or 'OR'.
+#' @param es_type 'Correlation', 'd', or 'OR'.
 #'
-#' @param sample_size Expected number of participants per group.
+#' @param sample_size Expected number of participants (per group)
 #'
 #' @param k Total expected number of studies.
 #'
-#' @param p alpha level: p = .05 (DEFAULT)
+#' @param p Significance level (Type I error probability)
 #'
-#' @param test_type one-tailed or two-tailed
+#' @param test_type "two-tailed" or "one-tailed"
 #'
-#' @param sd_within standard deviation within groups
+#' @param sd_within (Optional) Standard deviation within-groups
 #'
-#' @param con_table Only relevant for Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+#' @param con_table (Optional) For Odds Ratio effect sizes. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 #'
 #' \tabular{lcc}{
 #'  2x2 Table   \tab Group 1 \tab Group 2 \cr

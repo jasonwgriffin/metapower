@@ -22,15 +22,15 @@ mpower(
 
 \item{k}{Expected number of studies.}
 
-\item{es_type}{Effect size metric: 'Correlation', 'd', or 'OR'}
+\item{es_type}{'Correlation', 'd', or 'OR'}
 
-\item{test_type}{Alternative hypothesis: "two-tailed" (default) or "one-tailed"}
+\item{test_type}{"two-tailed" or "one-tailed"}
 
-\item{p}{alpha level: p = .05 (default)}
+\item{p}{Significance level (Type I error probability)}
 
 \item{sd}{(Optional) Fixed-effects models only: Expected standard deviation of among all effect sizes}
 
-\item{con_table}{Only relevant for Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+\item{con_table}{(Optional) Only relevant for Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 
 \tabular{lcc}{
  2x2 Table   \tab Group 1 \tab Group 2 \cr
@@ -42,9 +42,8 @@ mpower(
 Estimated Power
 }
 \description{
-the mpower( ) command allows for the calculation of statistical power for both fixed- and random-effects
-meta-analyis models. Currently, the anticpated summary effect size estimate should be standardized mean differences units
-(i.e, Cohen's d)
+Computes statistical power for meta-analytic main effects, tests of homogeneity, and categorical moderator models under
+both fixed- and random-effects models.
 }
 \examples{
 mpower(effect_size = .5, sample_size = 10, k = 10, es_type = "d")

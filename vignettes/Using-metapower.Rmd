@@ -1,0 +1,105 @@
+---
+title: "Using metapower"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using-metapower}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(metapower)
+```
+## Computing Meta-analytic Power
+
+Suppose that we plan to meta-analyze all published findings to compute a summary effect size estimate for the group difference between typically developing individuals and individuals with autism on a measure of face recognition ability. In order to plan the study accordingly, we must choose plausible values for the following:
+
+1. Expected effect size
+2. Expected sample size per group
+3. Expected number of studies
+
+...*for our meta-analysis of face recognition deficits in autism*
+
+1. We expect that face recognition deficits in ASD are small (Cohen's d = 0.25)
+2. Sample sizes in autism research are generally small. We expect the average group size to be 20.
+3. Face recognition is frequently studied in autism; therefore, we expect to find 30 studies.
+
+To do this with `metapower`, we use the core function `mpower()`
+
+```{r}
+library(metapower)
+my_power <- mpower(effect_size = .25, sample_size = 20, k = 30, es_type = "d")
+```
+
+Note that we specify this a random-effects model (`model = "random`). 
+For fixed-effects model, use `model = "fixed"`.
+
+```{r}
+print(my_power)
+```
+
+The first part of the output shows the expected input values, where the main results are shown in the bottom portion, mainly, `Estimated Power`. Under this set of values, our power to detect a mean difference under a Fixed-Effects model is  `r round(my_power$power$fixed_power*100,2)`%. Furthermore, we can look at the power under a Random-Effects model under various heterogenity levels (e.g., Low, Moderate, Large). For the output regarding `Estimated Power: Test of Homogenity`, please see below
+
+Given that power analysis require a lot of assumptions, it is generally advisable to look at power across a range of input values. To visualize the power curve for these set of input parameters, use `power_plot()` to generate a `ggobject` that is modifiable and by default, shows 5x as many studies as the user inputs. 
+
+```{r fig.height=7, fig.width=7, dpi = 300,out.width = "100%", out.height = "100%"}
+power_plot(my_power)
+```
+
+For fixed-effects model, power curves are shown for a range of effect sizes, whereas random-effects model shows power across a range of heterogeneity values, $\tau^2$
+
+For users wanting more flexibility in visualization, the `mpower` object contains a dataframe `$df` containing all data populating the `ggobject`,
+
+```{r}
+str(my_power$df)
+```
+
+## Power for the Test of Homogeneity
+
+For Fixed-Effects Model, the test of homogeneity examines whether the amount of variation among effect sizes is greater than that of sampling error alone. TO compute this, you must use the arguement `sd` to assign a value representing the average difference between the effect sizes and the mean effect. 
+```{r}
+(homogen_power <- mpower(effect_size = .25, sample_size = 20, k = 30, es_type = "d", sd = 3))
+```
+
+For Random-Effects models, the test of homogeneity evaluates whether the variance component, $\tau^2$, is different than zero. metapower automatically uses small, moderate, and large values of $\tau^2$. 
+
+We can visualize this across a range with `homogen_power_plot`
+
+```{r fig.height=7, fig.width=7, dpi = 300,out.width = "100%", out.height = "100%"}
+homogen_power_plot(homogen_power)
+```
+
+## Example 2: Power analysis for moderation analysis (categorical variables)
+
+Although researchers are primarily interested in conducting meta-analysis to quantify the main effect of a specific phenomenon, It is very common to evaluate the moderation of this overall effect based on a number of study- and/or sample-related characteristics such as task paradigm or age group (e.g., children, adolescents, adults). To compute the statistical power for the detection of categorical moderators, we use the function `mod_power()` with a few additional arguments, mainly:
+
+1. Expected number of groups (`n_groups`):
+2. Expected effect size of each group(`effect_sizes`):
+
+...*for our meta-analysis of face recognition deficits in autism*
+
+We may expect that face recognition tasks have larger effect sizes then face perception tasks; therefore, we specify 2 groups and their respective expected effect sizes:
+
+1. `n_groups = 2`
+2. `effect_sizes = c(.2,.5)`
+
+```{r}
+my_mod <- mod_power(n_groups = 2, 
+                    effect_sizes = c(.2,.5), 
+                    sample_size = 20,
+                    k = 30,
+                    es_type = "d")
+```
+
+```{r}
+print(my_mod)
+```
+
+Given, this set of expected values, we have `r round(my_mod$mod_power$fixed_power_b*100,2)`% to detect between-group differences under a Fixed-Effects model. As expected, moderator effects are much harder to detect and more studies are required, especially when heterogenity is high.

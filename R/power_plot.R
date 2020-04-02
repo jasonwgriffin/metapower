@@ -43,7 +43,7 @@ power_plot <- function(obj){
       p_aes +
       ggtitle("Random-Effects Model") +
       scale_color_manual(name = "Heterogenity",
-                         labels = c("Large", "Moderate", "Low"),
+                         labels = c("Large", "Moderate", "Small"),
                          values = c("red","blue","green"))
 
     p <- cowplot::plot_grid(fixed_plot, random_plot, ncol = 1)

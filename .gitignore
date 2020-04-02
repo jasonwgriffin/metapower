@@ -32,3 +32,6 @@ Rplots
 Rplots.pdf
 .Rproj.user
 .DS_Store
+
+#cran comments
+cran-comments.md

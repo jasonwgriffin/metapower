@@ -1,23 +1,23 @@
 Package: metapower
 Type: Package
-Title: Compute statistical power for meta-analysis
+Title: Compute Statistical Power for Meta-Analysis
 Version: 0.0.0.9000
 Authors@R: person("Jason", "Griffin", email = "jasongriffin138@gmail.com", role = c("aut", "cre"))
-Description: Compute statistical power for meta-analysis
-    Use four spaces when indenting paragraphs within the Description.
+Description: A simple and effective tool for computing meta-analytic statistical power for main effects, tests of homogeneity,
+    and categorial moderator models.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
 Imports:
-    cowplot,
-    dplyr,
-    ggplot2,
-    knitr,
-    magrittr,
-    tibble,
-    tidyr,
-    testthat,
-    rmarkdown,
-    rlang
+    cowplot (>= 1.0.0),
+    dplyr (>= 0.8.5),
+    ggplot2 (>= 3.3.0),
+    knitr (>= 1.28),
+    magrittr (>= 1.5),
+    tibble (>= 3.0.0),
+    tidyr (>= 1.0.2),
+    testthat (>= 2.3.2),
+    rmarkdown (>= 2.1),
+    rlang (>= 0.4.5)
 VignetteBuilder: knitr
 RoxygenNote: 7.1.0
