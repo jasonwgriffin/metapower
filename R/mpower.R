@@ -12,7 +12,6 @@
 #'
 #' @param es_type Effect size metric: 'Correlation', 'd', or 'OR'
 #'
-#'
 #' @param test_type Alternative hypothesis: "two-tailed" (default) or "one-tailed"
 #'
 #' @param p alpha level: p = .05 (default)
