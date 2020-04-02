@@ -25,17 +25,17 @@ power_plot <- function(obj){
 
     rand_dat <- obj$df %>%
       dplyr::filter(obj$df$es_v == obj$effect_size) %>%
-      dplyr::select(obj$df$k_v, dplyr::starts_with("rand")) %>%
-      tidyr::pivot_longer(-obj$df$k_v, names_to = "power_type", values_to = "power")
+      dplyr::select("k_v", "random_power_s", "random_power_m", "random_power_l") %>%
+      tidyr::pivot_longer(-"k_v", names_to = "power_type", values_to = "power")
 
     obj$df$es_v <- as.factor(obj$df$es_v)
 
-    fixed_plot <- ggplot(obj$df, aes(x = obj$df$k_v, y = obj$df$fixed_power, linetype = obj$df$es_v)) +
+    fixed_plot <- ggplot(obj$df, aes(x = .data$k_v, y = .data$fixed_power, linetype = .data$es_v)) +
       p_aes +
       ggtitle("Fixed-Effects Model") +
       labs(linetype = "Effect Size")
 
-    random_plot <- ggplot(rand_dat, aes(x = rand_dat$k_v, y = rand_dat$power, group = rand_dat$power_type, color = rand_dat$power_type)) +
+    random_plot <- ggplot(rand_dat, aes(x = .data$k_v, y = .data$power, group = .data$power_type, color = .data$power_type)) +
       p_aes +
       ggtitle("Random-Effects Model") +
       scale_color_manual(name = "Heterogenity",
@@ -48,17 +48,17 @@ power_plot <- function(obj){
 
   rand_dat <- obj$df %>%
     dplyr::filter(obj$df$es_v == obj$effect_size) %>%
-    dplyr::select(obj$df$k_v, dplyr::starts_with("rand")) %>%
-    tidyr::pivot_longer(-obj$df$k_v, names_to = "power_type", values_to = "power")
+    dplyr::select("k_v", "random_power_s", "random_power_m", "random_power_l") %>%
+    tidyr::pivot_longer(-"k_v", names_to = "power_type", values_to = "power")
 
   obj$df$es_v <- as.factor(obj$df$es_v)
 
-  fixed_plot <- ggplot(obj$df, aes(x = obj$df$k_v, y = obj$df$fixed_power, linetype = obj$df$es_v)) +
+  fixed_plot <- ggplot(obj$df, aes(x = .data$k_v, y = .data$fixed_power, linetype = .data$es_v)) +
     p_aes +
     ggtitle("Fixed-Effects Model") +
     labs(linetype = "Effect Size")
 
-  random_plot <- ggplot(rand_dat, aes(x = rand_dat$k_v, y = rand_dat$power, group = rand_dat$power_type, color = rand_dat$power_type)) +
+  random_plot <- ggplot(rand_dat, aes(x = .data$k_v, y = .data$power, group = .data$power_type, color = .data$power_type)) +
     p_aes +
     ggtitle("Random-Effects Model") +
     scale_color_manual(name = "Heterogenity",

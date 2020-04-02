@@ -17,6 +17,7 @@ Imports:
     tibble,
     tidyr,
     testthat,
-    rmarkdown
+    rmarkdown,
+    rlang
 VignetteBuilder: knitr
 RoxygenNote: 7.1.0

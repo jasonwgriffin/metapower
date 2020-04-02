@@ -23,15 +23,15 @@ homogen_power_plot <- function(obj){
 
       rand_dat <- obj$homo_range %>%
         dplyr::filter(obj$homo_range$es_v == obj$effect_size) %>%
-        dplyr::select(obj$homo_range$k_v, dplyr::starts_with("rand")) %>%
-        tidyr::pivot_longer(-obj$homo_range$k_v, names_to = "power_type", values_to = "power")
+        dplyr::select("k_v", "random_power_s", "random_power_m", "random_power_l") %>%
+        tidyr::pivot_longer(-"k_v", names_to = "power_type", values_to = "power")
 
-      fixed_plot <- ggplot(fix_dat, aes(x = fix_dat$SD, y = fix_dat$fixed_power, linetype = fix_dat$k_v)) +
+      fixed_plot <- ggplot(fix_dat, aes(x = .data$SD, y = .data$fixed_power, linetype = .data$k_v)) +
         geom_line(size = 1)+
         scale_x_continuous(limits = c(0, 6), breaks = c(seq(1:6))) +
         p_aes
 
-      random_plot <- ggplot(rand_dat, aes(x = rand_dat$k_v, y = rand_dat$power, color = rand_dat$power_type)) +
+      random_plot <- ggplot(rand_dat, aes(x = .data$k_v, y = .data$power, color = .data$power_type)) +
         geom_line(size = 1)+
         scale_x_continuous(limits = c(2,max(obj$homo_range$k_v)), breaks = c(seq(2,max(obj$homo_range$k_v),by = round(max(obj$homo_range$k_v)*.10,0)))) +
         p_aes

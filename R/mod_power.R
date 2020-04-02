@@ -55,7 +55,6 @@ mod_power <- function(n_groups,
                       con_table = NULL) {
 
   ## Arguement Integrity Checks
-
   #model_options <- c("fixed", "random")
   test_type_options <- c("one-tailed", "two-tailed")
   #hg_options <- c("small", "medium", "large")
