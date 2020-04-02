@@ -42,7 +42,7 @@ power_plot <- function(obj){
     random_plot <- ggplot(rand_dat, aes(x = .data$k_v, y = .data$power, group = .data$power_type, color = .data$power_type)) +
       p_aes +
       ggtitle("Random-Effects Model") +
-      scale_color_manual(name = "Heterogenity",
+      scale_color_manual(name = "Heterogeneity",
                          labels = c("Large", "Moderate", "Small"),
                          values = c("red","blue","green"))
 
@@ -65,7 +65,7 @@ power_plot <- function(obj){
   random_plot <- ggplot(rand_dat, aes(x = .data$k_v, y = .data$power, group = .data$power_type, color = .data$power_type)) +
     p_aes +
     ggtitle("Random-Effects Model") +
-    scale_color_manual(name = "Heterogenity",
+    scale_color_manual(name = "Heterogeneity",
                        labels = c("Large", "Moderate", "Low"),
                        values = c("red","blue","green"))
 

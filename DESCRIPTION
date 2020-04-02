@@ -1,10 +1,10 @@
 Package: metapower
 Type: Package
 Title: Compute Statistical Power for Meta-Analysis
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: person("Jason", "Griffin", email = "jasongriffin138@gmail.com", role = c("aut", "cre"))
 Description: A simple and effective tool for computing meta-analytic statistical power for main effects, tests of homogeneity,
-    and categorial moderator models.
+    and categorical moderator models.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
@@ -14,7 +14,6 @@ Imports:
     ggplot2 (>= 3.3.0),
     knitr (>= 1.28),
     magrittr (>= 1.5),
-    tibble (>= 3.0.0),
     tidyr (>= 1.0.2),
     testthat (>= 2.3.2),
     rmarkdown (>= 2.1),

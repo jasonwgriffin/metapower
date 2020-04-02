@@ -48,7 +48,6 @@
 #' @importFrom stats pchisq
 #' @importFrom stats qchisq
 #' @import ggplot2
-#' @import tibble
 #' @import magrittr
 #' @export
 

@@ -21,19 +21,19 @@ mod_power(
 
 \item{effect_sizes}{Expected effect sizes of for each group.}
 
-\item{sample_size}{Expected number of participants per group.}
+\item{sample_size}{Expected number of participants (per group)}
 
 \item{k}{Total expected number of studies.}
 
-\item{es_type}{Effect size metric: 'Correlation', 'd', or 'OR'.}
+\item{es_type}{'Correlation', 'd', or 'OR'.}
 
-\item{test_type}{one-tailed or two-tailed}
+\item{test_type}{"two-tailed" or "one-tailed"}
 
-\item{p}{alpha level: p = .05 (DEFAULT)}
+\item{p}{Significance level (Type I error probability)}
 
-\item{sd_within}{standard deviation within groups}
+\item{sd_within}{(Optional) Standard deviation within-groups}
 
-\item{con_table}{Only relevant for Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+\item{con_table}{(Optional) For Odds Ratio effect sizes. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 
 \tabular{lcc}{
  2x2 Table   \tab Group 1 \tab Group 2 \cr
@@ -45,8 +45,7 @@ mod_power(
 Estimated Power estimates for between and within-groups moderation
 }
 \description{
-mod_power( ) is an extension of mpower() and so it takes similiar inputs. The primary inputs are the expected effect sizes
-for each group and the expected within-group standard deviations in those groups.
+Computes statistical power for categorical moderator models under fixed- and random-effects models
 }
 \examples{
 mod_power(

@@ -40,7 +40,7 @@ homogen_power <- function (effect_size, variance, sample_size, k, es_type, test_
   s_m = 2*u_m^2/sd_m
   s_l = 2*u_l^2/sd_l
 
-  homo_power <- tibble(
+  homo_power <- data.frame(
     fixed_power = fixed_power,
     random_power_s = (1 - pchisq(c_alpha/r_s, s_s, ncp = 0, lower.tail = TRUE)),
     random_power_m = (1 - pchisq(c_alpha/r_m, s_m, ncp = 0, lower.tail = TRUE)),

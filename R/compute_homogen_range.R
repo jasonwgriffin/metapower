@@ -6,7 +6,7 @@ compute_homogen_range <- function(effect_size, sample_size, k, es_type, test_typ
   range_factor <- 5
 
   if(es_type == "d" | es_type == "Correlation"){
-    homo_range <- tibble(SD = rep(seq(0,6), each = (k*range_factor-1)),
+    homo_range <- data.frame(SD = rep(seq(0,6), each = (k*range_factor-1)),
                       k_v = rep(seq(2,range_factor*k),times = 7),
                       es_v = effect_size,
                       n_v = sample_size,
@@ -18,7 +18,7 @@ compute_homogen_range <- function(effect_size, sample_size, k, es_type, test_typ
     }else if (es_type =="OR"){
 
     variance <- compute_variance(sample_size, effect_size, es_type, con_table)
-    homo_range <- tibble(SD = rep(seq(0,6), each = (k*range_factor-1)),
+    homo_range <- data.frame(SD = rep(seq(0,6), each = (k*range_factor-1)),
                          k_v = rep(seq(2,range_factor*k),times = 7),
                          es_v = effect_size,
                          n_v = sample_size,

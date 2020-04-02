@@ -11,14 +11,14 @@ Computation of statistical power for:
 
 1.  Summary main effects sizes
 2.  Test of homogeneity for between-group variance (for Random-effects models).
-3.  Test of homogenity for within-study variance
+3.  Test of homogeneity for within-study variance
 4.  Categorical moderator analyses
 
 metapower can currently handle the following designs and effect sizes:
 
 1.  Standardized mean difference: Cohen's *d*
-2.  Correlation betwen two continous variables: Correlatiion Coefficient (via Fisher's r-to-z transformation)
-3.  Probability of Success/Faluire: Odds Ratio
+2.  Correlation between two continuous variables: Correlation Coefficient (via Fisher's r-to-z transformation)
+3.  Probability of Success/Failure: Odds Ratio
 
 Installation
 ------------

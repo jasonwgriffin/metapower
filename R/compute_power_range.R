@@ -21,7 +21,7 @@ compute_power_range <- function(effect_size, sample_size, k, es_type, test_type,
 
       es_v = rep(c((effect_size/2), effect_size, (effect_size*2)), each = range_factor*k-1)
       variance <- compute_variance(sample_size, effect_size, es_type, con_table)
-      df <- tibble(k_v = rep(seq(2,range_factor*k), times = 3),
+      df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
                    es_v = es_v,
                    effect_size = effect_size,
                    n_v = sample_size,
@@ -31,7 +31,7 @@ compute_power_range <- function(effect_size, sample_size, k, es_type, test_type,
       return(df)
   }
 
-  df <- tibble(k_v = rep(seq(2,range_factor*k), times = 3),
+  df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
                  es_v = es_v,
                  effect_size = effect_size,
                  n_v = sample_size,

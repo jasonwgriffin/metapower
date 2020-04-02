@@ -30,7 +30,7 @@ mpower(
 
 \item{sd}{(Optional) Fixed-effects models only: Expected standard deviation of among all effect sizes}
 
-\item{con_table}{(Optional) Only relevant for Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+\item{con_table}{(Optional) For Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 
 \tabular{lcc}{
  2x2 Table   \tab Group 1 \tab Group 2 \cr

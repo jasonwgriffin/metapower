@@ -12,7 +12,7 @@ compute_power <- function(effect_size, variance, sample_size, k, es_type, test_t
     c_alpha <- qnorm(1-(p))
   }
 
-  main_effect_power <- tibble(
+  main_effect_power <- data.frame(
     fixed_power    = (1-pnorm(c_alpha - fixed_lambda)) + pnorm(-1*c_alpha - fixed_lambda),
     random_power_s = (1-pnorm(c_alpha - random_lambda_s)) + pnorm(-1*c_alpha - random_lambda_s),
     random_power_m = (1-pnorm(c_alpha - random_lambda_m )) + pnorm(-1*c_alpha - random_lambda_m),

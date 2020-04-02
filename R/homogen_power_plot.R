@@ -35,7 +35,7 @@ homogen_power_plot <- function(obj){
         geom_line(size = 1)+
         scale_x_continuous(limits = c(2,max(obj$homo_range$k_v)), breaks = c(seq(2,max(obj$homo_range$k_v),by = round(max(obj$homo_range$k_v)*.10,0)))) +
         p_aes +
-        scale_color_manual(name = "Heterogenity",
+        scale_color_manual(name = "Heterogeneity",
                            labels = c("Large", "Moderate", "Low"),
                            values = c("red","blue","green"))
 
