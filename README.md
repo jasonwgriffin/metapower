@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-metapoweR <img src = 'man/figures/logo.png' align = "right" height = "300" />
+metapoweR <img src = 'man/figures/logo.png' align = "right" height = "180" />
 =============================================================================
 
 <!-- badges: start -->
