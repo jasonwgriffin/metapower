@@ -4,7 +4,10 @@ Title: Compute Statistical Power for Meta-Analysis
 Version: 0.1.0
 Authors@R: person("Jason", "Griffin", email = "jasongriffin138@gmail.com", role = c("aut", "cre"))
 Description: A simple and effective tool for computing meta-analytic statistical power for 
-    main effects, tests of homogeneity, and categorical moderator models.
+    main effects, tests of homogeneity, and categorical moderator models. All equations are
+    described in Pigott (2012)<doi:10.1007/978-1-4614-2278-5>,
+    Hedges & Pigott (2004)<doi:10.1037/1082-989x.9.4.426>, and
+    Borenstein, Hedges, Higgins, & Rothstein (2009)<doi:10.1002/9780470743386>.
 Depends: R (>= 3.6)
 License: GPL-2
 Encoding: UTF-8

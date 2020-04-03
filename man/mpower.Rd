@@ -50,7 +50,7 @@ mpower(effect_size = .5, sample_size = 10, k = 10, es_type = "d")
 
 }
 \references{
-Bornstein, M., Hedges, L. V., Higgins, J. P. T. and Rothstein, H. R.(2009). Introduction to meta-analysis, Chichester, UK: Wiley.
+Borenstein, M., Hedges, L. V., Higgins, J. P. T. and Rothstein, H. R.(2009). Introduction to meta-analysis, Chichester, UK: Wiley.
 
 Hedges, L., Pigott, T. (2004). The Power of Statistical Tests for Moderators in Meta-Analysis Psychological Methods  9(4), 426-445.
 doi: https://dx.doi.org/10.1037/1082-989x.9.4.426
