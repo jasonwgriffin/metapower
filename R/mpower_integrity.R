@@ -56,6 +56,8 @@ if(es_type == "OR" & !missing(con_table)){
     stop("con_table must reflect a 2x2 contingency table with the form c(a,b,c,d). see documentation")
   if(sample_size != sum(con_table))
     stop("Entered sample size should equal the sum of the contigency table")
+  if(round(effect_size,1) != round((con_table[1]*con_table[4])/(con_table[2]*con_table[3]),1))
+    stop("con_table does not match effect size: OR = ad/bc")
 }
 ## test_type errors
 if(!(test_type %in% test_type_options))
