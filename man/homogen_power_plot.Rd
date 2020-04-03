@@ -2,16 +2,16 @@
 % Please edit documentation in R/homogen_power_plot.R
 \name{homogen_power_plot}
 \alias{homogen_power_plot}
-\title{Plot power curve}
+\title{Plot Power Curve for Test of Homogeneity}
 \usage{
 homogen_power_plot(obj)
 }
 \arguments{
-\item{obj}{This should be an mpower object}
+\item{obj}{should be an mpower object}
 }
 \value{
 Power curve plot for the user specified input parameters
 }
 \description{
-Plot power curve
+Plot Power Curve for Test of Homogeneity
 }

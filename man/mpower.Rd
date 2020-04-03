@@ -16,11 +16,11 @@ mpower(
 )
 }
 \arguments{
-\item{effect_size}{Expected effect size magnitude.}
+\item{effect_size}{Expected effect size magnitude}
 
-\item{sample_size}{Expected number of participants (per group).}
+\item{sample_size}{Expected number of participants (per group)}
 
-\item{k}{Expected number of studies.}
+\item{k}{Expected number of studies}
 
 \item{es_type}{'Correlation', 'd', or 'OR'}
 
@@ -28,7 +28,7 @@ mpower(
 
 \item{p}{Significance level (Type I error probability)}
 
-\item{sd}{(Optional) Fixed-effects models only: Expected standard deviation of among all effect sizes}
+\item{sd}{(Optional) Fixed-effects models only: Expected standard deviation among all effect sizes}
 
 \item{con_table}{(Optional) For Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 

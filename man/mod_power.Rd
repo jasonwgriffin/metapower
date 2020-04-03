@@ -17,21 +17,21 @@ mod_power(
 )
 }
 \arguments{
-\item{n_groups}{Number of anticipated groups in moderation analysis.}
+\item{n_groups}{Number of anticipated groups in moderation analysis}
 
 \item{effect_sizes}{Expected effect sizes of for each group.}
 
 \item{sample_size}{Expected number of participants (per group)}
 
-\item{k}{Total expected number of studies.}
+\item{k}{Total expected number of studies}
 
-\item{es_type}{'Correlation', 'd', or 'OR'.}
+\item{es_type}{'Correlation', 'd', or 'OR'}
 
 \item{test_type}{"two-tailed" or "one-tailed"}
 
 \item{p}{Significance level (Type I error probability)}
 
-\item{sd_within}{(Optional) Standard deviation within-groups}
+\item{sd_within}{(Optional) For computing power for a test of homogeneity (within-groups). standard deviation of each group to the overall mean}
 
 \item{con_table}{(Optional) For Odds Ratio effect sizes. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 

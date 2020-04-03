@@ -1,4 +1,4 @@
-#' Plot power curve
+#' Plot Power Curve for Meta-analysis
 #'
 #' @export
 #'
@@ -12,7 +12,6 @@ power_plot <- function(obj){
   if(class(obj) != "mpower")
     stop("Object must be of class: mpower")
 
-
   ## set aesthetic
   p_aes <- list(geom_line(size = 1),
     scale_x_continuous(limits = c(2,max(obj$df$k_v)), breaks = c(seq(2,max(obj$df$k_v),by = round(max(obj$df$k_v)*.10,0)))),
@@ -25,53 +24,29 @@ power_plot <- function(obj){
           legend.justification = c(1,0),
           legend.background = element_rect(colour = 'black', fill = 'white', linetype='solid')))
 
-  if(class(obj) == "mpower"){
-
-    rand_dat <- obj$df %>%
+  ## random data for plot
+  rand_dat <- obj$df %>%
       dplyr::filter(obj$df$es_v == obj$effect_size) %>%
       dplyr::select("k_v", "random_power_s", "random_power_m", "random_power_l") %>%
       tidyr::pivot_longer(-"k_v", names_to = "power_type", values_to = "power")
+  obj$df$es_v <- as.factor(obj$df$es_v)
 
-    obj$df$es_v <- as.factor(obj$df$es_v)
-
-    fixed_plot <- ggplot(obj$df, aes(x = .data$k_v, y = .data$fixed_power, linetype = .data$es_v)) +
+  # fixed plot
+  fixed_plot <- ggplot(obj$df, aes(x = .data$k_v, y = .data$fixed_power, linetype = .data$es_v)) +
       p_aes +
       ggtitle("Fixed-Effects Model") +
       labs(linetype = "Effect Size")
 
-    random_plot <- ggplot(rand_dat, aes(x = .data$k_v, y = .data$power, group = .data$power_type, color = .data$power_type)) +
+  # random plot
+  random_plot <- ggplot(rand_dat, aes(x = .data$k_v, y = .data$power, group = .data$power_type, color = .data$power_type)) +
       p_aes +
       ggtitle("Random-Effects Model") +
       scale_color_manual(name = "Heterogeneity",
                          labels = c("Large", "Moderate", "Small"),
                          values = c("red","blue","green"))
 
-    p <- cowplot::plot_grid(fixed_plot, random_plot, ncol = 1)
-
-  }else if (class(obj) == "modpower"){
-
-  rand_dat <- obj$df %>%
-    dplyr::filter(obj$df$es_v == obj$effect_size) %>%
-    dplyr::select("k_v", "random_power_s", "random_power_m", "random_power_l") %>%
-    tidyr::pivot_longer(-"k_v", names_to = "power_type", values_to = "power")
-
-  obj$df$es_v <- as.factor(obj$df$es_v)
-
-  fixed_plot <- ggplot(obj$df, aes(x = .data$k_v, y = .data$fixed_power, linetype = .data$es_v)) +
-    p_aes +
-    ggtitle("Fixed-Effects Model") +
-    labs(linetype = "Effect Size")
-
-  random_plot <- ggplot(rand_dat, aes(x = .data$k_v, y = .data$power, group = .data$power_type, color = .data$power_type)) +
-    p_aes +
-    ggtitle("Random-Effects Model") +
-    scale_color_manual(name = "Heterogeneity",
-                       labels = c("Large", "Moderate", "Low"),
-                       values = c("red","blue","green"))
-
+  #arrange for plotting
   p <- cowplot::plot_grid(fixed_plot, random_plot, ncol = 1)
-
-  }
 
   return (p)
 

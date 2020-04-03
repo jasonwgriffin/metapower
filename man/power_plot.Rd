@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_plot.R
 \name{power_plot}
 \alias{power_plot}
-\title{Plot power curve}
+\title{Plot Power Curve for Meta-analysis}
 \usage{
 power_plot(obj)
 }
@@ -13,5 +13,5 @@ power_plot(obj)
 Power curve plot for the user specified input parameters
 }
 \description{
-Plot power curve
+Plot Power Curve for Meta-analysis
 }

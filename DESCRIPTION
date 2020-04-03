@@ -3,8 +3,9 @@ Type: Package
 Title: Compute Statistical Power for Meta-Analysis
 Version: 0.1.0
 Authors@R: person("Jason", "Griffin", email = "jasongriffin138@gmail.com", role = c("aut", "cre"))
-Description: A simple and effective tool for computing meta-analytic statistical power for main effects, tests of homogeneity,
-    and categorical moderator models.
+Description: A simple and effective tool for computing meta-analytic statistical power for 
+    main effects, tests of homogeneity, and categorical moderator models.
+Depends: R (>= 3.6)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true

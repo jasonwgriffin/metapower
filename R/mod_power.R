@@ -3,21 +3,21 @@
 #' Computes statistical power for categorical moderator models under fixed- and random-effects models
 #'
 #'
-#' @param n_groups Number of anticipated groups in moderation analysis.
+#' @param n_groups Number of anticipated groups in moderation analysis
 #'
 #' @param effect_sizes  Expected effect sizes of for each group.
 #'
-#' @param es_type 'Correlation', 'd', or 'OR'.
+#' @param es_type 'Correlation', 'd', or 'OR'
 #'
 #' @param sample_size Expected number of participants (per group)
 #'
-#' @param k Total expected number of studies.
+#' @param k Total expected number of studies
 #'
 #' @param p Significance level (Type I error probability)
 #'
 #' @param test_type "two-tailed" or "one-tailed"
 #'
-#' @param sd_within (Optional) Standard deviation within-groups
+#' @param sd_within (Optional) For computing power for a test of homogeneity (within-groups). standard deviation of each group to the overall mean
 #'
 #' @param con_table (Optional) For Odds Ratio effect sizes. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 #'

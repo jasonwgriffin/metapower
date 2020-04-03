@@ -1,4 +1,4 @@
-#' Plot Power Curve
+#' Plot Power Curve for Test of Homogeneity
 #'
 #' @export
 #'
