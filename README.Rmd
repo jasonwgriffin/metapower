@@ -9,6 +9,7 @@ csl: "inst/apa.csl"
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
+library(badger)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -20,6 +21,9 @@ knitr::opts_chunk$set(
 # metapoweR <img src = 'man/figures/metapower_sticker.png' align = "right" height = "180" />
 
 <!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/metapower)](https://CRAN.R-project.org/package=metapower)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+
 <!-- badges: end -->
 
 The primary goal of metapower is to compute statistical power for meta-analyses. Currently, metapower has the following functionality:
