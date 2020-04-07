@@ -43,14 +43,12 @@ metapower can currently handle the following designs and effect sizes:
 
 ## Installation
 
-```{r include = FALSE}
-#You can install the released version of metapower from [CRAN](https://CRAN.R-project.org) with:
-#
-#
-#install.packages("metapower")
+You can install the released version of metapower from [CRAN](https://CRAN.R-project.org) with:
+```{r eval = FALSE}
+install.packages("metapower")
 ```
 
-And the development version from [GitHub](https://github.com/) with:
+And the development version from [GitHub](https://github.com/jasonwgriffin/metapower) with:
 
 ``` r
 # install.packages("devtools")
