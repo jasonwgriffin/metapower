@@ -9,6 +9,7 @@ csl: "inst/apa.csl"
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
+## updat elogo
 library(badger)
 knitr::opts_chunk$set(
   collapse = TRUE,
