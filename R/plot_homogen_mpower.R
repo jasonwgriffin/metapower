@@ -6,7 +6,7 @@
 #'
 #' @return Power curve plot for the user specified input parameters
 
-homogen_power_plot <- function(obj){
+plot_homogen_mpower <- function(obj){
 
   p_aes <- list(geom_line(size = 1),
                 scale_y_continuous(limits =c(0,1), breaks = c(0,.25,.5,.75,1)),
