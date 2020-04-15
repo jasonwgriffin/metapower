@@ -1,7 +1,6 @@
 #' Compute Power for Categorical Moderation Meta-analysis
 #'
-#' Computes statistical power for categorical moderator models under fixed- and random-effects models
-#'
+#' Computes statistical power for categorical moderator models under fixed- and random-effects models.
 #'
 #' @param n_groups Number of anticipated groups in moderation analysis
 #'
@@ -54,13 +53,11 @@ mod_power <- function(n_groups,
                       sd_within = NULL,
                       con_table = NULL) {
 
-  ## Arguement Integrity Checks
-  #model_options <- c("fixed", "random")
+  # Arguement Integrity Checks
   test_type_options <- c("one-tailed", "two-tailed")
-  #hg_options <- c("small", "medium", "large")
   es_type_options <- c("d","Correlation", "OR")
 
-  #n_groups
+  # n_groups
   if(missing(n_groups))
     stop("Must specify number of groups: n_groups")
   if(!(is.numeric(n_groups)))
@@ -125,31 +122,7 @@ mod_power <- function(n_groups,
       stop("Entered sample size should equal the sum of the contigency table")
     }
 
-  # model
-  #if(missing(model))
-  #  stop("Need to specify 'fixed' or 'random' effects model")
-  #if(!(model %in% model_options))
-  #  stop("Need to specify 'fixed' or 'random' effects model")
-
-  ## check for arguements that are not required for fixed models
-  #if(model == "fixed"){
-  #  if (!missing(hg)){
-  #    stop("Fixed-effects models assume no heterogenity")
-  #  } else if (missing(hg)) {
-  #    hg = NULL
-  #  }
-  #}
-
-  ## random effects and heterogenity parameter
-  #if(model == 'random'){
-  #  if(missing(hg)){
-  #    stop("Need to specify small, medium, or large heterogenity")
-  #  } else if (!(hg %in% hg_options)){
-   #   stop("Need to specify small, medium, or large heterogenity")
-  #  }
-  #}
-
-  ## test_type errors
+ ## test_type errors
   if(!(test_type %in% test_type_options))
     stop("Need to specify two-tailed or one-tailed")
 
@@ -162,7 +135,7 @@ mod_power <- function(n_groups,
   effect_diff <- effect_sizes - effect_sizes[1]
 
   if(es_type == "Correlation"){
-    effect_sizes <- 0.5*log((1+effect_diff)/(1-effect_diff))
+    effect_sizes <- 0.5*log((1+effect_diff)/(1-effect_diff)) ## changes correlation to fisher's z
   }else if(es_type == "OR") {
     effect_sizes = log(effect_sizes) ## changes odds ratio to log odds
   }
@@ -178,4 +151,3 @@ mod_power <- function(n_groups,
   attr(mod_power_list, "class") <- "modpower"
   return(mod_power_list)
 }
-
