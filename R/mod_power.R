@@ -92,6 +92,8 @@ mod_power <- function(n_groups,
     stop("k must be a single number")
   if(k < 2)
     stop("k must be greater than 1")
+  if(k <= n_groups)
+    stop("Number of studies must be larger than n_groups")
   if((k/n_groups)%%1!=0)
     stop("Number of studies must be a multiple of n_groups")
 
