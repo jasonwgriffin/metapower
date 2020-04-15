@@ -92,8 +92,6 @@ mod_power <- function(n_groups,
     stop("k must be a single number")
   if(k < 2)
     stop("k must be greater than 1")
-  if(k <= n_groups)
-    stop("Number of Studies must be larger than n_groups")
   if((k/n_groups)%%1!=0)
     stop("Number of studies must be a multiple of n_groups")
 
@@ -142,11 +140,7 @@ mod_power <- function(n_groups,
     effect_sizes = log(effect_sizes) ## changes odds ratio to log odds
   }
 
-  overall_effect_diff <- mean(effect_sizes)
-  variance <- compute_variance(sample_size, overall_effect_diff, es_type, con_table)
-
-  mod_power_list <- list(mod_power = compute_mod_power(n_groups, variance, effect_sizes, overall_effect_diff, sample_size, k, es_type, test_type, p, sd_within, con_table),
-                         #modpower_range = compute_modpower_range(n_groups, effect_sizes, overall_effect_diff, sample_size, k, es_type, test_type, p, sd_within, con_table),
+  mod_power_list <- list(mod_power = compute_mod_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, sd_within, con_table),
                          n_groups = n_groups,
                          effect_sizes = effect_sizes,
                          sample_size = sample_size,

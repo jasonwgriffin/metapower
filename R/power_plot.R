@@ -7,7 +7,7 @@
 #' @return Power curve plot for the user specified input parameters
 #'
 
-plot_mpower <- function(obj){
+power_plot <- function(obj){
 
   if(class(obj) != "mpower")
     stop("Object must be of class: mpower")
