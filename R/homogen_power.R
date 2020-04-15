@@ -1,4 +1,3 @@
-
 #' @importFrom stats pchisq
 #' @importFrom stats qchisq
 
@@ -15,7 +14,6 @@ homogen_power <- function (effect_size, variance, sample_size, k, es_type, test_
   }else{
   fixed_power <- NA
   }
-
 
   ##random power
   tau2_s <- (1/3)*variance
@@ -48,4 +46,3 @@ homogen_power <- function (effect_size, variance, sample_size, k, es_type, test_
 
   return(homo_power)
 }
-

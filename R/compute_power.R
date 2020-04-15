@@ -4,8 +4,8 @@ compute_power <- function(effect_size, variance, sample_size, k, es_type, test_t
     random_lambda_s <- effect_size/sqrt(((1/3)*variance + variance)/k) #small
     random_lambda_m <- effect_size/sqrt(((1)*variance + variance)/k) #moderate
     random_lambda_l <- effect_size/sqrt(((3)*variance + variance)/k) #large
-  # critical value
 
+  # critical value
   if(test_type == "two-tailed"){
     c_alpha <- qnorm(1-(p/2))
   } else if (test_type =="one-tailed") {

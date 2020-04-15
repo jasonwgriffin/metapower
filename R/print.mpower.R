@@ -23,7 +23,5 @@ print.mpower <- function(x,...) {
     cat(" Random-Effects Model (Moderate Heterogeneity): ", x$homo_power$random_power_m, "\n")
     cat(" Random-Effects Model (Large Heterogeneity):    ", x$homo_power$random_power_l, "\n")
 
-    #cat(" Fixed-Effects (): ", x$homo_test)
-
 }
 

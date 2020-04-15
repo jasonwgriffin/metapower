@@ -40,4 +40,3 @@ compute_power_range <- function(effect_size, sample_size, k, es_type, test_type,
                            dplyr::mutate_all(as.numeric))
   return(df)
 }
-
