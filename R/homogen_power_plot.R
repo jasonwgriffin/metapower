@@ -46,5 +46,3 @@ homogen_power_plot <- function(obj){
 
   return (p)
 }
-
-

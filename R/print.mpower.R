@@ -24,4 +24,3 @@ print.mpower <- function(x,...) {
     cat(" Random-Effects Model (Large Heterogeneity):    ", x$homo_power$random_power_l, "\n")
 
 }
-

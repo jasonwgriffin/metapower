@@ -28,6 +28,3 @@ compute_homogen_range <- function(effect_size, sample_size, k, es_type, test_typ
     return(homo_range)
   }
 }
-
-
-
