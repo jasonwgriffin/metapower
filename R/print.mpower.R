@@ -12,7 +12,7 @@ print.mpower <- function(x,...) {
     cat(" Estimated Power: Mean Effect Size \n\n")
 
     cat(" Fixed-Effects Model                            ", x$power$fixed_power, "\n")
-    cat(" Random-Effects Model (Small Heterogenity):     ", x$power$random_power_s, "\n")
+    cat(" Random-Effects Model (Small Heterogeneity):     ", x$power$random_power_s, "\n")
     cat(" Random-Effects Model (Moderate Heterogeneity): ", x$power$random_power_m, "\n")
     cat(" Random-Effects Model (Large Heterogeneity):    ", x$power$random_power_l, "\n\n")
 
