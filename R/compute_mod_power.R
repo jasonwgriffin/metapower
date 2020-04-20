@@ -7,13 +7,12 @@ compute_mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, t
   df_w <- k-n_groups
 
   if(test_type == "two-tailed"){
-    c_alpha_b <- qchisq(1-(p/2),df_b,0, lower.tail = TRUE)
-    c_alpha_w <- qchisq(1-(p/2), df_w,0,lower.tail = TRUE)
+    c_alpha_b <- qchisq(1-(p/2), df_b, 0, lower.tail = TRUE)
+    c_alpha_w <- qchisq(1-(p/2), df_w, 0, lower.tail = TRUE)
 
     }else if(test_type == "one-tailed"){
-      c_alpha_b <- qchisq(1-p,df_b,0, lower.tail = TRUE)
-      c_alpha_w <- qchisq(1-p, df_w,0,lower.tail = TRUE)
-
+      c_alpha_b <- qchisq(1-p, df_b, 0, lower.tail = TRUE)
+      c_alpha_w <- qchisq(1-p, df_w, 0, lower.tail = TRUE)
       }
 
   variance <- compute_variance(sample_size, overall_effect_diff, es_type, con_table)
