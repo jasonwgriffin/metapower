@@ -54,7 +54,7 @@
 #' @import magrittr
 #' @export
 
-mpower <- function(effect_size, sample_size, k, es_type, i2 = NULL, test_type = "two-tailed", p = .05, sd = NULL, con_table = NULL){
+mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed", p = .05, sd = NULL, con_table = NULL){
 
   ## Check that the arguments are correctly specified
   mpower_integrity(effect_size, sample_size, k, es_type, test_type, p, sd, con_table)
@@ -87,8 +87,7 @@ power_list <- list(variance = variance,
                    sd = sd,
                    df = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table),
                    homo_power = homogen_power(effect_size, variance, sample_size, k, es_type, test_type, p, sd),
-                   homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, test_type, p, sd, con_table),
-                   jackson_power = jackson_power(k, effect_size, variance, i2))
+                   homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, test_type, p, sd, con_table))
 attr(power_list, "class") <- "mpower"
 
 return(power_list)
