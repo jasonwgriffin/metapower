@@ -1,5 +1,5 @@
 compute_power <- function(effect_size, variance, sample_size, k, es_type, test_type, p){
-  # noncentrality parameter
+  # noncentraility parameter
     fixed_lambda <- effect_size/(sqrt(variance/k))
     random_lambda_s <- effect_size/sqrt(((1/3)*variance + variance)/k) #small
     random_lambda_m <- effect_size/sqrt(((1)*variance + variance)/k) #moderate
