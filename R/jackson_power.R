@@ -1,4 +1,4 @@
-random_power <- function(k, effect_size, variance, i2){
+jackson_power <- function(k, effect_size, variance, i2){
 
   if(is.null(i2)){
     random_power <- NA

@@ -2,6 +2,7 @@
 
 S3method(print,modpower)
 S3method(print,mpower)
+export(homogen_power_plot)
 export(mod_power)
 export(mpower)
 export(power_plot)

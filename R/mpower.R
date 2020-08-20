@@ -76,17 +76,17 @@ mpower <- function(effect_size, sample_size, k, es_type, i2 = NULL, test_type = 
 # Compute common variance
 variance <- compute_variance(sample_size, effect_size, es_type, con_table)
 # Generate list of relevant variables for output
-power_list <- list(fixed_power = fixed_power(effect_size, variance, k, test_type, p))
-                   #fixed_power_range = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table),
-                   #random_power = random_power(k, effect_size, variance, i2),
-                   #random_power_range = random_power(k, effect_size, variance, i2),
-                   #effect_size = effect_size,
-                   #sample_size = sample_size,
-                   #variance = variance,
-                   #k = k,
-                   #es_type = es_type,
-                   #test_type = test_type,
-                   #p = p)
+power_list <- list(variance = variance,
+                   power = compute_power(effect_size, variance, sample_size, k, es_type, test_type, p),
+                   effect_size = effect_size,
+                   sample_size = sample_size,
+                   k = k,
+                   es_type = es_type,
+                   test_type = test_type,
+                   p = p,
+                   sd = sd,
+                   df = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table),
+                   jackson_power = jackson_power(k, effect_size, variance, i2))
 attr(power_list, "class") <- "mpower"
 
 return(power_list)
