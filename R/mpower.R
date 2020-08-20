@@ -70,6 +70,8 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
 
       }
 
+## create data range
+
 # Compute common variance
 variance <- compute_variance(sample_size, effect_size, es_type, con_table)
 # Generate list of relevant variables for output
