@@ -86,6 +86,8 @@ power_list <- list(variance = variance,
                    p = p,
                    sd = sd,
                    df = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table),
+                   homo_power = homogen_power(effect_size, variance, sample_size, k, es_type, test_type, p, sd),
+                   homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, test_type, p, sd, con_table),
                    jackson_power = jackson_power(k, effect_size, variance, i2))
 attr(power_list, "class") <- "mpower"
 
