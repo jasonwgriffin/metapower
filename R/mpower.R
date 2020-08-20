@@ -60,7 +60,27 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
 
   effect_size = abs(effect_size)
 
-  if(es_type == "Correlation"){
+  ## Determine the critical value cut-of based on one or two tailed test and p-value
+  if(test_type == "two-tailed"){
+    c_alpha <- qnorm(1-(p/2))
+  } else if (test_type =="one-tailed") {
+    c_alpha <- qnorm(1-(p))
+  }
+
+  range_factor <- 5
+
+  if(es_type == "d"){
+
+    # create a power range of data
+    power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
+                     es_v = rep(c((effect_size/2), effect_size, (effect_size*2)), each = range_factor*k-1),
+                     effect_size = effect_size,
+                     i2_v = i2,
+                     n_v = sample_size,
+                     c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, sample_size, es_v, es_type))
+
+
+  }else if(es_type == "Correlation"){
 
     effect_size = .5*log((1 + effect_size)/(1 - effect_size))
 
@@ -70,28 +90,26 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
 
       }
 
-  ## Determine the critical value cut-of based on one or two tailed test and p-value
-  if(test_type == "two-tailed"){
-    c_alpha <- qnorm(1-(p/2))
-  } else if (test_type =="one-tailed") {
-    c_alpha <- qnorm(1-(p))
-  }
-## create data range
+
 
 # Compute common variance
 variance <- compute_variance(sample_size, effect_size, es_type, con_table)
 # Generate list of relevant variables for output
 power_list <- list(variance = variance,
-                   power = compute_power(effect_size, variance, sample_size, k, es_type, test_type, p),
-                   jackson_power = jackson_power(k, effect_size, variance, i2, c_alpha),
+                   #power = compute_power(effect_size, variance, sample_size, k, es_type, test_type, p),
+                   power = jackson_power(k, effect_size, variance, i2, c_alpha),
+                   #power_range = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table),
+                   power_range = compute_jackson_power_range(power_range_df),
+
                    effect_size = effect_size,
                    sample_size = sample_size,
                    k = k,
                    es_type = es_type,
                    test_type = test_type,
                    p = p,
+                   power_range_df = power_range_df)
                    #sd = sd,
-                   df = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table))
+                   #df = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table))
                    #homo_power = homogen_power(effect_size, variance, sample_size, k, es_type, test_type, p, sd),
                    #homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, test_type, p, sd, con_table))
 attr(power_list, "class") <- "mpower"

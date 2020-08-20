@@ -12,7 +12,7 @@ jackson_power <- function(k, effect_size, variance, i2, c_alpha){
     random_power <- NA # if the user does not enter an i2 value, then mark as NA
   } else {
 
-    t <- c_alpha
+    t <- c_alpha # copy critical value for integral function 'func'
 
     ## Compute power for a range of standard heterogeneity estimates for i2 (i.e., small = 25%, moderate = 50%, large = 75%)
     random_power <- 1 - (CDF(c_alpha, k, ncp, i2) - CDF(-c_alpha, k, ncp, i2))
