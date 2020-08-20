@@ -75,9 +75,16 @@ mpower <- function(effect_size, sample_size, k, es_type, i2 = NULL, test_type = 
 
 # Compute common variance
 variance <- compute_variance(sample_size, effect_size, es_type, con_table)
+
+
+# Set up a range of plausible values
+
+power_dataframe <-
+
+
 # Generate list of relevant variables for output
-power_list <- list(fixed_power = fixed_power(effect_size, variance, k, test_type, p))
-                   #fixed_power_range = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table),
+power_list <- list(fixed_power = fixed_power(effect_size, variance, k, test_type, p),
+                   fixed_power_range = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table))
                    #random_power = random_power(k, effect_size, variance, i2),
                    #random_power_range = random_power(k, effect_size, variance, i2),
                    #effect_size = effect_size,
