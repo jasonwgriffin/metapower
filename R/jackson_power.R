@@ -1,20 +1,29 @@
-jackson_power <- function(k, effect_size, variance, i2){
+jackson_power <- function(k, effect_size, variance, i2, c_alpha){
+
+  ## Compute Non-centrality parameter
+  ncp <- effect_size/(sqrt(variance/k))
+
+  ## Fixed power: Formula from Hedges Piggott
+  fixed_power <- (1-pnorm(c_alpha - ncp)) + pnorm(-1*c_alpha - ncp)
+
+  ## Random Power: Formula from Jackson & Turner (2017)
 
   if(is.null(i2)){
-    random_power <- NA
+    random_power <- NA # if the user does not enter an i2 value, then mark as NA
   } else {
 
-    Z <- qnorm(0.975) ## alpha value
-    t <- Z
-    ncp <- effect_size*sqrt(k)/sqrt(variance)
-    random_power <- 1 - (CDF(Z, k, ncp, i2) - CDF(-Z, k, ncp, i2))
-    random_power_0 <- 1 - (CDF(Z, k, ncp, 0) - CDF(-Z, k, ncp, 0))
-    random_power_25 <- 1 - (CDF(Z, k, ncp, .25) - CDF(-Z, k, ncp, .25))
-    random_power_50 <- 1 - (CDF(Z, k, ncp, .50) - CDF(-Z, k, ncp, .50))
-    random_power_75 <- 1 - (CDF(Z, k, ncp, .75) - CDF(-Z, k, ncp, .75))
-    random_power_100 <- 1 - (CDF(Z, k, ncp, 1) - CDF(-Z, k, ncp, 1))
+    t <- c_alpha
+
+    ## Compute power for a range of standard heterogeneity estimates for i2 (i.e., small = 25%, moderate = 50%, large = 75%)
+    random_power <- 1 - (CDF(c_alpha, k, ncp, i2) - CDF(-c_alpha, k, ncp, i2))
+    random_power_0 <- 1 - (CDF(c_alpha, k, ncp, 0) - CDF(-c_alpha, k, ncp, 0))
+    random_power_25 <- 1 - (CDF(c_alpha, k, ncp, .25) - CDF(-c_alpha, k, ncp, .25))
+    random_power_50 <- 1 - (CDF(c_alpha, k, ncp, .50) - CDF(-c_alpha, k, ncp, .50))
+    random_power_75 <- 1 - (CDF(c_alpha, k, ncp, .75) - CDF(-c_alpha, k, ncp, .75))
+    random_power_100 <- 1 - (CDF(c_alpha, k, ncp, 1) - CDF(-c_alpha, k, ncp, 1))
   }
-  return(list(random_power = random_power,
+  return(list(fixed_power = fixed_power,
+              random_power = random_power,
               random_power_0 = random_power_0,
               random_power_25 = random_power_25,
               random_power_50 = random_power_50,

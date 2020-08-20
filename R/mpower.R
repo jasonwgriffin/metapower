@@ -51,7 +51,7 @@
 #' @import magrittr
 #' @export
 
-mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed", p = .05, sd = NULL, con_table = NULL){
+mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed", p = .05, i2 = .50, sd = NULL, con_table = NULL){
 
   ## Check that the arguments are correctly specified
   mpower_integrity(effect_size, sample_size, k, es_type, test_type, p, sd, con_table)
@@ -70,6 +70,12 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
 
       }
 
+  ## Determine the critical value cut-of based on one or two tailed test and p-value
+  if(test_type == "two-tailed"){
+    c_alpha <- qnorm(1-(p/2))
+  } else if (test_type =="one-tailed") {
+    c_alpha <- qnorm(1-(p))
+  }
 ## create data range
 
 # Compute common variance
@@ -77,16 +83,17 @@ variance <- compute_variance(sample_size, effect_size, es_type, con_table)
 # Generate list of relevant variables for output
 power_list <- list(variance = variance,
                    power = compute_power(effect_size, variance, sample_size, k, es_type, test_type, p),
+                   jackson_power = jackson_power(k, effect_size, variance, i2, c_alpha),
                    effect_size = effect_size,
                    sample_size = sample_size,
                    k = k,
                    es_type = es_type,
                    test_type = test_type,
                    p = p,
-                   sd = sd,
-                   df = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table),
-                   homo_power = homogen_power(effect_size, variance, sample_size, k, es_type, test_type, p, sd),
-                   homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, test_type, p, sd, con_table))
+                   #sd = sd,
+                   df = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table))
+                   #homo_power = homogen_power(effect_size, variance, sample_size, k, es_type, test_type, p, sd),
+                   #homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, test_type, p, sd, con_table))
 attr(power_list, "class") <- "mpower"
 
 return(power_list)
