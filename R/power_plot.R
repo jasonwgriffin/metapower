@@ -31,8 +31,6 @@ power_plot <- function(obj){
     #dplyr::select(star"k_v", "random_power_s", "random_power_m", "random_power_l") %>%
     tidyr::pivot_longer(-"k_v", names_to = "power_type", values_to = "power")
   rand_dat$power_type <- factor(rand_dat$power_type, levels = c("random_power", "random_power_0", "random_power_25", "random_power_50", "random_power_75", "random_power_100"))
-
-
   obj$power_range$es_v <- as.factor(obj$power_range$es_v)
 
 
