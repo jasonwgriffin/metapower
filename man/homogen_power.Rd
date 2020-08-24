@@ -28,7 +28,7 @@ homogen_power(
 
 \item{p}{Significance level (Type I error probability)}
 
-\item{i2}{Heterogenity paramter (I^2 statistic)}
+\item{i2}{Heterogeneity parameter (I^2 statistic)}
 
 \item{con_table}{(Optional) For Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 
