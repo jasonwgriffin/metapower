@@ -1,7 +1,6 @@
 #' Compute Power for Meta-analysis
 #'
-#' Computes statistical power for meta-analytic main effects, tests of homogeneity, and categorical moderator models under
-#' both fixed- and random-effects models.
+#' Computes statistical power for meta-analytic under both fixed- and random-effects models.
 #'
 #' @param effect_size  Expected effect size magnitude
 #'
@@ -14,8 +13,6 @@
 #' @param test_type "two-tailed" or "one-tailed"
 #'
 #' @param p Significance level (Type I error probability)
-#'
-#' @param sd (Optional) Fixed-effects models only: Expected standard deviation among all effect sizes
 #'
 #' @param con_table (Optional) For Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 #'
