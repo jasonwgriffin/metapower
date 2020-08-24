@@ -114,8 +114,8 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
       }
 # Generate list of relevant variables for output
   power_list <- list(variance = variance,
-                   power = jackson_power(k, effect_size, variance, i2, c_alpha),
-                   power_range = compute_jackson_power_range(power_range_df),
+                   power = compute_power(k, effect_size, variance, i2, c_alpha),
+                   power_range = compute_power_range(power_range_df),
                    effect_size = effect_size,
                    sample_size = sample_size,
                    k = k,
