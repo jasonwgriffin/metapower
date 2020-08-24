@@ -150,6 +150,6 @@ mod_power <- function(n_groups,
                          es_type = es_type,
                          sd_within = sd_within,
                          con_table = con_table)
-  attr(mod_power_list, "class") <- "modpower"
+  attr(mod_power_list, "class") <- "mod_power"
   return(mod_power_list)
 }
