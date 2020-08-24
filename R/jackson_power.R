@@ -20,13 +20,12 @@ jackson_power <- function(k, effect_size, variance, i2, c_alpha){
     random_power_25 <- 1 - (CDF(c_alpha, k, ncp, .25) - CDF(-c_alpha, k, ncp, .25))
     random_power_50 <- 1 - (CDF(c_alpha, k, ncp, .50) - CDF(-c_alpha, k, ncp, .50))
     random_power_75 <- 1 - (CDF(c_alpha, k, ncp, .75) - CDF(-c_alpha, k, ncp, .75))
-    random_power_100 <- 1 - (CDF(c_alpha, k, ncp, 1) - CDF(-c_alpha, k, ncp, 1))
   }
+
   return(list(fixed_power = fixed_power,
               random_power = random_power,
               random_power_0 = random_power_0,
               random_power_25 = random_power_25,
               random_power_50 = random_power_50,
-              random_power_75 = random_power_75,
-              random_power_100 = random_power_100))
+              random_power_75 = random_power_75))
 }

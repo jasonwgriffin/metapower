@@ -45,13 +45,12 @@ power_plot <- function(obj){
       p_aes +
       ggtitle("Random-Effects Model") +
       scale_color_manual(name = "Heterogeneity",
-                         labels = c("user",
-                                    "i2 = 0",
+                         labels = c(paste0(obj$i2, "%"),
+                                    "i2 = 0%",
                                     "i2 = 25%",
                                     "i2 = 50%",
-                                    "i2 = 75%",
-                                    "i2 = 100%"),
-                         values = rev(c("#993366", "#9900CC", "#9966FF", "#6699FF", "#33CCCC", "#66CC99")))
+                                    "i2 = 75%"),
+                         values = rev(c("#993366", "#9900CC", "#9966FF", "#6699FF", "#33CCCC")))
 
   #arrange for plotting
   p <- cowplot::plot_grid(fixed_plot, random_plot, ncol = 1)
