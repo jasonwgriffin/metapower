@@ -44,35 +44,39 @@ For fixed-effects model, use `model = "fixed"`.
 print(my_power)
 ```
 
-The first part of the output shows the expected input values, where the main results are shown in the bottom portion, mainly, `Estimated Power`. Under this set of values, our power to detect a mean difference under a Fixed-Effects model is  `r round(my_power$power$fixed_power*100,2)`%. Furthermore, we can look at the power under a Random-Effects model under various heterogeneity levels (e.g., Low, Moderate, Large). For the output regarding `Estimated Power: Test of Homogenity`, please see below
+The first part of the output shows the expected input values, where the main results are shown in the bottom portion, mainly, `Estimated Power`. Under this set of values, our power to detect a mean difference under a Fixed-Effects model is  `r round(my_power$power$fixed_power*100,2)`%. Furthermore, we can look at the power under a Random-Effects model under various heterogeneity levels (e.g., Low, Moderate, Large). For the output regarding `Estimated Power: Test of Homogeneity`, please see below
 
 Given that power analysis require a lot of assumptions, it is generally advisable to look at power across a range of input values. To visualize the power curve for these set of input parameters, use `power_plot()` to generate a `ggobject` that is modifiable and by default, shows 5x as many studies as the user inputs. 
 
 ```{r fig.height=7, fig.width=7, dpi = 300,out.width = "100%", out.height = "100%"}
-power_plot(my_power)
+plot_mpower(my_power)
 ```
 
 For fixed-effects model, power curves are shown for a range of effect sizes, whereas random-effects model shows power across a range of heterogeneity values, $\tau^2$
 
-For users wanting more flexibility in visualization, the `mpower` object contains a data frame `$df` containing all data populating the `ggobject`,
+For users wanting more flexibility in visualization, the `mpower` object contains a data frame `$power_range` containing all data populating the `ggobject`,
 
 ```{r}
-str(my_power$df)
+str(my_power$power_range)
 ```
 
 ## Power for the Test of Homogeneity
 
-For Fixed-Effects Model, the test of homogeneity examines whether the amount of variation among effect sizes is greater than that of sampling error alone. TO compute this, you must use the argument `sd` to assign a value representing the average difference between the effect sizes and the mean effect. 
+For Fixed-Effects Model, the test of homogeneity examines whether the amount of variation among effect sizes is greater than that of sampling error alone. To compute this, simply wrap the same arguments used in `mpower` with `homogen_power`. Since it is hard to justify selecting the standard deviation between a set of studies, `homogen_power` automatically computes power across a range of different standard deviation values (i.e., SD = 1, SD = 2..)
 ```{r}
-(homogen_power <- mpower(effect_size = .25, sample_size = 20, k = 30, es_type = "d", sd = 3))
+(homogen_test_power <- homogen_power(effect_size = .25, sample_size = 20, k = 30, es_type = "d"))
 ```
 
-For Random-Effects models, the test of homogeneity evaluates whether the variance component, $\tau^2$, is different than zero. metapower automatically uses small, moderate, and large values of $\tau^2$. 
+For Random-Effects models, `homogen_power` computes power across a range of possible heterogeneity values (i.e., *I^2*)
+- *I^2* =  0% (No Heterogeneity)
+- *I^2* = 25% (Low Heterogeneity)
+- *I^2* = 50% (Moderate Heterogeneity)
+- *I^2* = 75% (Large Heterogeneity)
 
-We can visualize this across a range with `homogen_power_plot`
+We can visualize this across a range with `plot_homogen_power`
 
 ```{r fig.height=7, fig.width=7, dpi = 300,out.width = "100%", out.height = "100%"}
-homogen_power_plot(homogen_power)
+plot_homogen_power(homogen_test_power)
 ```
 
 ## Example 2: Power analysis for moderation analysis (categorical variables)

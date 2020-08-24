@@ -1,4 +1,4 @@
-mpower_integrity <- function(effect_size, sample_size, k, es_type, test_type, p, sd, con_table){
+mpower_integrity <- function(effect_size, sample_size, k, es_type, test_type, p, con_table){
 
 test_type_options <- c("one-tailed", "two-tailed")
 es_type_options <- c("d","Correlation", "OR")

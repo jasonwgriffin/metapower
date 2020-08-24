@@ -45,7 +45,7 @@ mod_power(
 Estimated Power estimates for between and within-groups moderation
 }
 \description{
-Computes statistical power for categorical moderator models under fixed- and random-effects models
+Computes statistical power for categorical moderator models under fixed- and random-effects models.
 }
 \examples{
 mod_power(

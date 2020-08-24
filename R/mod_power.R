@@ -41,6 +41,9 @@
 #'
 #' @importFrom stats pchisq
 #' @importFrom stats qchisq
+#' @importFrom stats dchisq
+#' @importFrom stats integrate
+#' @importFrom stats pgamma
 #' @export
 
 mod_power <- function(n_groups,
@@ -53,7 +56,7 @@ mod_power <- function(n_groups,
                       sd_within = NULL,
                       con_table = NULL) {
 
-  # Arguement Integrity Checks
+  # Argument Integrity Checks
   test_type_options <- c("one-tailed", "two-tailed")
   es_type_options <- c("d","Correlation", "OR")
 
@@ -150,6 +153,6 @@ mod_power <- function(n_groups,
                          es_type = es_type,
                          sd_within = sd_within,
                          con_table = con_table)
-  attr(mod_power_list, "class") <- "modpower"
+  attr(mod_power_list, "class") <- "mod_power"
   return(mod_power_list)
 }
