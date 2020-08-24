@@ -9,7 +9,7 @@ csl: "inst/apa.csl"
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
-## updat elogo
+## update logo
 library(badger)
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -61,14 +61,14 @@ devtools::install_github("jasonwgriffin/metapower")
 library(metapower)
 my_power <- mpower(effect_size = .25, sample_size = 20, k = 30, es_type = "d")
 print(my_power)
-power_plot(my_power)
+plot_mpower(my_power)
 ```
 
 See Vignette "Using metapower" for more information
 
 ## References
 
-All mathematical calculations are derived from @hedges2004, @bornstein2009, and @pigott2012.
+All mathematical calculations are derived from @hedges2004, @bornstein2009,@pigott2012, @jackson2017.
 
 <div id="refs"></div>
 
