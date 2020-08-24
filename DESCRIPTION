@@ -23,4 +23,4 @@ Imports:
     rmarkdown (>= 2.1),
     rlang (>= 0.4.5)
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

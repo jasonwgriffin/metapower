@@ -12,7 +12,7 @@
 #'
 #' @param test_type "two-tailed" or "one-tailed"
 #'
-#' @param i2 Heterogenity paramter (I^2 statistic)
+#' @param i2 Heterogeneity parameter (I^2 statistic)
 #'
 #' @param p Significance level (Type I error probability)
 #'

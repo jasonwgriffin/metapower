@@ -20,6 +20,4 @@ print.homogen_power <- function(x,...) {
   cat(" Random-Effects Model (i2 =  25% ): ", x$homogen_power$random_power_s, "\n")
   cat(" Random-Effects Model (i2 =  50% ): ", x$homogen_power$random_power_m, "\n")
   cat(" Random-Effects Model (i2 =  75% ): ", x$homogen_power$random_power_l, "\n\n")
-
-
 }

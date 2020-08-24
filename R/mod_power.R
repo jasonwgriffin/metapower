@@ -53,7 +53,7 @@ mod_power <- function(n_groups,
                       sd_within = NULL,
                       con_table = NULL) {
 
-  # Arguement Integrity Checks
+  # Argument Integrity Checks
   test_type_options <- c("one-tailed", "two-tailed")
   es_type_options <- c("d","Correlation", "OR")
 
