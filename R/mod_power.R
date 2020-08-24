@@ -41,6 +41,9 @@
 #'
 #' @importFrom stats pchisq
 #' @importFrom stats qchisq
+#' @importFrom stats dchisq
+#' @importFrom stats integrate
+#' @importFrom stats pgamma
 #' @export
 
 mod_power <- function(n_groups,

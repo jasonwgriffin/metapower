@@ -46,6 +46,9 @@
 #' @importFrom stats pnorm
 #' @importFrom stats pchisq
 #' @importFrom stats qchisq
+#' @importFrom stats dchisq
+#' @importFrom stats integrate
+#' @importFrom stats pgamma
 #' @import ggplot2
 #' @import magrittr
 #' @export
@@ -69,7 +72,8 @@ homogen_power <- function (effect_size, sample_size, k, es_type, test_type = "tw
     homogen_power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k),times = 7),
                                          es_v = effect_size,
                                          n_v = sample_size,
-                                         c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, n_v, es_v, es_type))
+                                         c_alpha = c_alpha) %>%
+      mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
   }else if(es_type == "Correlation"){
     ## Convert to fishers-z
@@ -79,7 +83,7 @@ homogen_power <- function (effect_size, sample_size, k, es_type, test_type = "tw
                                          k_v = rep(seq(2,range_factor*k),times = 7),
                                          es_v = effect_size,
                                          n_v = sample_size,
-                                         c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, n_v, es_v, es_type))
+                                         c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
 
   }else if(es_type == "OR") {

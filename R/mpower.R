@@ -12,6 +12,8 @@
 #'
 #' @param test_type "two-tailed" or "one-tailed"
 #'
+#' @param i2 Heterogeneity parameter (I^2 statistic)
+#'
 #' @param p Significance level (Type I error probability)
 #'
 #' @param con_table (Optional) For Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
@@ -44,6 +46,9 @@
 #' @importFrom stats pnorm
 #' @importFrom stats pchisq
 #' @importFrom stats qchisq
+#' @importFrom stats dchisq
+#' @importFrom stats integrate
+#' @importFrom stats pgamma
 #' @import ggplot2
 #' @import magrittr
 #' @export
@@ -75,7 +80,7 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
                      effect_size = effect_size,
                      i2_v = i2,
                      n_v = sample_size,
-                     c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, n_v, es_v, es_type))
+                     c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
     } else if (es_type == "Correlation"){
     ## Convert to fishers-z
@@ -95,7 +100,7 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
                                  effect_size = effect_size,
                                  i2_v = i2,
                                  n_v = sample_size,
-                                 c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, n_v, es_v, es_type))
+                                 c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
     }else if(es_type == "OR") {
       ## Convert odd ratio to log of odds ratio: log(OR)

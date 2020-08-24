@@ -25,12 +25,12 @@ test_that("Check power test from Pigott 2012, page 43", {
                             sample_size = 20,
                             k = 10,
                             es_type = "d",
-                            test_type = "one-tailed")$power$random_power_s,3), .996)
+                            test_type = "one-tailed")$power$random_power_25,3), .993)
   expect_equal(round(mpower(effect_size = .5,
                             sample_size = 20,
                             k = 10,
                             es_type = "d",
-                            test_type = "one-tailed")$power$random_power_l,2), .79)
+                            test_type = "one-tailed")$power$random_power_75,2), .79)
   ## moderator analysis
 
   ## Page 71 - fixed power between study
@@ -56,7 +56,7 @@ test_that("Check power test from Pigott 2012, page 43", {
                                k = 15,
                                es_type = "Correlation",
                                sd_within = c(1,1,4),
-                               test_type = "one-tailed")$mod_power$random_power_s,2), .05)
+                               test_type = "one-tailed")$mod_power$random_power_b_s,2), .05)
 
 
 
