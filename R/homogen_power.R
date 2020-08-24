@@ -1,6 +1,6 @@
-#' Compute Power for Meta-analysis
+#' Compute Power for Test of Homogeneity in Meta-analysis
 #'
-#' Computes statistical power for meta-analytic under both fixed- and random-effects models.
+#' Computes statistical power for the Test of Homogeneity for meta-analytic under both fixed- and random-effects models.
 #'
 #' @param effect_size  Expected effect size magnitude
 #'
@@ -12,6 +12,8 @@
 #'
 #' @param test_type "two-tailed" or "one-tailed"
 #'
+#' @param i2 Heterogenity paramter (I^2 statistic)
+#'
 #' @param p Significance level (Type I error probability)
 #'
 #' @param con_table (Optional) For Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
@@ -22,10 +24,10 @@
 #'  Not Present \tab c       \tab d       \cr
 #'}
 #'
-#' @return Estimated Power
+#' @return Estimated Power with across various levels of heterogeneity
 #'
 #' @examples
-#' mpower(effect_size = .5, sample_size = 10, k = 10, es_type = "d")
+#' homogen_power(effect_size = .5, sample_size = 10, k = 10, es_type = "d")
 #'
 #' @references
 #'
