@@ -28,9 +28,15 @@ plot_homogen_power <- function(obj){
 
       fixed_plot <- ggplot(fix_dat, aes(x = .data$k_v, y = .data$power, color = .data$power_type)) +
         geom_line(size = 1) +
-        #scale_x_continuous(limits = c(0, 6), breaks = c(seq(1:6))) +
         ggtitle("Fixed-Effects Model") +
-        xlab("Number of Studies") + p_aes
+        xlab("Number of Studies") + p_aes +
+        scale_color_manual(name = "Standard Deviation \n between Studies",
+                           labels = c("SD = 1",
+                                      "SD = 2",
+                                      "SD = 3",
+                                      "SD = 4",
+                                      "SD = 5"),
+                           values = rev(c("#993366", "#9900CC", "#9966FF", "#6699FF", "#33CCCC")))
 
       random_plot <- ggplot(rand_dat, aes(x = .data$k_v, y = .data$power, color = .data$power_type)) +
         geom_line(size = 1)+
@@ -43,7 +49,7 @@ plot_homogen_power <- function(obj){
                                       bquote(I^2 == "25%"),
                                       bquote(I^2 == "50%"),
                                       bquote(I^2 == "75%")),
-                           values = c("red","blue","green", "black"))
+                           values = rev(c("#993366", "#9900CC", "#9966FF", "#6699FF")))
 
       p <- cowplot::plot_grid(fixed_plot,random_plot,ncol=1)
 
