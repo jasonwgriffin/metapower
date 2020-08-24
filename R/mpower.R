@@ -51,10 +51,10 @@
 #' @import magrittr
 #' @export
 
-mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed", p = .05, i2 = .50, sd = NULL, con_table = NULL){
+mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed", p = .05, i2 = .50, con_table = NULL){
 
   ## Check that the arguments are correctly specified
-  mpower_integrity(effect_size, sample_size, k, es_type, test_type, p, sd, con_table)
+  mpower_integrity(effect_size, sample_size, k, es_type, test_type, p, con_table)
 
   ## Transform effect sizes condition on the metric
 
@@ -79,14 +79,18 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
                      i2_v = i2,
                      n_v = sample_size,
                      c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, n_v, es_v, es_type))
-
+    # homo_power_range_df <- data.frame(sd_v = rep(seq(0,6), each = (k*range_factor-1)),
+    #                                   k_v = rep(seq(2,range_factor*k),times = 7),
+    #                                   es_v = effect_size,
+    #                                   n_v = sample_size,
+    #                                   c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, n_v, es_v, es_type))
 
   }else if(es_type == "Correlation"){
     ## Convert to fishers-z
     effect_size = .5*log((1 + effect_size)/(1 - effect_size))
     variance <- compute_variance(sample_size, effect_size, es_type, con_table)
     ## Create power range of data
-    ### Restrict range based on limitations. FOr example, a correlation of 1 = fisher's z of 2.64
+    ### Restrict range based on limitations. For example, a correlation of 1 = fisher's z of 2.64
     if(effect_size*2 >= 2.64){
       max = 2.64
       } else {
@@ -119,9 +123,7 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
 #variance <- compute_variance(sample_size, effect_size, es_type, con_table)
 # Generate list of relevant variables for output
 power_list <- list(variance = variance,
-                   #power = compute_power(effect_size, variance, sample_size, k, es_type, test_type, p),
                    power = jackson_power(k, effect_size, variance, i2, c_alpha),
-                   #power_range = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table),
                    power_range = compute_jackson_power_range(power_range_df),
                    effect_size = effect_size,
                    sample_size = sample_size,
@@ -130,9 +132,7 @@ power_list <- list(variance = variance,
                    test_type = test_type,
                    p = p,
                    i2 = i2)
-                   #sd = sd,
-                   #df = compute_power_range(effect_size, sample_size, k, es_type, test_type, p, con_table))
-                   #homo_power = homogen_power(effect_size, variance, sample_size, k, es_type, test_type, p, sd),
+                   #homo_power = homogen_power(effect_size, variance, sample_size, k, es_type, test_type, p, sd))
                    #homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, test_type, p, sd, con_table))
 attr(power_list, "class") <- "mpower"
 
