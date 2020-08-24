@@ -19,7 +19,7 @@ power_plot <- function(obj){
     #geom_point(aes(x = obj$k, y = obj$power), shape = 21, color = "black", fill = "red", size = 3),
     xlab("Number of Studies"),
     ylab("Power"),
-    theme_classic(),
+    theme_bw(),
     theme(legend.position = c(1,0),
           legend.justification = c(1,0),
           legend.background = element_rect(colour = 'black', fill = 'white', linetype='solid')))
@@ -45,11 +45,11 @@ power_plot <- function(obj){
       p_aes +
       ggtitle("Random-Effects Model") +
       scale_color_manual(name = "Heterogeneity",
-                         labels = c(paste0(obj$i2, "%"),
-                                    "i2 = 0%",
-                                    "i2 = 25%",
-                                    "i2 = 50%",
-                                    "i2 = 75%"),
+                         labels = c(bquote(I^2 == .(round(obj$i2*100,2)) * `%`),
+                                    bquote(I^2 == "0%"),
+                                    bquote(I^2 == "25%"),
+                                    bquote(I^2 == "50%"),
+                                    bquote(I^2 == "75%")),
                          values = rev(c("#993366", "#9900CC", "#9966FF", "#6699FF", "#33CCCC")))
 
   #arrange for plotting
