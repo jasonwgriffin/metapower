@@ -76,15 +76,11 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
                      i2_v = i2,
                      n_v = sample_size,
                      c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, n_v, es_v, es_type))
-    # homo_power_range_df <- data.frame(sd_v = rep(seq(0,6), each = (k*range_factor-1)),
-    #                                   k_v = rep(seq(2,range_factor*k),times = 7),
-    #                                   es_v = effect_size,
-    #                                   n_v = sample_size,
-    #                                   c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, n_v, es_v, es_type))
 
-  }else if(es_type == "Correlation"){
+    } else if (es_type == "Correlation"){
     ## Convert to fishers-z
     effect_size = .5*log((1 + effect_size)/(1 - effect_size))
+    ## Compute common variance
     variance <- compute_variance(sample_size, effect_size, es_type, con_table)
     ## Create power range of data
     ### Restrict range based on limitations. For example, a correlation of 1 = fisher's z of 2.64
@@ -93,7 +89,7 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
       } else {
         max = effect_size*2
         }
-
+    ## Create power range of data
     power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
                                  es_v = rep(c((effect_size/2), effect_size, max), each = range_factor*k-1), ## special for correlation
                                  effect_size = effect_size,
@@ -104,9 +100,10 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
     }else if(es_type == "OR") {
       ## Convert odd ratio to log of odds ratio: log(OR)
       effect_size = log(effect_size)
+      ## Compute common variance
       variance <- compute_variance(sample_size, effect_size, es_type, con_table)
+
       # Create power range of data
-      ###
       power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
                                    es_v = rep(c((effect_size/2), effect_size, (effect_size*2)), each = range_factor*k-1),
                                    effect_size = effect_size,
@@ -115,11 +112,8 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
                                    c_alpha = c_alpha,
                                    variance = variance)
       }
-
-# Compute common variance
-#variance <- compute_variance(sample_size, effect_size, es_type, con_table)
 # Generate list of relevant variables for output
-power_list <- list(variance = variance,
+  power_list <- list(variance = variance,
                    power = jackson_power(k, effect_size, variance, i2, c_alpha),
                    power_range = compute_jackson_power_range(power_range_df),
                    effect_size = effect_size,
@@ -129,9 +123,7 @@ power_list <- list(variance = variance,
                    test_type = test_type,
                    p = p,
                    i2 = i2)
-                   #homo_power = homogen_power(effect_size, variance, sample_size, k, es_type, test_type, p, sd))
-                   #homo_range = compute_homogen_range(effect_size, sample_size, k, es_type, test_type, p, sd, con_table))
-attr(power_list, "class") <- "mpower"
+  attr(power_list, "class") <- "mpower"
 
-return(power_list)
+  return(power_list)
 }
