@@ -1,4 +1,4 @@
-jackson_power <- function(k, effect_size, variance, i2, c_alpha){
+compute_power <- function(k, effect_size, variance, i2, c_alpha){
 
   ## Compute Non-centrality parameter
   ncp <- effect_size/(sqrt(variance/k))
