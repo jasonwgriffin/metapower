@@ -50,7 +50,7 @@ if(es_type == 'Correlation' & effect_size < 0)
 if(es_type == 'OR' & effect_size <= 1)
   stop("Odds ratio should be above 1")
 if(es_type == "OR" & missing(con_table))
-  stop("For Odds Ratio, must enter contigency table (cont_table)")
+  stop("For Odds Ratio, must enter contigency table (con_table)")
 if(es_type == "OR" & !missing(con_table)){
   if(length(con_table) != 4)
     stop("con_table must reflect a 2x2 contingency table with the form c(a,b,c,d). see documentation")

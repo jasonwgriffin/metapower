@@ -87,7 +87,7 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
 
     } else if (es_type == "Correlation"){
     ## Convert to fishers-z
-    effect_size = .5*log((1 + effect_size)/(1 - effect_size))
+    effect_size = round(.5*log((1 + effect_size)/(1 - effect_size)),2)
     ## Compute common variance
     variance <- compute_variance(sample_size, effect_size, es_type, con_table)
     ## Create power range of data
@@ -107,7 +107,7 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
 
     }else if(es_type == "OR") {
       ## Convert odd ratio to log of odds ratio: log(OR)
-      effect_size = log(effect_size)
+      effect_size = round(log(effect_size),2)
       ## Compute common variance
       variance <- compute_variance(sample_size, effect_size, es_type, con_table)
 
