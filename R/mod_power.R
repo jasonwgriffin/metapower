@@ -47,17 +47,17 @@
 #' @export
 
 mod_power <- function(n_groups,
-                      effect_sizes,
+                      effect_sizes = NULL,
                       sample_size,
                       k,
                       es_type,
                       test_type = "two-tailed",
                       p = .05,
-                      sd_within = NULL,
-                      con_table = NULL) {
+                      con_table = NULL,
+                      sd_within = NULL) {
 
   ## Argument Check
-  #mod_power_integrity(effect_sizes, sample_size, k, es_type, test_type, p, con_table, sd_within)
+  mod_power_integrity(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table, sd_within)
 
   df_b <- n_groups-1
   df_w <- k-n_groups
@@ -74,7 +74,7 @@ mod_power <- function(n_groups,
   #####
   #####
 
-
+  sample_size <- sample_size/2
 
   ##### common variance?>
   #variance <- compute_variance(sample_size, overall_effect, es_type, con_table)
@@ -92,6 +92,8 @@ mod_power <- function(n_groups,
 
       }else if(es_type == "OR") {
 
+
+
         group <- names(con_table)
         d <- data.frame(group)
         d$a <- sapply(con_table, "[[", 1)
@@ -107,14 +109,14 @@ mod_power <- function(n_groups,
         effect_sizes <- d$log_or
   }
 
-  mod_power_list <- list(mod_power = compute_mod_power(n_groups, effect_sizes, sample_size, k, es_type, c_alpha_b, c_alpha_w, effect_diff, sd_within),
+  mod_power_list <- list(mod_power = compute_mod_power(n_groups, effect_sizes, variance, overall_effect, sample_size, k, es_type, c_alpha_b, c_alpha_w, effect_diff, sd_within),
                          n_groups = n_groups,
                          effect_sizes = effect_sizes,
                          sample_size = sample_size,
                          k = k,
                          es_type = es_type,
                          sd_within = sd_within,
-                         df = d,
+                         #df = d,
                          variance = variance)
   attr(mod_power_list, "class") <- "mod_power"
   return(mod_power_list)

@@ -1,5 +1,5 @@
 
-compute_mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, c_alpha_b, c_alpha_w, effect_diff, sd_within){
+compute_mod_power <- function(n_groups, effect_sizes, variance, overall_effect, sample_size, k, es_type, c_alpha_b, c_alpha_w, effect_diff, sd_within){
 
   df_b <- n_groups-1
   df_w <- k-n_groups
