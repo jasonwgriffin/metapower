@@ -5,7 +5,8 @@ library(metapower)
 
 # Define UI ----
 ui <- fluidPage(
-  navbarPage("metapoweR",theme = shinytheme("lumen"),
+  navbarPage(img(src = "/metapower_sticker.png", height = 60),
+
 
              sidebarLayout(
                sidebarPanel(
@@ -32,6 +33,19 @@ ui <- fluidPage(
 
              ##Summary Effect Size Tab
              navbarMenu("Summary Effect Size", icon = icon("equalizer", lib = "glyphicon"),
+                        tags$head(
+                          tags$style(HTML(' .navbar {
+                          height: 60px;
+                          font-size: 25px;
+                          min-height:60px !important;
+                          }
+                        text {padding-top: 30px;}
+                      .navbar-nav > li > a, .navbar-brand {
+                            padding-top:1px !important;
+                            padding-bottom:1px !important;
+                            height: 60px;
+                            }'))),
+
 
                         ## Cohen's d
                         tabPanel("Cohen's d", fluid = TRUE,#also icon = pretty picture

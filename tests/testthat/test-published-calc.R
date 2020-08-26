@@ -58,7 +58,41 @@ test_that("Check power test from Pigott 2012, page 43", {
                                sd_within = c(1,1,4),
                                test_type = "one-tailed")$mod_power$random_power_b_s,2), .05)
 
+  ## Page 353 Pigott 2020
+
+  expect_equal(round(mod_power(n_groups = 2,
+                               effect_sizes = c(0,.5),
+                               sample_size = 10,
+                               k = 10,
+                               es_type = "d",
+                               #sd_within = c(1,1,4),
+                               test_type = "one-tailed")$mod_power$fixed_power_b,2), .70)
+  ## 359
+  expect_equal(round(mod_power(n_groups = 2,
+                               effect_sizes = c(0,.5),
+                               sample_size = 10,
+                               k = 10,
+                               es_type = "d",
+                               #sd_within = c(1,1,4),
+                               test_type = "one-tailed")$mod_power$fixed_power_b,2), .70)
 
 
+  nn < -mod_power(n_groups = 2,
+            effect_sizes = c(1.5,1.7),
+            sample_size = 10,
+            k = 10,
+            es_type = "OR",
+            con_table = c(6,5,4,5),
+            #sd_within = c(1,1,4),
+            test_type = "one-tailed")
 
+
+  n_groups = 2
+  effect_sizes = c(0,.5)
+  sample_size = 10
+  k = 10
+  es_type = "d"
+  #sd_within = c(1,1,4),
+  test_type = "one-tailed"
+  p = .05
 })
