@@ -7,7 +7,7 @@ print.mpower <- function(x,...) {
     cat(" Expected Effect Size:             ", x$effect_size, "\n")
     cat(" Expected Sample Size (per group): ", x$sample_size, "\n")
     cat(" Expected Number of Studies:       ", x$k, "\n")
-    cat(" Expected Between-study SD:        ", x$sd, "\n\n")
+    cat(" Expected Heterogenity (i2):       ", x$i2, "\n\n")
 
     cat(" Estimated Power: Mean Effect Size \n\n")
 

@@ -61,7 +61,8 @@ ui <- fluidPage(
                                                      radioButtons(inputId = "d_test_type", label = "Test type", choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
                                    mainPanel(
                                      tabsetPanel(type = "tabs",
-                                                 tabPanel("Power Curve", plotOutput("d_plot", height = "600px"),
+                                                 tabPanel("Power Curve",
+                                                          plotOutput("d_plot", height = "600px"),
                                                           fluidRow(column(7,
                                                                           helpText("Note: Horizontal dashed line is 80% power.")))),
                                                  tabPanel("Summary", verbatimTextOutput("d_summary")))))),
@@ -89,8 +90,7 @@ ui <- fluidPage(
                                  sidebarLayout(
                                    sidebarPanel(
                                      titlePanel("Odds Ratio"),
-                                     fluidRow(column(12,
-                                                     numericInput("or_es", h3("Effect Size Magnitude"), min = 1, max = 75, value = 1.3, step = 0.)),
+                                     fluidRow(#column(12,numericInput("or_es", h3("Effect Size Magnitude"), min = 1, max = 75, value = 1.3, step = 0.)),
                                               shinydashboard::box(width = 12, title = "2x2 Contingency Table",
                                                                   splitLayout(
                                                                     numericInput("or_a", "Group 1 (Condition Present)", value = 13),
@@ -158,8 +158,7 @@ ui <- fluidPage(
                                  sidebarLayout(
                                    sidebarPanel(
                                      titlePanel("Odds Ratio"),
-                                     fluidRow(column(12,
-                                                     numericInput("homogen_or_es", h3("Effect Size Magnitude"), min = 1, max = 75, value = 1.3, step = 0.)),
+                                     fluidRow(#column(12, numericInput("homogen_or_es", h3("Effect Size Magnitude"), min = 1, max = 75, value = 1.3, step = 0.)),
                                               shinydashboard::box(width = 12, title = "2x2 Contingency Table",
                                                                   splitLayout(
                                                                     numericInput("homogen_or_a", "Group 1 (Condition Present)", value = 13),

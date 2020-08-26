@@ -92,8 +92,11 @@ homogen_power <- function (effect_size, sample_size, k, es_type, test_type = "tw
 
   }else if(es_type == "OR") {
     ## Convert odd ratio to log of odds ratio: log(OR)
-    effect_size = log(effect_size)
-    variance <- compute_variance(sample_size, effect_size, es_type, con_table)
+    effect_size <- round((con_table[1]*con_table[4])/(con_table[2]*con_table[3]),3)
+    effect_size <- round(log(effect_size),3)
+
+    ## Compute common variance
+    variance <- round((1/con_table[1]) + (1/con_table[2]) + (1/con_table[3]) + (1/con_table[4]),3)
     homogen_power_range_df <- data.frame(sd_v = rep(seq(0,6), each = (k*range_factor-1)),
                                          k_v = rep(seq(2,range_factor*k),times = 7),
                                          es_v = effect_size,
