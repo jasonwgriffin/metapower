@@ -14,8 +14,7 @@ test_that("Check power test from Pigott 2012, page 43", {
                             k = 10,
                             es_type ="d")$power$fixed_power,2), .29)
   #page 46
-  expect_equal(round(mpower(effect_size = 1.3,
-                            sample_size = 2000,
+  expect_equal(round(mpower(sample_size = 2000,
                             k = 9,
                             es_type = "OR",
                             test_type = "one-tailed",

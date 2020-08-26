@@ -74,6 +74,8 @@ mod_power <- function(n_groups,
   #####
   #####
 
+  ## assume equal groups across conditions
+
   sample_size <- sample_size/2
 
   ##### common variance?>

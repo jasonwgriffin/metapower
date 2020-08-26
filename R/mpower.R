@@ -56,14 +56,14 @@
 #' @import magrittr
 #' @export
 
-mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed", p = .05, i2 = .50, con_table = NULL){
+mpower <- function(effect_size = NULL, sample_size, k, es_type, test_type = "two-tailed", p = .05, i2 = .50, con_table = NULL){
 
   ## Check that the arguments are correctly specified
   mpower_integrity(effect_size, sample_size, k, es_type, test_type, p, con_table)
 
   ## Transform effect sizes condition on the metric
 
-  effect_size = abs(effect_size)
+  #effect_size = abs(effect_size)
 
   ## Determine the critical value cut-of based on one or two tailed test and p-value
   if(test_type == "two-tailed"){
@@ -107,9 +107,12 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
 
     }else if(es_type == "OR") {
       ## Convert odd ratio to log of odds ratio: log(OR)
-      effect_size = round(log(effect_size),2)
+
+      effect_size <- round((con_table[1]*con_table[4])/(con_table[2]*con_table[3]),3)
+      effect_size <- round(log(effect_size),3)
+
       ## Compute common variance
-      variance <- compute_variance(sample_size, effect_size, es_type, con_table)
+      variance <- round((1/con_table[1]) + (1/con_table[2]) + (1/con_table[3]) + (1/con_table[4]),3)
 
       # Create power range of data
       power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
