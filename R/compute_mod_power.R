@@ -1,26 +1,13 @@
 
-compute_mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, test_type = "two-tailed", p = .05, sd_within, con_table){
-
-  overall_effect_diff <- mean(effect_sizes) # find overall mean
+compute_mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, c_alpha_b, c_alpha_w, effect_diff, sd_within){
 
   df_b <- n_groups-1
   df_w <- k-n_groups
 
-  if(test_type == "two-tailed"){
-    c_alpha_b <- qchisq(1-(p/2), df_b, 0, lower.tail = TRUE)
-    c_alpha_w <- qchisq(1-(p/2), df_w, 0, lower.tail = TRUE)
-
-    }else if(test_type == "one-tailed"){
-      c_alpha_b <- qchisq(1-p, df_b, 0, lower.tail = TRUE)
-      c_alpha_w <- qchisq(1-p, df_w, 0, lower.tail = TRUE)
-      }
-
-  variance <- compute_variance(sample_size, overall_effect_diff, es_type, con_table)
-
   ## between groups
   #fixed_weight_c <- sum(rep(1/variance,sample_size/n_groups))
   fixed_weight_c <- sum(rep(1/variance,sample_size))
-  fixed_lambda_b <- sum(fixed_weight_c*(effect_sizes-overall_effect_diff)^2)
+  fixed_lambda_b <- sum(fixed_weight_c*(effect_sizes-overall_effect)^2)
   fixed_power_b <- 1 - pchisq(c_alpha_b,df_b,fixed_lambda_b,lower.tail = TRUE)
   ##within-groups
   fixed_weight_w <-1/variance
@@ -44,9 +31,9 @@ compute_mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, t
   random_weight_b_m <- sum(rep(1/(variance+tau2_m),sample_size))
   random_weight_b_l <- sum(rep(1/(variance+tau2_l),sample_size))
 
-  random_lambda_b_s <- sum(random_weight_b_s*(effect_sizes-overall_effect_diff)^2)
-  random_lambda_b_m <- sum(random_weight_b_m*(effect_sizes-overall_effect_diff)^2)
-  random_lambda_b_l <- sum(random_weight_b_l*(effect_sizes-overall_effect_diff)^2)
+  random_lambda_b_s <- sum(random_weight_b_s*(effect_sizes-overall_effect)^2)
+  random_lambda_b_m <- sum(random_weight_b_m*(effect_sizes-overall_effect)^2)
+  random_lambda_b_l <- sum(random_weight_b_l*(effect_sizes-overall_effect)^2)
 
   random_power_b_s <- 1 - pchisq(c_alpha_b,df_b,random_lambda_b_s,lower.tail = TRUE)
   random_power_b_m <- 1 - pchisq(c_alpha_b,df_b,random_lambda_b_m,lower.tail = TRUE)

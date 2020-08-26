@@ -57,7 +57,10 @@ mod_power <- function(n_groups,
                       con_table = NULL) {
 
   ## Argument Check
-  mod_power_integrity(effect_sizes, sample_size, k, es_type, test_type, p, con_table, sd_within)
+  #mod_power_integrity(effect_sizes, sample_size, k, es_type, test_type, p, con_table, sd_within)
+
+  df_b <- n_groups-1
+  df_w <- k-n_groups
 
   if(test_type == "two-tailed"){
     c_alpha_b <- qchisq(1-(p/2), df_b, 0, lower.tail = TRUE)
@@ -70,30 +73,49 @@ mod_power <- function(n_groups,
 
   #####
   #####
+
+
+
   ##### common variance?>
-  variance <- compute_variance(sample_size, overall_effect_diff, es_type, con_table)
+  #variance <- compute_variance(sample_size, overall_effect, es_type, con_table)
 
+  if(es_type == "d"){
+    effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
+    overall_effect <- mean(effect_sizes) # find overall mean
+    variance <- compute_variance(sample_size, overall_effect, es_type, con_table)
 
-  ## Difference in effect sizes
-  effect_diff <- effect_sizes - effect_sizes[1]
+    }else if(es_type == "Correlation"){
+      effect_sizes <- 0.5*log((1+effect_sizes)/(1-effect_sizes)) ## changes correlation to fisher's z
+      effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
+      overall_effect <- mean(effect_sizes) # find overall mean
+      variance <- compute_variance(sample_size, overall_effect, es_type, con_table)
 
-  ##
-  overall_effect <- mean(effect_sizes) # find overall mean
+      }else if(es_type == "OR") {
 
-  if(es_type == "Correlation"){
-    effect_sizes <- 0.5*log((1+effect_diff)/(1-effect_diff)) ## changes correlation to fisher's z
-  }else if(es_type == "OR") {
-    effect_sizes = log(effect_sizes) ## changes odds ratio to log odds
+        group <- names(con_table)
+        d <- data.frame(group)
+        d$a <- sapply(con_table, "[[", 1)
+        d$b <- sapply(con_table, "[[", 2)
+        d$c <- sapply(con_table, "[[", 3)
+        d$d <- sapply(con_table, "[[", 4)
+        d$or <- round((d$a*d$d)/(d$b*d$c),3)
+        d$log_or <- round(log(d$or),3)
+        d$var <- round((1/d$a) + (1/d$b) + (1/d$c) + (1/d$d),3)
+        effect_diff <- d$log_or - d$log_or[1]
+        overall_effect <- mean(d$log_or) # find overall mean
+        variance <- mean(d$var) # .82 pigott
+        effect_sizes <- d$log_or
   }
 
-  mod_power_list <- list(mod_power = compute_mod_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, sd_within, con_table),
+  mod_power_list <- list(mod_power = compute_mod_power(n_groups, effect_sizes, sample_size, k, es_type, c_alpha_b, c_alpha_w, effect_diff, sd_within),
                          n_groups = n_groups,
                          effect_sizes = effect_sizes,
                          sample_size = sample_size,
                          k = k,
                          es_type = es_type,
                          sd_within = sd_within,
-                         con_table = con_table)
+                         df = d,
+                         variance = variance)
   attr(mod_power_list, "class") <- "mod_power"
   return(mod_power_list)
 }
