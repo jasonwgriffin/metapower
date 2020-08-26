@@ -53,11 +53,11 @@ mod_power <- function(n_groups,
                       es_type,
                       test_type = "two-tailed",
                       p = .05,
-                      con_table = NULL,
-                      sd_within = NULL) {
+                      con_table = NULL) {
+                      #sd_within = NULL) {
 
   ## Argument Check
-  mod_power_integrity(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table, sd_within)
+  mod_power_integrity(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table) #s,d_within)
 
   df_b <- n_groups-1
   df_w <- k-n_groups
@@ -76,7 +76,9 @@ mod_power <- function(n_groups,
 
   ## assume equal groups across conditions
 
-  sample_size <- sample_size/2
+  #sample_size <- sample_size/2
+
+  range_factor <- 5
 
   ##### common variance?>
   #variance <- compute_variance(sample_size, overall_effect, es_type, con_table)
@@ -85,6 +87,15 @@ mod_power <- function(n_groups,
     effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
     overall_effect <- mean(effect_sizes) # find overall mean
     variance <- compute_variance(sample_size, overall_effect, es_type, con_table)
+
+    # create a power range of data
+    mod_power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
+                                 #es_v = rep(c((effect_sizes/2), effect_size, (effect_size*2)), each = range_factor*k-1),
+                                 overall_effect = overall_effect,
+                                 #i2_v = i2,
+                                 n_v = sample_size,
+                                 c_alpha_b = c_alpha_b,
+                                 c_alpha_w = c_alpha_w) %>% dplyr::mutate(variance = mapply(compute_variance, .data$n_v, .data$overall_effect, es_type))
 
     }else if(es_type == "Correlation"){
       effect_sizes <- 0.5*log((1+effect_sizes)/(1-effect_sizes)) ## changes correlation to fisher's z
@@ -111,13 +122,15 @@ mod_power <- function(n_groups,
         effect_sizes <- d$log_or
   }
 
-  mod_power_list <- list(mod_power = compute_mod_power(n_groups, effect_sizes, variance, overall_effect, sample_size, k, es_type, c_alpha_b, c_alpha_w, effect_diff, sd_within),
+  mod_power_list <- list(mod_power = compute_mod_power(n_groups, effect_sizes, variance, overall_effect, sample_size, k, c_alpha_b),
+                         mod_power_range = compute_mod_range(n_groups, effect_sizes, mod_power_range_df),
+                         mod_power_range_df = mod_power_range_df,
                          n_groups = n_groups,
                          effect_sizes = effect_sizes,
                          sample_size = sample_size,
                          k = k,
                          es_type = es_type,
-                         sd_within = sd_within,
+                         #sd_within = sd_within,
                          #df = d,
                          variance = variance)
   attr(mod_power_list, "class") <- "mod_power"

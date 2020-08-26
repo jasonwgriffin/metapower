@@ -1,4 +1,4 @@
-mod_power_integrity <- function(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table, sd_within){
+mod_power_integrity <- function(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table){
 
 # Argument Integrity Checks
 test_type_options <- c("one-tailed", "two-tailed")
@@ -90,8 +90,8 @@ if(!(test_type %in% test_type_options))
   stop("Need to specify two-tailed or one-tailed")
 
 ##sd_within
-if(!is.null(sd_within)){
-  if(length(sd_within) != n_groups)
-    stop("The number of of effect sizes should match the number within-group standard deviations")
-  }
+#if(!is.null(sd_within)){
+#  if(length(sd_within) != n_groups)
+#    stop("The number of of effect sizes should match the number within-group standard deviations")
+  #}
 }

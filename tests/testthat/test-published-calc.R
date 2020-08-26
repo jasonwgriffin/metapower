@@ -61,7 +61,7 @@ test_that("Check power test from Pigott 2012, page 43", {
 
   expect_equal(round(mod_power(n_groups = 2,
                                effect_sizes = c(0,.5),
-                               sample_size = 10,
+                               sample_size = 20,
                                k = 10,
                                es_type = "d",
                                #sd_within = c(1,1,4),
@@ -83,14 +83,23 @@ test_that("Check power test from Pigott 2012, page 43", {
                                test_type = "one-tailed")$mod_power$random_power_b_m,2), .42)
 
 #
-#   n3 <- mod_power(n_groups = 2,
-#             #effect_sizes = c(1.5,1.7),
-#             sample_size = 4000,
-#             k = 10,
-#             es_type = "OR",
-#             con_table = list(g1 = c(1463,1000,537,1000),
-#                              g2 = c(1000,1000,1000,1000)),
-#             #sd_within = c(1,1,4),
-#             test_type = "one-tailed")
+  n3 <- mod_power(n_groups = 2,
+            #effect_sizes = c(1.5,1.7),
+            sample_size = 4000,
+            k = 10,
+            es_type = "OR",
+            con_table = list(g1 = c(1463,1000,537,1000),
+                             g2 = c(1000,1000,1000,1000)),
+            #sd_within = c(1,1,4),
+            test_type = "one-tailed")
+
+  obj <- mod_power(n_groups = 2,
+            effect_sizes = c(0,.5),
+            sample_size = 40,
+            k = 40,
+            es_type = "d",
+            #sd_within = c(1,1,4),
+            test_type = "one-tailed")
+
 
 })
