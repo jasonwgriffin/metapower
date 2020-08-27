@@ -6,13 +6,12 @@
 \usage{
 mod_power(
   n_groups,
-  effect_sizes,
+  effect_sizes = NULL,
   sample_size,
   k,
   es_type,
   test_type = "two-tailed",
   p = 0.05,
-  sd_within = NULL,
   con_table = NULL
 )
 }
@@ -31,8 +30,6 @@ mod_power(
 
 \item{p}{Significance level (Type I error probability)}
 
-\item{sd_within}{(Optional) For computing power for a test of homogeneity (within-groups). standard deviation of each group to the overall mean}
-
 \item{con_table}{(Optional) For Odds Ratio effect sizes. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 
 \tabular{lcc}{
@@ -40,6 +37,8 @@ mod_power(
  Present     \tab a       \tab b       \cr
  Not Present \tab c       \tab d       \cr
 }}
+
+\item{sd_within}{(Optional) For computing power for a test of homogeneity (within-groups). standard deviation of each group to the overall mean}
 }
 \value{
 Estimated Power estimates for between and within-groups moderation

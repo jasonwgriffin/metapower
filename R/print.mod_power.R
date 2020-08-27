@@ -1,7 +1,7 @@
 #' @export
 
 print.mod_power <- function(x,...) {
-  cat("\n Power Analysis for Categorical Moderators: \n\n")
+  cat("\n Power Analysis for Subgroup analysis: \n\n")
 
   cat(" Number of Groups:                 ", x$n_groups, "\n")
   cat(" Expected Effect Sizes:            ", x$effect_sizes, "\n")

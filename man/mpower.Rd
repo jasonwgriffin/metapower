@@ -5,7 +5,7 @@
 \title{Compute Power for Meta-analysis}
 \usage{
 mpower(
-  effect_size,
+  effect_size = NULL,
   sample_size,
   k,
   es_type,

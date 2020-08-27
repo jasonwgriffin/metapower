@@ -8,7 +8,8 @@
 
 plot_homogen_power <- function(obj){
 
-  p_aes <- list(geom_line(size = 1),
+  p_aes <- list(geom_hline(yintercept = .80, linetype = "dashed", alpha = .80),
+                geom_line(size = 1.5),
                 scale_y_continuous(limits =c(0,1), breaks = c(0,.25,.5,.75,1)),
                 ylab("Power"),
                 theme_bw(),

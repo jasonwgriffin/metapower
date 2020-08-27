@@ -13,15 +13,16 @@ plot_mpower <- function(obj){
     stop("Object must be of class: mpower")
 
   ## set aesthetic
-  p_aes <- list(geom_line(size = 1),
-    scale_x_continuous(limits = c(2,max(obj$power_range$k_v)), breaks = c(seq(2,max(obj$power_range$k_v),by = round(max(obj$power_range$k_v)*.10,0)))),
-    scale_y_continuous(limits =c(0,1), breaks = c(0,.25,.5,.75,1)),
-    xlab("Number of Studies"),
-    ylab("Power"),
-    theme_bw(),
-    theme(legend.position = c(1,0),
-          legend.justification = c(1,0),
-          legend.background = element_rect(colour = 'black', fill = 'white', linetype='solid')))
+  p_aes <- list(geom_hline(yintercept = .80, linetype = "dashed", alpha = .80),
+                geom_line(size = 1.5),
+                scale_x_continuous(limits = c(2,max(obj$power_range$k_v)), breaks = c(seq(2,max(obj$power_range$k_v),by = round(max(obj$power_range$k_v)*.10,0)))),
+                scale_y_continuous(limits =c(0,1), breaks = c(0,.25,.5,.75,1)),
+                xlab("Number of Studies"),
+                ylab("Power"),
+                theme_bw(),
+                theme(legend.position = c(1,0),
+                      legend.justification = c(1,0),
+                      legend.background = element_rect(colour = 'black', fill = 'white', linetype='solid')))
 
   ## random data for plot
   rand_dat <- obj$power_range %>%

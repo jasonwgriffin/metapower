@@ -14,8 +14,7 @@ test_that("Check power test from Pigott 2012, page 43", {
                             k = 10,
                             es_type ="d")$power$fixed_power,2), .29)
   #page 46
-  expect_equal(round(mpower(effect_size = 1.3,
-                            sample_size = 2000,
+  expect_equal(round(mpower(sample_size = 2000,
                             k = 9,
                             es_type = "OR",
                             test_type = "one-tailed",
@@ -58,7 +57,50 @@ test_that("Check power test from Pigott 2012, page 43", {
                                sd_within = c(1,1,4),
                                test_type = "one-tailed")$mod_power$random_power_b_s,2), .05)
 
+  ## Page 353 Pigott 2020
 
+  expect_equal(round(mod_power(n_groups = 2,
+                               effect_sizes = c(0,.5),
+                               sample_size = 20,
+                               k = 10,
+                               es_type = "d",
+                               #sd_within = c(1,1,4),
+                               test_type = "one-tailed")$mod_power$fixed_power_b,2), .70)
+  ## 359
+  expect_equal(round(mod_power(n_groups = 2,
+                               effect_sizes = c(0,.5),
+                               sample_size = 20,
+                               k = 10,
+                               es_type = "d",
+                               #sd_within = c(1,1,4),
+                               test_type = "one-tailed")$mod_power$fixed_power_b,2), .70)
+
+  expect_equal(round(mod_power(n_groups = 2,
+                               effect_sizes = c(0,.5),
+                               sample_size = 20,
+                               k = 10,
+                               es_type = "d",
+                               test_type = "one-tailed")$mod_power$random_power_b_m,2), .42)
+
+#
+  n3 <- mod_power(n_groups = 2,
+            #effect_sizes = c(1.5,1.7),
+            sample_size = 4000,
+            k = 10,
+            es_type = "OR",
+            con_table = list(g1 = c(1463,1000,537,1000),
+                             g2 = c(1000,1000,1000,1000)),
+            #sd_within = c(1,1,4),
+            test_type = "one-tailed")
+
+  obj <- mod_power(n_groups = 2,
+            effect_sizes = c(0,.2),
+            sample_size = 20, # total
+            k = 20, # total
+            es_type = "d",
+
+            #sd_within = c(1,1,4),
+            test_type = "one-tailed")
 
 
 })
