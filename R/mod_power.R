@@ -16,8 +16,6 @@
 #'
 #' @param test_type "two-tailed" or "one-tailed"
 #'
-#' @param sd_within (Optional) For computing power for a test of homogeneity (within-groups). standard deviation of each group to the overall mean
-#'
 #' @param con_table (Optional) For Odds Ratio effect sizes. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 #'
 #' \tabular{lcc}{
@@ -35,7 +33,6 @@
 #'  sample_size = 15,
 #'  k = 15,
 #'  es_type = "Correlation",
-#'  sd_within = c(1,1,4),
 #'  test_type = "two-tailed",
 #'  p = .05)
 #'
@@ -54,10 +51,9 @@ mod_power <- function(n_groups,
                       test_type = "two-tailed",
                       p = .05,
                       con_table = NULL) {
-                      #sd_within = NULL) {
 
   ## Argument Check
-  mod_power_integrity(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table) #s,d_within)
+  mod_power_integrity(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table)
 
   df_b <- n_groups-1
   df_w <- k-n_groups
@@ -71,27 +67,17 @@ mod_power <- function(n_groups,
     c_alpha_w <- qchisq(1-p, df_w, 0, lower.tail = TRUE)
   }
 
-  #####
-  #####
-
-  ## assume equal groups across conditions
-
-  #sample_size <- sample_size/2
-
+  ## factor by which range of studies will population power curves
   range_factor <- 5
-
-  ##### common variance?>
-  #variance <- compute_variance(sample_size, overall_effect, es_type, con_table)
 
   if(es_type == "d"){
     effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
     overall_effect <- mean(effect_sizes) # find overall mean
-    variance <- compute_variance(sample_size/2, overall_effect, es_type, con_table)
+    variance <- compute_variance(sample_size/2, overall_effect, es_type, con_table) # compute variance for each group sample_size/2
 
     # create a power range of data
 
     mod_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
-                                 #es_v = rep(c((effect_sizes/2), effect_size, (effect_size*2)), each = range_factor*k-1),
                                  overall_effect = overall_effect,
                                  n_groups = n_groups,
                                  n_v = sample_size,
@@ -108,21 +94,20 @@ mod_power <- function(n_groups,
 
       }else if(es_type == "OR") {
 
-
-
+        ## gather user inputted group names
         group <- names(con_table)
-        d <- data.frame(group)
-        d$a <- sapply(con_table, "[[", 1)
+        d <- data.frame(group)  # create a data.frame with length equal to how many groups the user enters
+        d$a <- sapply(con_table, "[[", 1)  ## extract the 2x2 components c(a,b,c,d)
         d$b <- sapply(con_table, "[[", 2)
         d$c <- sapply(con_table, "[[", 3)
         d$d <- sapply(con_table, "[[", 4)
-        d$or <- round((d$a*d$d)/(d$b*d$c),3)
-        d$log_or <- round(log(d$or),3)
-        d$var <- round((1/d$a) + (1/d$b) + (1/d$c) + (1/d$d),3)
-        effect_diff <- d$log_or - d$log_or[1]
+        d$or <- round((d$a*d$d)/(d$b*d$c),3) ## Compute Odds Ratio
+        d$log_or <- round(log(d$or),3)  ## Convert to log odds
+        d$var <- round((1/d$a) + (1/d$b) + (1/d$c) + (1/d$d),3) ## compute variance of log odds
+        effect_diff <- d$log_or - d$log_or[1] ## compute anticipated difference among groups
         overall_effect <- mean(d$log_or) # find overall mean
-        variance <- mean(d$var) # .82 pigott
-        effect_sizes <- d$log_or
+        variance <- mean(d$var) ## find the common variance among all groups
+        effect_sizes <- d$log_or ## save the effect sizes in log odds to input in subsequent functions
   }
 
   mod_power_list <- list(mod_power = compute_mod_power(n_groups, effect_sizes, variance, overall_effect, sample_size, k, c_alpha_b),
@@ -133,8 +118,6 @@ mod_power <- function(n_groups,
                          sample_size = sample_size,
                          k = k,
                          es_type = es_type,
-                         #sd_within = sd_within,
-                         #df = d,
                          variance = variance)
   attr(mod_power_list, "class") <- "mod_power"
   return(mod_power_list)
