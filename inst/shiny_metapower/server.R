@@ -123,6 +123,42 @@ server <- function(input, output) {
     print(homogen_power(effect_size, sample_size, k, es_type, test_type, p))
   })
 
+  ## SUbgroup analysis
+  output$subgroup_c_plot <- renderPlot({
+    es_type <- "Correlation"
+    n_groups <- input$subgroup_c_n_groups
+    ## gather effect sizes
+    effect_sizes <- c(input$subgroup_c_es1,input$subgroup_c_es2)
+
+    if(!is.na(input$subgroup_c_es3))
+      effect_sizes <- c(effect_sizes,input$subgroup_c_es3)
+    if(!is.na(input$subgroup_c_es4))
+      effect_sizes <- c(effect_sizes,input$subgroup_c_es4)
+
+    k <- input$subgroup_c_k
+    sample_size <- input$subgroup_c_n
+    p <- input$subgroup_c_p
+    test_type <- input$subgroup_c_test_type
+    metapower::plot_mod_power(mod_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p))
+  })
+
+  output$subgroup_c_summary <- renderPrint({
+    es_type <- "Correlation"
+    n_groups <- input$subgroup_c_n_groups
+    effect_sizes <- c(input$subgroup_c_es1,input$subgroup_c_es2)
+
+    if(!is.na(input$subgroup_c_es3))
+      effect_sizes <- c(effect_sizes,input$subgroup_c_es3)
+    if(!is.na(input$subgroup_c_es4))
+      effect_sizes <- c(effect_sizes,input$subgroup_c_es4)
+    k <- input$subgroup_c_k
+    sample_size <- input$subgroup_c_n
+    p <- input$subgroup_c_p
+    test_type <- input$subgroup_c_test_type
+    print(mod_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p))
+  })
+
+
   ## Odds Ratio
   ## Summary Effect Size
   output$or_plot <- renderPlot({
@@ -170,6 +206,27 @@ server <- function(input, output) {
     i2 <- .50
     con_table <- c(input$homogen_or_a, input$homogen_or_b, input$homogen_or_c, input$homogen_or_d)
     print(homogen_power(NULL,sample_size, k, es_type, test_type, p, i2, con_table))
+  })
+
+  ## Subgroup analysis
+  output$subgroup_or_plot <- renderPlot({
+    es_type <- "OR"
+    n_groups <- input$subgroup_or_n_groups
+    k <- input$subgroup_or_k
+    sample_size <- input$subgroup_or_n
+    p <- input$subgroup_or_p
+    test_type <- input$subgroup_or_test_type
+    metapower::plot_mod_power(mod_power(n_groups, NULL, sample_size, k, es_type, test_type, con_table))
+  })
+
+  output$subgroup_or_summary <- renderPrint({
+    es_type <- "OR"
+    n_groups <- input$subgroup_or_n_groups
+    k <- input$subgroup_or_k
+    sample_size <- input$subgroup_or_n
+    p <- input$subgroup_or_p
+    test_type <- input$subgroup_or_test_type
+    print(mod_power(n_groups, NULL, effect_sizes, sample_size, k, es_type, test_type, p, con_table))
   })
 
 
