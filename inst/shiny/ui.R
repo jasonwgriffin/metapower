@@ -196,12 +196,12 @@ ui <- fluidPage(
                                              shinydashboard::box(width = 6, title = "Subgroup Effect Sizes",
                                                                  numericInput("subgroup_d_es1", "Group 1", value = .2, max = 5, step = .1),
                                                                  numericInput("subgroup_d_es2", "Group 2", value = .4, max = 5, step = .1),
-                                                                 numericInput("subgroup_d_es3", "Group 3", value = NULL, max = 5, step = .1),
-                                                                 numericInput("subgroup_d_es4", "Group 4", value = NULL, max = 5, step = .1)),
+                                                                 numericInput("subgroup_d_es3", "Group 3", value = NA, max = 5, step = .1),
+                                                                 numericInput("subgroup_d_es4", "Group 4", value = NA, max = 5, step = .1)),
 
                                              column(12,
                                                     sliderInput(inputId = "subgroup_d_n", h3("Number of Participants (total)"), min = 2, max = 300, value = 20),
-                                                    sliderInput(inputId = "subgroup_d_k", h3("Number of Studies (total)"), min = 2, max = 100, value = 20),
+                                                    sliderInput(inputId = "subgroup_d_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 10),
                                                     numericInput(inputId = "subgroup_d_p", h3("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
                                                     radioButtons(inputId = "subgroup_d_test_type", label = "Test type", choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
                                   mainPanel(
