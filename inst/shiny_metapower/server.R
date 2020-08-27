@@ -216,7 +216,16 @@ server <- function(input, output) {
     sample_size <- input$subgroup_or_n
     p <- input$subgroup_or_p
     test_type <- input$subgroup_or_test_type
-    metapower::plot_mod_power(mod_power(n_groups, NULL, sample_size, k, es_type, test_type, con_table))
+    con_table <- list(group1 = c(input$sg_1_or_a,input$sg_1_or_b,input$sg_1_or_c,input$sg_1_or_d),
+                      group2 = c(input$sg_2_or_a,input$sg_2_or_b,input$sg_2_or_c,input$sg_2_or_d))
+
+    ## check if more than 2 subgroups, if so add them to list
+    if(input$sg3_or_name != "")
+      con_table <- c(con_table, list(group3 = c(input$sg_3_or_a,input$sg_3_or_b,input$sg_3_or_c,input$sg_3_or_d)))
+    if(input$sg4_or_name != "")
+      con_table <- c(con_table, list(group4 = c(input$sg_4_or_a,input$sg_4_or_b,input$sg_4_or_c,input$sg_4_or_d)))
+
+    metapower::plot_mod_power(mod_power(n_groups, NULL, sample_size, k, es_type, test_type, p, con_table))
   })
 
   output$subgroup_or_summary <- renderPrint({
@@ -226,7 +235,17 @@ server <- function(input, output) {
     sample_size <- input$subgroup_or_n
     p <- input$subgroup_or_p
     test_type <- input$subgroup_or_test_type
-    print(mod_power(n_groups, NULL, effect_sizes, sample_size, k, es_type, test_type, p, con_table))
+    sg1 <- as.character(input$sg1_or_name)
+    con_table <- list(group1 = c(input$sg_1_or_a,input$sg_1_or_b,input$sg_1_or_c,input$sg_1_or_d),
+                      group2 = c(input$sg_2_or_a,input$sg_2_or_b,input$sg_2_or_c,input$sg_2_or_d))
+
+    ## check if more than 2 subgroups, if so add them to list
+    if(input$sg3_or_name != "")
+      con_table <- c(con_table, list(group3 = c(input$sg_3_or_a,input$sg_3_or_b,input$sg_3_or_c,input$sg_3_or_d)))
+    if(input$sg4_or_name != "")
+      con_table <- c(con_table, list(group4 = c(input$sg_4_or_a,input$sg_4_or_b,input$sg_4_or_c,input$sg_4_or_d)))
+
+    print(mod_power(n_groups, NULL, sample_size, k, es_type, test_type, p, con_table))
   })
 
 

@@ -133,7 +133,8 @@ mod_power <- function(n_groups,
                          sample_size = sample_size,
                          k = k,
                          es_type = es_type,
-                         variance = variance)
+                         variance = variance,
+                         group = group)
   attr(mod_power_list, "class") <- "mod_power"
   return(mod_power_list)
 }

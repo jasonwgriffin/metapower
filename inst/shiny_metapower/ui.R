@@ -221,7 +221,6 @@ ui <- fluidPage(
                                                                  numericInput("subgroup_c_es2", "Group 2", value = .4, max = 5, step = .1),
                                                                  numericInput("subgroup_c_es3", "Group 3", value = NA, max = 5, step = .1),
                                                                  numericInput("subgroup_c_es4", "Group 4", value = NA, max = 5, step = .1)),
-
                                              column(12,
                                                     sliderInput(inputId = "subgroup_c_n", h3("Number of Participants (total)"), min = 2, max = 300, value = 20),
                                                     sliderInput(inputId = "subgroup_c_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 10),
@@ -238,16 +237,73 @@ ui <- fluidPage(
                                   sidebarPanel(
                                     titlePanel("Odds Ratio"),
                                     fluidRow(column(12,
-                                                    numericInput(inputId = "subgroup_or_n_groups", h3("Number of Groups"), min = 2, max = 10, value = 2)),
-                                             shinydashboard::box(width = 6, title = "Subgroup Effect Sizes",
-                                                                 numericInput("subgroup_or_es1", "Group 1", value = .2, max = 5, step = .1),
-                                                                 numericInput("subgroup_or_es2", "Group 2", value = .4, max = 5, step = .1),
-                                                                 numericInput("subgroup_or_es3", "Group 3", value = NA, max = 5, step = .1),
-                                                                 numericInput("subgroup_or_es4", "Group 4", value = NA, max = 5, step = .1)),
+                                                    numericInput(inputId = "subgroup_or_n_groups", h3("Number of Subgroups"), min = 2, max = 10, value = 2),
+                                                    numericInput(inputId = "subgroup_or_n", h3("Number of Participants (total)"), min = 2, max = 300, value = 20),
+                                                    sliderInput(inputId = "subgroup_or_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 20)),
+                                             #shinydashboard::box(width = 12, tit)
+
+
+
+                                             # column(width = 9,
+                                             #        tags$form(
+                                             #          class="form-horizontal",
+                                             #          tags$div(class="form-group",
+                                             #                   tags$label(class = "col-sm-4 control-label", `for` = "sg1_or_name", "Subgroup 1"),
+                                             #                   column(width = 4, textInput("sg1_or_name", NULL, value = "men"))))),
+                                             column(width = 12,offset = 0,
+                                                    textInput("sg1_or_name", "Subgroup 1 (e.g., Men)", value = "Men"),
+                                                    tags$form(
+                                                      class="form-horizontal",
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "sg_1_or_a", br(),br(), "Present"),
+                                                               column(width = 4, numericInput(inputId = "sg_1_or_a", label = HTML("Group 1 <br/> (e.g., Treatment)"), value = 6)),
+                                                               column(width = 4, numericInput(inputId = "sg_1_or_b", label = HTML("Group 2 <br/> (e.g., Control)"), value = 5))),
+
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "sg_1_or_d", "Absent"),
+                                                               column(width = 4, numericInput(inputId = "sg_1_or_c", label = NULL, value = 4)),
+                                                               column(width = 4, numericInput(inputId = "sg_1_or_d", label = NULL, value = 5))))),
+                                             column(width = 12,offset = 0,
+                                                    textInput("sg2_or_name", "Subgroup 2 (e.g., Women)", value = "Women"),
+                                                    tags$form(
+                                                      class="form-horizontal",
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "sg_2_or_a", br(),br(), "Present"),
+                                                               column(width = 4, numericInput(inputId = "sg_2_or_a", label = HTML("Group 1 <br/> (e.g., Treatment)"), value = 7)),
+                                                               column(width = 4, numericInput(inputId = "sg_2_or_b", label = HTML("Group 2 <br/> (e.g., Control)"), value = 5))),
+
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "sg_2_or_d", "Absent"),
+                                                               column(width = 4, numericInput(inputId = "sg_2_or_c", label = NULL, value = 3)),
+                                                               column(width = 4, numericInput(inputId = "sg_2_or_d", label = NULL, value = 5))))),
+                                             column(width = 12,offset = 0,
+                                                    textInput("sg3_or_name", "Subgroup 3:"),
+                                                    tags$form(
+                                                      class="form-horizontal",
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "sg_3_or_a", br(), "Present"),
+                                                               column(width = 4, numericInput(inputId = "sg_3_or_a", label = HTML("Group 1 <br/> (e.g., Treatment)"), value = NA)),
+                                                               column(width = 4, numericInput(inputId = "sg_3_or_b", label = HTML("Group 2 <br/> (e.g., Control)"), value = NA))),
+
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "sg_3_or_d", "Absent"),
+                                                               column(width = 4, numericInput(inputId = "sg_3_or_c", label = NULL, value = NA)),
+                                                               column(width = 4, numericInput(inputId = "sg_3_or_d", label = NULL, value = NA))))),
+                                             column(width = 12,offset = 0,
+                                                    textInput("sg4_or_name", "Subgroup 4:"),
+                                                    tags$form(
+                                                      class="form-horizontal",
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "sg_4_or_a", br(), "Present"),
+                                                               column(width = 4, numericInput(inputId = "sg_4_or_a", label = HTML("Group 1 <br/> (e.g., Treatment)"), value = NA)),
+                                                               column(width = 4, numericInput(inputId = "sg_4_or_b", label = HTML("Group 2 <br/> (e.g., Control)"), value = NA))),
+
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "sg_4_or_d", "Absent"),
+                                                               column(width = 4, numericInput(inputId = "sg_4_or_c", label = NULL, value = NA)),
+                                                               column(width = 4, numericInput(inputId = "sg_4_or_d", label = NULL, value = NA))))),
 
                                              column(12,
-                                                    sliderInput(inputId = "subgroup_or_n", h3("Number of Participants (total)"), min = 2, max = 300, value = 20),
-                                                    sliderInput(inputId = "subgroup_or_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 10),
                                                     numericInput(inputId = "subgroup_or_p", h3("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
                                                     radioButtons(inputId = "subgroup_or_test_type", label = "Test type", choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
                                   mainPanel(

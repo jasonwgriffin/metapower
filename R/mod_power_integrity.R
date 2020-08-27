@@ -78,8 +78,7 @@ if(es_type == "OR" & !missing(con_table)){
   for (i in 1:length(con_table)){
     if(sample_size != sum(con_table[[i]]))
       stop("Each 2x2 table should yield a total sum of the total sample size")
-  }
-
+    }
 }
 
 ## check the sample size equals the sum of each element of the list
