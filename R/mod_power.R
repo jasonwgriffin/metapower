@@ -86,22 +86,25 @@ mod_power <- function(n_groups,
   if(es_type == "d"){
     effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
     overall_effect <- mean(effect_sizes) # find overall mean
-    variance <- compute_variance(sample_size, overall_effect, es_type, con_table)
+    variance <- compute_variance(sample_size/2, overall_effect, es_type, con_table)
 
     # create a power range of data
-    mod_power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
+
+    mod_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
                                  #es_v = rep(c((effect_sizes/2), effect_size, (effect_size*2)), each = range_factor*k-1),
                                  overall_effect = overall_effect,
-                                 #i2_v = i2,
+                                 n_groups = n_groups,
                                  n_v = sample_size,
                                  c_alpha_b = c_alpha_b,
-                                 c_alpha_w = c_alpha_w) %>% dplyr::mutate(variance = mapply(compute_variance, .data$n_v, .data$overall_effect, es_type))
+                                 c_alpha_w = c_alpha_w,
+                                 es_1 = 0,
+                                 es_2 = .05) %>% dplyr::mutate(variance = mapply(compute_variance, .data$n_v, .data$overall_effect, es_type))
 
     }else if(es_type == "Correlation"){
       effect_sizes <- 0.5*log((1+effect_sizes)/(1-effect_sizes)) ## changes correlation to fisher's z
       effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
       overall_effect <- mean(effect_sizes) # find overall mean
-      variance <- compute_variance(sample_size, overall_effect, es_type, con_table)
+      variance <- compute_variance(sample_size/2, overall_effect, es_type, con_table)
 
       }else if(es_type == "OR") {
 

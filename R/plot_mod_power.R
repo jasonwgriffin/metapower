@@ -29,7 +29,7 @@ plot_mod_power <- function(obj){
     dplyr::select(c("k_v", dplyr::starts_with("random"))) %>%
     tidyr::pivot_longer(-"k_v", names_to = "power_type", values_to = "power")
 
-  rand_dat$power_type <- factor(rand_dat$power_type, levels = c("random_power_b_s", "random_power_b_m", "random_power_b_l"))
+  rand_dat$power_type <- factor(rand_dat$power_type, levels = c("random_power_b_0","random_power_b_s", "random_power_b_m", "random_power_b_l"))
   #obj$mod_power_range$es_v <- as.factor(obj$power_range$es_v)
 
 
@@ -45,7 +45,7 @@ plot_mod_power <- function(obj){
     ggtitle("Random-Effects Model") +
     scale_color_manual(name = "Heterogeneity",
                        labels = c(#bquote(I^2 == .(round(obj$i2*100,2)) * `%`),
-                                  #bquote(I^2 == "0%"),
+                                  bquote(I^2 == "0%"),
                                   bquote(I^2 == "25%"),
                                   bquote(I^2 == "50%"),
                                   bquote(I^2 == "75%")),

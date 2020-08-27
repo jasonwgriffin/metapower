@@ -94,10 +94,11 @@ test_that("Check power test from Pigott 2012, page 43", {
             test_type = "one-tailed")
 
   obj <- mod_power(n_groups = 2,
-            effect_sizes = c(0,.5),
-            sample_size = 40,
-            k = 40,
+            effect_sizes = c(0,.2),
+            sample_size = 20, # total
+            k = 20, # total
             es_type = "d",
+
             #sd_within = c(1,1,4),
             test_type = "one-tailed")
 
