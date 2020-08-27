@@ -8,12 +8,12 @@ print.mod_power <- function(x,...) {
   cat(" Expected Sample Size (per group): ", x$sample_size, "\n")
   cat(" Expected Number of Studies:       ", x$k, "\n\n")
 
-  cat(" Esimated Power \n\n")
+  cat(" Esimated Power to detect subgroup differences \n\n")
 
-  cat(" Fixed-Effects Model (Between-Group):                         ", x$mod_power$fixed_power_b, "\n")
-  cat(" Fixed-Effects Model (Within-Group):                          ", x$mod_power$fixed_power_w, "\n")
-  cat(" Random-Effects Model (Between-Group, Small Heterogneity):    ", x$mod_power$random_power_b_s, "\n")
-  cat(" Random-Effects Model (Between-Group, Moderate Heterogneity): ", x$mod_power$random_power_b_m, "\n")
-  cat(" Random-Effects Model (Between-Group, Large Heterogneity):    ", x$mod_power$random_power_b_l, "\n")
-
+  cat(" Fixed-Effects Model:                 ", x$mod_power$fixed_power_b, "\n")
+  #cat(" Fixed-Effects Model (Within-Group):                          ", x$mod_power$fixed_power_w, "\n")
+  cat(" Random-Effects Model (i2 = 0%):      ", x$mod_power$random_power_b_0, "\n")
+  cat(" Random-Effects Model (i2 = 25%):     ", x$mod_power$random_power_b_s, "\n")
+  cat(" Random-Effects Model (i2 = 50%):     ", x$mod_power$random_power_b_m, "\n")
+  cat(" Random-Effects Model (i2 = 75%):     ", x$mod_power$random_power_b_l, "\n")
 }

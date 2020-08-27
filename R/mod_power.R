@@ -28,11 +28,11 @@
 #'
 #' @examples
 #' mod_power(
-#'  n_groups = 3,
-#'  effect_sizes = c(0,.1,.55),
-#'  sample_size = 15,
-#'  k = 15,
-#'  es_type = "Correlation",
+#'  n_groups = 2,
+#'  effect_sizes = c(.1,.3),
+#'  sample_size = 20,
+#'  k = 20,
+#'  es_type = "d",
 #'  test_type = "two-tailed",
 #'  p = .05)
 #'
@@ -73,7 +73,7 @@ mod_power <- function(n_groups,
   if(es_type == "d"){
     effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
     overall_effect <- mean(effect_sizes) # find overall mean
-    variance <- compute_variance(sample_size/2, overall_effect, es_type, con_table) # compute variance for each group sample_size/2
+    variance <- compute_variance(sample_size/n_groups, overall_effect, es_type, con_table) # compute variance for each group sample_size/2
 
     # create a power range of data
 
@@ -82,15 +82,20 @@ mod_power <- function(n_groups,
                                  n_groups = n_groups,
                                  n_v = sample_size,
                                  c_alpha_b = c_alpha_b,
-                                 c_alpha_w = c_alpha_w,
-                                 es_1 = 0,
-                                 es_2 = .05) %>% dplyr::mutate(variance = mapply(compute_variance, .data$n_v, .data$overall_effect, es_type))
+                                 c_alpha_w = c_alpha_w) %>% dplyr::mutate(variance = mapply(compute_variance, .data$n_v, .data$overall_effect, es_type))
 
     }else if(es_type == "Correlation"){
       effect_sizes <- 0.5*log((1+effect_sizes)/(1-effect_sizes)) ## changes correlation to fisher's z
       effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
       overall_effect <- mean(effect_sizes) # find overall mean
-      variance <- compute_variance(sample_size/2, overall_effect, es_type, con_table)
+      variance <- compute_variance(sample_size/n_groups, overall_effect, es_type, con_table)
+      ##
+      mod_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
+                                       overall_effect = overall_effect,
+                                       n_groups = n_groups,
+                                       n_v = sample_size,
+                                       c_alpha_b = c_alpha_b,
+                                       c_alpha_w = c_alpha_w) %>% dplyr::mutate(variance = mapply(compute_variance, .data$n_v, .data$overall_effect, es_type))
 
       }else if(es_type == "OR") {
 
@@ -108,6 +113,16 @@ mod_power <- function(n_groups,
         overall_effect <- mean(d$log_or) # find overall mean
         variance <- mean(d$var) ## find the common variance among all groups
         effect_sizes <- d$log_or ## save the effect sizes in log odds to input in subsequent functions
+        ## range df
+        mod_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
+                                         overall_effect = overall_effect,
+                                         n_groups = n_groups,
+                                         n_v = sample_size,
+                                         c_alpha_b = c_alpha_b,
+                                         c_alpha_w = c_alpha_w,
+                                         variance = variance)
+
+
   }
 
   mod_power_list <- list(mod_power = compute_mod_power(n_groups, effect_sizes, variance, overall_effect, sample_size, k, c_alpha_b),

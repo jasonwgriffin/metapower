@@ -37,8 +37,6 @@ mod_power(
  Present     \tab a       \tab b       \cr
  Not Present \tab c       \tab d       \cr
 }}
-
-\item{sd_within}{(Optional) For computing power for a test of homogeneity (within-groups). standard deviation of each group to the overall mean}
 }
 \value{
 Estimated Power estimates for between and within-groups moderation
@@ -48,12 +46,11 @@ Computes statistical power for categorical moderator models under fixed- and ran
 }
 \examples{
 mod_power(
- n_groups = 3,
- effect_sizes = c(0,.1,.55),
- sample_size = 15,
- k = 15,
- es_type = "Correlation",
- sd_within = c(1,1,4),
+ n_groups = 2,
+ effect_sizes = c(.1,.3),
+ sample_size = 20,
+ k = 20,
+ es_type = "d",
  test_type = "two-tailed",
  p = .05)
 
