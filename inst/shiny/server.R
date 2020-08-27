@@ -45,6 +45,39 @@ server <- function(input, output) {
     print(homogen_power(effect_size, sample_size, k, es_type, test_type, p))
   })
 
+  ## SUbgroup analysis
+
+  output$subgroup_d_plot <- renderPlot({
+    es_type <- "d"
+    n_groups <- input$subgroup_d_n_groups
+    ## gather effect sizes
+    effect_sizes <- c(input$subgroup_d_es1,input$subgroup_d_es2)
+
+    if(!is.null(input$subgroup_d_es3))
+      effect_sizes <- c(effect_sizes, input$subgroup_d_es3)
+
+
+
+
+
+
+    k <- input$subgroup_d_k
+    sample_size <- input$subgroup_d_n
+    p <- input$subgroup_d_p
+    test_type <- input$subgroup_d_test_type
+    metapower::plot_mod_power(mod_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p))
+  })
+
+  output$subgroup_d_summary <- renderPrint({
+    es_type <- "d"
+    n_groups <- input$subgroup_d_n_groups
+    effect_sizes <- c(input$subgroup_d_es1,input$subgroup_d_es2,input$subgroup_d_es3,input$subgroup_d_es4)
+    k <- input$subgroup_d_k
+    sample_size <- input$subgroup_d_n
+    p <- input$subgroup_d_p
+    test_type <- input$subgroup_d_test_type
+    print(mod_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p))
+  })
 
 
   ## Correlation

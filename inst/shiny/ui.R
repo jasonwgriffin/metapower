@@ -178,5 +178,36 @@ ui <- fluidPage(
                                                  tabPanel("Power Curve", plotOutput("homogen_or_plot", height = "600px"),
                                                           fluidRow(column(7,
                                                                           helpText("Note: Horizontal dashed line is 80% power.")))),
-                                                 tabPanel("Summary", verbatimTextOutput("homogen_or_summary")))))))
+                                                 tabPanel("Summary", verbatimTextOutput("homogen_or_summary"))))))),
+            ## Subgroup Analysis
+            ## Subgroup Analysis
+            ## Subgroup Analysis
+            ## Subgroup Analysis
+            ## Subgroup Analysis
+            navbarMenu("Subgroup Analysis", icon = icon("tasks", lib = "glyphicon"),
+
+                       ## Cohen's d
+                       tabPanel("Cohen's d", fluid = TRUE,#also icon = pretty picture
+                                sidebarLayout(
+                                  sidebarPanel(
+                                    titlePanel("Cohen's d"),
+                                    fluidRow(column(12,
+                                                    numericInput(inputId = "subgroup_d_n_groups", h3("Number of Groups"), min = 2, max = 10, value = 2)),
+                                             shinydashboard::box(width = 6, title = "Subgroup Effect Sizes",
+                                                                 numericInput("subgroup_d_es1", "Group 1", value = .2, max = 5, step = .1),
+                                                                 numericInput("subgroup_d_es2", "Group 2", value = .4, max = 5, step = .1),
+                                                                 numericInput("subgroup_d_es3", "Group 3", value = NULL, max = 5, step = .1),
+                                                                 numericInput("subgroup_d_es4", "Group 4", value = NULL, max = 5, step = .1)),
+
+                                             column(12,
+                                                    sliderInput(inputId = "subgroup_d_n", h3("Number of Participants (total)"), min = 2, max = 300, value = 20),
+                                                    sliderInput(inputId = "subgroup_d_k", h3("Number of Studies (total)"), min = 2, max = 100, value = 20),
+                                                    numericInput(inputId = "subgroup_d_p", h3("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
+                                                    radioButtons(inputId = "subgroup_d_test_type", label = "Test type", choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
+                                  mainPanel(
+                                    tabsetPanel(type = "tabs",
+                                                tabPanel("Power Curve", plotOutput("subgroup_d_plot", height = "600px"),
+                                                         fluidRow(column(7,
+                                                                         helpText("Note: Horizontal dashed line is 80% power.")))),
+                                                tabPanel("Summary", verbatimTextOutput("subgroup_d_summary")))))))
              ))
