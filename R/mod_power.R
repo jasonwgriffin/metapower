@@ -16,8 +16,6 @@
 #'
 #' @param test_type "two-tailed" or "one-tailed"
 #'
-#' @param sd_within (Optional) For computing power for a test of homogeneity (within-groups). standard deviation of each group to the overall mean
-#'
 #' @param con_table (Optional) For Odds Ratio effect sizes. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 #'
 #' \tabular{lcc}{

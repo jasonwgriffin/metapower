@@ -1,7 +1,11 @@
+#' Launch shiny application of metapower
+#'
+#'  @examples
+#'
+#'  shiny_metapower()
+#'
+#'
 #' @export
-#'
-#'
-#'
 
 shiny_metapower <- function() {
   appDir <- system.file("shiny_metapower", package = "metapower")
