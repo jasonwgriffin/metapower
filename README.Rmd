@@ -25,6 +25,8 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/metapower)](https://CRAN.R-project.org/package=metapower)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
+`r badge_cran_download("metapower", "grand-total", "blue")`
+
 <!-- badges: end -->
 
 The primary goal of metapower is to compute statistical power for meta-analyses. Currently, metapower has the following functionality:
@@ -34,7 +36,7 @@ Computation of statistical power for:
 1. Summary main effects sizes
 2. Test of homogeneity for between-group variance (for Random-effects models). 
 3. Test of homogeneity for within-study variance
-4. Categorical moderator analyses
+4. Subgroup Analyses
 
 metapower can currently handle the following designs and effect sizes:
 
@@ -55,11 +57,15 @@ And the development version from [GitHub](https://github.com/jasonwgriffin/metap
 # install.packages("devtools")
 devtools::install_github("jasonwgriffin/metapower")
 ```
+## Shiny Application
+
+Check out the simple and easy to use shiny application: [shiny metapower](https://jason-griffin.shinyapps.io/shiny_metapower)
+
 ## Example
 
 ```{r, dpi = 300,fig.height=7, fig.width=7}
 library(metapower)
-my_power <- mpower(effect_size = .25, sample_size = 20, k = 30, es_type = "d")
+my_power <- mpower(effect_size = .2, sample_size = 20, k = 10, es_type = "d")
 print(my_power)
 plot_mpower(my_power)
 ```

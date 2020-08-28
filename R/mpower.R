@@ -56,7 +56,7 @@
 #' @import magrittr
 #' @export
 
-mpower <- function(effect_size = NULL, sample_size, k, es_type, test_type = "two-tailed", p = .05, i2 = .50, con_table = NULL){
+mpower <- function(effect_size = NULL, sample_size, k, es_type, test_type = "two-tailed", p = .05, con_table = NULL){
 
   ## Check that the arguments are correctly specified
   mpower_integrity(effect_size, sample_size, k, es_type, test_type, p, con_table)
@@ -81,7 +81,6 @@ mpower <- function(effect_size = NULL, sample_size, k, es_type, test_type = "two
     power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
                      es_v = rep(c((effect_size/2), effect_size, (effect_size*2)), each = range_factor*k-1),
                      effect_size = effect_size,
-                     i2_v = i2,
                      n_v = sample_size,
                      c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
@@ -101,7 +100,6 @@ mpower <- function(effect_size = NULL, sample_size, k, es_type, test_type = "two
     power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
                                  es_v = rep(c((effect_size/2), effect_size, max), each = range_factor*k-1), ## special for correlation
                                  effect_size = effect_size,
-                                 i2_v = i2,
                                  n_v = sample_size,
                                  c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
@@ -118,22 +116,20 @@ mpower <- function(effect_size = NULL, sample_size, k, es_type, test_type = "two
       power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
                                    es_v = rep(c((effect_size/2), effect_size, (effect_size*2)), each = range_factor*k-1),
                                    effect_size = effect_size,
-                                   i2_v = i2,
                                    n_v = sample_size,
                                    c_alpha = c_alpha,
                                    variance = variance)
       }
 # Generate list of relevant variables for output
   power_list <- list(variance = variance,
-                   power = compute_power(k, effect_size, variance, i2, c_alpha),
+                   power = compute_power(k, effect_size, variance, c_alpha),
                    power_range = compute_power_range(power_range_df),
                    effect_size = effect_size,
                    sample_size = sample_size,
                    k = k,
                    es_type = es_type,
                    test_type = test_type,
-                   p = p,
-                   i2 = i2)
+                   p = p)
   attr(power_list, "class") <- "mpower"
 
   return(power_list)

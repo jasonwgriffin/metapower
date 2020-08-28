@@ -10,6 +10,8 @@ status](https://www.r-pkg.org/badges/version/metapower)](https://CRAN.R-project.
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
+[![](http://cranlogs.r-pkg.org/badges/grand-total/metapower?color=blue)](https://cran.r-project.org/package=metapower)
+
 <!-- badges: end -->
 
 The primary goal of metapower is to compute statistical power for
@@ -21,7 +23,7 @@ Computation of statistical power for:
 2.  Test of homogeneity for between-group variance (for Random-effects
     models).
 3.  Test of homogeneity for within-study variance
-4.  Categorical moderator analyses
+4.  Subgroup Analyses
 
 metapower can currently handle the following designs and effect sizes:
 
@@ -47,28 +49,33 @@ And the development version from
 devtools::install_github("jasonwgriffin/metapower")
 ```
 
+## Shiny Application
+
+Check out the simple and easy to use shiny application: [shiny
+metapower](https://jason-griffin.shinyapps.io/shiny_metapower)
+
 ## Example
 
 ``` r
 library(metapower)
-my_power <- mpower(effect_size = .25, sample_size = 20, k = 30, es_type = "d")
+my_power <- mpower(effect_size = .2, sample_size = 20, k = 10, es_type = "d")
 print(my_power)
 #> 
 #>  Power Analysis for Meta-analysis 
 #> 
-#>  Expected Effect Size:              0.25 
+#>  Expected Effect Size:              0.2 
 #>  Expected Sample Size (per group):  20 
-#>  Expected Number of Studies:        30 
-#>  Expected Between-study SD:         
+#>  Expected Number of Studies:        10 
+#>  Expected Heterogenity (i2):        0.5 
 #> 
 #>  Estimated Power: Mean Effect Size 
 #> 
-#>  Fixed-Effects Model                0.990698 
-#>  Random-Effects Model (i2 = 50% ):  0.8580983
-#>  Random-Effects Model (i2 =  0% ):  0.9871537 
-#>  Random-Effects Model (i2 = 25% ):  0.9578004 
-#>  Random-Effects Model (i2 = 50% ):  0.8580983 
-#>  Random-Effects Model (i2 = 75% ):  0.5820965
+#>  Fixed-Effects Model                0.5140202 
+#>  Random-Effects Model (i2 = 50% ):  0.318419
+#>  Random-Effects Model (i2 =  0% ):  0.4548414 
+#>  Random-Effects Model (i2 = 25% ):  0.401282 
+#>  Random-Effects Model (i2 = 50% ):  0.318419 
+#>  Random-Effects Model (i2 = 75% ):  0.2075233
 plot_mpower(my_power)
 ```
 
