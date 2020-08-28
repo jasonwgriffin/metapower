@@ -6,7 +6,7 @@
 \usage{
 mod_power(
   n_groups,
-  effect_sizes = NULL,
+  effect_sizes,
   sample_size,
   k,
   es_type,

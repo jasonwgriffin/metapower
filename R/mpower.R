@@ -54,8 +54,10 @@
 #' @import magrittr
 #' @export
 
-mpower <- function(effect_size = NULL, sample_size, k, es_type, test_type = "two-tailed", p = .05, con_table = NULL){
+mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed", p = .05, con_table = NULL){
 
+  if(missing(effect_size))
+    effect_size = NULL
   ## Check that the arguments are correctly specified
   mpower_integrity(effect_size, sample_size, k, es_type, test_type, p, con_table)
 

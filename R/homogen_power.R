@@ -53,6 +53,8 @@
 
 homogen_power <- function (effect_size, sample_size, k, es_type, test_type = "two-tailed", p =.05, con_table = NULL){
 
+  if(missing(effect_size))
+    effect_size = NULL
   ## check args
   mpower_integrity(effect_size, sample_size, k, es_type, test_type, p, con_table)
 

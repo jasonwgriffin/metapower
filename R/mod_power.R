@@ -40,15 +40,12 @@
 #' @importFrom stats pgamma
 #' @export
 
-mod_power <- function(n_groups,
-                      effect_sizes = NULL,
-                      sample_size,
-                      k,
-                      es_type,
-                      test_type = "two-tailed",
-                      p = .05,
-                      con_table = NULL) {
+mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
+                      test_type = "two-tailed", p = .05, con_table = NULL) {
 
+
+  if(missing(effect_sizes))
+    effect_sizes = NULL
   ## Argument Check
   mod_power_integrity(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table)
 
