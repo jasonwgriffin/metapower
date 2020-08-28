@@ -2,21 +2,19 @@
 #'
 #' Computes statistical power for the Test of Homogeneity for meta-analytic under both fixed- and random-effects models.
 #'
-#' @param effect_size  Expected effect size magnitude
+#' @param effect_size  Numerical value of effect size
 #'
-#' @param sample_size Expected number of participants (per group)
+#' @param sample_size Numerical value for number number of participants (per study)
 #'
-#' @param k Expected number of studies
+#' @param k Numerical value for total number of studies
 #'
-#' @param es_type 'Correlation', 'd', or 'OR'
+#' @param es_type 'Character reflecting effect size metric: 'Correlation', 'd', or 'OR'
 #'
-#' @param test_type "two-tailed" or "one-tailed"
+#' @param test_type Character value reflecting test type: ("two-tailed" or "one-tailed")
 #'
-#' @param i2 Heterogeneity parameter (I^2 statistic)
+#' @param p Numerical value for significance level (Type I error probability). default, p = .05
 #'
-#' @param p Significance level (Type I error probability)
-#'
-#' @param con_table (Optional) For Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+#' @param con_table (Optional) Numerical values for 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 #'
 #' \tabular{lcc}{
 #'  2x2 Table   \tab Group 1 \tab Group 2 \cr
@@ -24,7 +22,7 @@
 #'  Not Present \tab c       \tab d       \cr
 #'}
 #'
-#' @return Estimated Power with across various levels of heterogeneity
+#' @return Estimated Power to detect differences in homogeneity of effect sizes for fixed- and random-effects models
 #'
 #' @examples
 #' homogen_power(effect_size = .5, sample_size = 10, k = 10, es_type = "d")
@@ -53,7 +51,7 @@
 #' @import magrittr
 #' @export
 
-homogen_power <- function (effect_size, sample_size, k, es_type, test_type = "two-tailed", p =.05, i2 = .50, con_table = NULL){
+homogen_power <- function (effect_size, sample_size, k, es_type, test_type = "two-tailed", p =.05, con_table = NULL){
 
   ## check args
   mpower_integrity(effect_size, sample_size, k, es_type, test_type, p, con_table)
@@ -115,8 +113,7 @@ homogen_power <- function (effect_size, sample_size, k, es_type, test_type = "tw
                      k = k,
                      es_type = es_type,
                      test_type = test_type,
-                     p = p,
-                     i2 = i2)
+                     p = p)
   attr(power_list, "class") <- "homogen_power"
 
   return(power_list)

@@ -11,26 +11,23 @@ homogen_power(
   es_type,
   test_type = "two-tailed",
   p = 0.05,
-  i2 = 0.5,
   con_table = NULL
 )
 }
 \arguments{
-\item{effect_size}{Expected effect size magnitude}
+\item{effect_size}{Numerical value of effect size}
 
-\item{sample_size}{Expected number of participants (per group)}
+\item{sample_size}{Numerical value for number number of participants (per study)}
 
-\item{k}{Expected number of studies}
+\item{k}{Numerical value for total number of studies}
 
-\item{es_type}{'Correlation', 'd', or 'OR'}
+\item{es_type}{'Character reflecting effect size metric: 'Correlation', 'd', or 'OR'}
 
-\item{test_type}{"two-tailed" or "one-tailed"}
+\item{test_type}{Character value reflecting test type: ("two-tailed" or "one-tailed")}
 
-\item{p}{Significance level (Type I error probability)}
+\item{p}{Numerical value for significance level (Type I error probability). default, p = .05}
 
-\item{i2}{Heterogeneity parameter (I^2 statistic)}
-
-\item{con_table}{(Optional) For Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+\item{con_table}{(Optional) Numerical values for 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 
 \tabular{lcc}{
  2x2 Table   \tab Group 1 \tab Group 2 \cr
@@ -39,7 +36,7 @@ homogen_power(
 }}
 }
 \value{
-Estimated Power with across various levels of heterogeneity
+Estimated Power to detect differences in homogeneity of effect sizes for fixed- and random-effects models
 }
 \description{
 Computes statistical power for the Test of Homogeneity for meta-analytic under both fixed- and random-effects models.

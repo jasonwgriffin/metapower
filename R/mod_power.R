@@ -2,9 +2,9 @@
 #'
 #' Computes statistical power for different subgroups under fixed- and random-effects models.
 #'
-#' @param n_groups Numerical value for the number of subgroups.
+#' @param n_groups Numerical value for the number of subgroups
 #'
-#' @param effect_sizes Numerical values for Expected effect sizes of for each group.
+#' @param effect_sizes Numerical values for effect sizes of for each group.
 #'
 #' @param es_type Character reflecting effect size metric: 'Correlation', 'd', or 'OR'
 #'

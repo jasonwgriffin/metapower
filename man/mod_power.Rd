@@ -16,9 +16,9 @@ mod_power(
 )
 }
 \arguments{
-\item{n_groups}{Numerical value for the number of subgroups.}
+\item{n_groups}{Numerical value for the number of subgroups}
 
-\item{effect_sizes}{Numerical values for Expected effect sizes of for each group.}
+\item{effect_sizes}{Numerical values for effect sizes of for each group.}
 
 \item{sample_size}{Numerical value for number of participants (per study)}
 
@@ -32,7 +32,6 @@ mod_power(
 
 \item{con_table}{(Optional) List of numerical values for 2x2 contingency tables as a vector in the following format: c(a,b,c,d).
 These should be specified for each subgroup(i.e., n_groups).
-For example: con_table = list(men = c(6,5,4,5),women = c(7,5,3,5))
 
 \tabular{lcc}{
  2x2 Table   \tab Group 1 \tab Group 2 \cr
@@ -47,6 +46,9 @@ Estimated Power estimates for subgroup differences under fixed- and random-effec
 Computes statistical power for different subgroups under fixed- and random-effects models.
 }
 \examples{
-mod_power(n_groups = 2, con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)), sample_size = 20, k = 20, es_type = "OR")
+
+mod_power(n_groups = 2, effect_sizes = c(.1,.5), sample_size = 20, k = 10, es_type = "d")
+mod_power(n_groups = 2, con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)),
+          sample_size = 20, k = 20, es_type = "OR")
 
 }
