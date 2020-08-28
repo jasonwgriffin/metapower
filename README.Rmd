@@ -70,7 +70,7 @@ print(my_power)
 plot_mpower(my_power)
 ```
 
-See Vignette "Using metapower" for more information
+See Vignette "Using metapower" for more information.
 
 ## References
 

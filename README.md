@@ -66,12 +66,9 @@ print(my_power)
 #>  Expected Effect Size:              0.2 
 #>  Expected Sample Size (per group):  20 
 #>  Expected Number of Studies:        10 
-#>  Expected Heterogenity (i2):        0.5 
-#> 
 #>  Estimated Power: Mean Effect Size 
 #> 
 #>  Fixed-Effects Model                0.5140202 
-#>  Random-Effects Model (i2 = 50% ):  0.318419
 #>  Random-Effects Model (i2 =  0% ):  0.4548414 
 #>  Random-Effects Model (i2 = 25% ):  0.401282 
 #>  Random-Effects Model (i2 = 50% ):  0.318419 
