@@ -75,6 +75,8 @@ mod_power <- function(n_groups,
     overall_effect <- mean(effect_sizes) # find overall mean
     variance <- compute_variance(sample_size/n_groups, overall_effect, es_type, con_table) # compute variance for each group sample_size/2
 
+    group = NULL
+
     # create a power range of data
 
     mod_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
@@ -89,6 +91,7 @@ mod_power <- function(n_groups,
       effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
       overall_effect <- mean(effect_sizes) # find overall mean
       variance <- compute_variance(sample_size/n_groups, overall_effect, es_type, con_table)
+      group = NULL
       ##
       mod_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
                                        overall_effect = overall_effect,

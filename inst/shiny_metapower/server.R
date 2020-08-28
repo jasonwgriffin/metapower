@@ -47,16 +47,26 @@ server <- function(input, output) {
 
   ## SUbgroup analysis
 
+  ##output text for user
+
+  output$sg_d_k <- renderText({
+    paste("Number of studies per group:", input$subgroup_d_k/input$subgroup_d_n_groups)
+  })
+  output$sg_d_n <- renderText({
+    paste("Number of participants per group:", input$subgroup_d_n/input$subgroup_d_n_groups)
+  })
+
+
   output$subgroup_d_plot <- renderPlot({
     es_type <- "d"
     n_groups <- input$subgroup_d_n_groups
     ## gather effect sizes
-    effect_sizes <- c(input$subgroup_d_es1,input$subgroup_d_es2)
+    effect_sizes <- c(input$sg1_d_es,input$sg2_d_es)
 
-    if(!is.na(input$subgroup_d_es3))
-      effect_sizes <- c(effect_sizes,input$subgroup_d_es3)
-    if(!is.na(input$subgroup_d_es4))
-      effect_sizes <- c(effect_sizes,input$subgroup_d_es4)
+    if(!is.na(input$sg3_d_es))
+      effect_sizes <- c(effect_sizes,input$sg3_d_es)
+    if(!is.na(input$sg4_d_es))
+      effect_sizes <- c(effect_sizes,input$sg4_d_es)
 
     k <- input$subgroup_d_k
     sample_size <- input$subgroup_d_n
@@ -68,12 +78,12 @@ server <- function(input, output) {
   output$subgroup_d_summary <- renderPrint({
     es_type <- "d"
     n_groups <- input$subgroup_d_n_groups
-    effect_sizes <- c(input$subgroup_d_es1,input$subgroup_d_es2)
+    effect_sizes <- c(input$sg1_d_es,input$sg2_d_es)
 
-    if(!is.na(input$subgroup_d_es3))
-      effect_sizes <- c(effect_sizes,input$subgroup_d_es3)
-    if(!is.na(input$subgroup_d_es4))
-      effect_sizes <- c(effect_sizes,input$subgroup_d_es4)
+    if(!is.na(input$sg3_d_es))
+      effect_sizes <- c(effect_sizes,input$sg3_d_es)
+    if(!is.na(input$sg4_d_es))
+      effect_sizes <- c(effect_sizes,input$sg4_d_es)
     k <- input$subgroup_d_k
     sample_size <- input$subgroup_d_n
     p <- input$subgroup_d_p
@@ -124,6 +134,14 @@ server <- function(input, output) {
   })
 
   ## SUbgroup analysis
+
+  output$sg_c_k <- renderText({
+    paste("Number of studies per group:", input$subgroup_c_k/input$subgroup_c_n_groups)
+  })
+  output$sg_c_n <- renderText({
+    paste("Number of participants per group:", input$subgroup_c_n/input$subgroup_c_n_groups)
+  })
+
   output$subgroup_c_plot <- renderPlot({
     es_type <- "Correlation"
     n_groups <- input$subgroup_c_n_groups
@@ -209,6 +227,14 @@ server <- function(input, output) {
   })
 
   ## Subgroup analysis
+
+  output$sg_or_k <- renderText({
+    paste("Number of studies per group:", input$subgroup_or_k/input$subgroup_or_n_groups)
+  })
+  output$sg_or_n <- renderText({
+    paste("Number of participants per group:", input$subgroup_or_n/input$subgroup_or_n_groups)
+  })
+
   output$subgroup_or_plot <- renderPlot({
     es_type <- "OR"
     n_groups <- input$subgroup_or_n_groups
@@ -235,7 +261,6 @@ server <- function(input, output) {
     sample_size <- input$subgroup_or_n
     p <- input$subgroup_or_p
     test_type <- input$subgroup_or_test_type
-    sg1 <- as.character(input$sg1_or_name)
     con_table <- list(group1 = c(input$sg_1_or_a,input$sg_1_or_b,input$sg_1_or_c,input$sg_1_or_d),
                       group2 = c(input$sg_2_or_a,input$sg_2_or_b,input$sg_2_or_c,input$sg_2_or_d))
 

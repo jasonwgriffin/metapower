@@ -54,11 +54,13 @@ ui <- fluidPage(
                                      titlePanel("Cohen's d"),
                                      fluidRow(column(12,
                                                      #select number of studies
-                                                     numericInput(inputId = "d_es", h3("Effect Size Magnitude"), min = 0, max = 5, value = 0.3, step = 0.05),
                                                      sliderInput(inputId = "d_k", h3("Number of Studies"), min = 2, max = 100, value = 10),
-                                                     sliderInput(inputId = "d_n", h3("Number of Participants"), min = 2, max = 300, value = 20),
-                                                     numericInput(inputId = "d_p", h3("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
-                                                     radioButtons(inputId = "d_test_type", label = "Test type", choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
+                                                     sliderInput(inputId = "d_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 20),
+                                                     numericInput(inputId = "d_es", h3("Effect Size Magnitude"), min = 0, max = 5, value = 0.3, step = 0.05)),
+                                              shinydashboard::box(width = 12,
+                                                                         splitLayout(
+                                                                           numericInput(inputId = "d_p", h4("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
+                                                                           radioButtons(inputId = "d_test_type", label = h4("Test type"), choices = list("two-tailed", "one-tailed"), selected = "two-tailed"))))),
                                    mainPanel(
                                      tabsetPanel(type = "tabs",
                                                  tabPanel("Power Curve",
@@ -74,11 +76,13 @@ ui <- fluidPage(
                                    sidebarPanel(
                                      titlePanel("Correlation"),
                                      fluidRow(column(12,
-                                                     sliderInput("c_es", h3("Effect Size Magnitude"), min = 0, max = 1, value = .2, step = 0.05),
                                                      sliderInput("c_k", h3("Number of Studies"), min = 2, max = 100, value = 10),
                                                      sliderInput("c_n", h3("Number of Participants"), min = 2, max = 300, value = 20),
-                                                     numericInput("c_p", h3("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
-                                                     radioButtons(inputId = "c_test_type", label = "Test type", choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
+                                                     sliderInput("c_es", h3("Effect Size Magnitude"), min = 0, max = 1, value = .2, step = 0.05)),
+                                              shinydashboard::box(width = 12,
+                                                                         splitLayout(
+                                                                           numericInput(inputId = "c_p", h4("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
+                                                                           radioButtons(inputId = "c_test_type", label = h4("Test type"), choices = list("two-tailed", "one-tailed"), selected = "two-tailed"))))),
                                    mainPanel(
                                      tabsetPanel(type = "tabs",
                                                  tabPanel("Power Curve", plotOutput("c_plot", height = "600px"),
@@ -91,20 +95,25 @@ ui <- fluidPage(
                                    sidebarPanel(
                                      titlePanel("Odds Ratio"),
                                      fluidRow(#column(12,numericInput("or_es", h3("Effect Size Magnitude"), min = 1, max = 75, value = 1.3, step = 0.)),
-                                              shinydashboard::box(width = 12, title = "2x2 Contingency Table",
-                                                                  splitLayout(
-                                                                    numericInput("or_a", "Group 1 (Condition Present)", value = 13),
-                                                                    numericInput("or_b", "Group 2 (Condition Present)", value = 487))),
-                                              shinydashboard::box(width = 12,
-                                                                  splitLayout(
-                                                                    numericInput("or_c", "Group 1 (Condition Absent)", value = 10),
-                                                                    numericInput("or_d", "Group 2 (Condition Absent)", value = 490))),
-                                              column(12,
-                                                     sliderInput("or_k", h3("Number of Studies"), min = 2, max = 100, value = 10),
-                                                     sliderInput("or_n", h3("Number of Participants"), min = 2, max = 2000, value = 1000),
-                                                     numericInput("or_p", h3("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
-                                                     radioButtons("or_test_type", label = "Test type", choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
-
+                                       column(12,
+                                              sliderInput("or_k", h3("Number of Studies"), min = 2, max = 100, value = 10),
+                                              sliderInput("or_n", h3("Number of Participants(per study)"), min = 2, max = 300, value = 20),
+                                              h3("2x2 Contingency Table")),
+                                       column(width = 12,offset = 0,
+                                              tags$form(
+                                                class="form-horizontal",
+                                                tags$div(class="form-group",
+                                                         tags$label(class = "col-sm-4 control-label", `for` = "or_a", br(),br(), "Present"),
+                                                         column(width = 4, numericInput(inputId = "or_a", label = HTML("Group 1 <br/> (e.g., Treatment)"), value = 6)),
+                                                         column(width = 4, numericInput(inputId = "or_b", label = HTML("Group 2 <br/> (e.g., Control)"), value = 5))),
+                                                tags$div(class="form-group",
+                                                         tags$label(class = "col-sm-4 control-label", `for` = "or_d", "Absent"),
+                                                         column(width = 4, numericInput(inputId = "or_c", label = NULL, value = 4)),
+                                                         column(width = 4, numericInput(inputId = "or_d", label = NULL, value = 5))))),
+                                       shinydashboard::box(width = 12,
+                                                           splitLayout(
+                                                             numericInput("or_p", h4("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
+                                                             radioButtons("or_test_type", label = h4("Test type"), choices = list("two-tailed", "one-tailed"), selected = "two-tailed"))))),
                                    mainPanel(
                                      tabsetPanel(type = "tabs",
                                                  tabPanel("Power Curve", plotOutput("or_plot", height = "600px"),
@@ -123,11 +132,15 @@ ui <- fluidPage(
                                      titlePanel("Cohen's d"),
                                      fluidRow(column(12,
                                                      #select number of studies
-                                                     numericInput(inputId = "homogen_d_es", h3("Effect Size Magnitude"), min = 0, max = 5, value = 0.3, step = 0.05),
                                                      sliderInput(inputId = "homogen_d_k", h3("Number of Studies"), min = 2, max = 100, value = 10),
-                                                     sliderInput(inputId = "homogen_d_n", h3("Number of Participants"), min = 2, max = 300, value = 20),
-                                                     numericInput(inputId = "homogen_d_p", h3("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
-                                                     radioButtons(inputId = "homogen_d_test_type", label = "Test type", choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
+                                                     sliderInput(inputId = "homogen_d_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 20),
+                                                     numericInput(inputId = "homogen_d_es", h3("Effect Size Magnitude"), min = 0, max = 5, value = 0.3, step = 0.05)),
+                                              shinydashboard::box(width = 12,
+                                                                  splitLayout(
+                                                                    numericInput(inputId = "homogen_d_p", h4("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
+                                                                    radioButtons(inputId = "homogen_d_test_type", label = h4("Test type"), choices = list("two-tailed", "one-tailed"), selected = "two-tailed"))))),
+
+
                                    mainPanel(
                                      tabsetPanel(type = "tabs",
                                                  tabPanel("Power Curve", plotOutput("homogen_d_plot", height = "600px"),
@@ -142,11 +155,14 @@ ui <- fluidPage(
                                    sidebarPanel(
                                      titlePanel("Correlation"),
                                      fluidRow(column(12,
-                                                     sliderInput("homogen_c_es", h3("Effect Size Magnitude"), min = 0, max = 1, value = .2, step = 0.05),
                                                      sliderInput("homogen_c_k", h3("Number of Studies"), min = 2, max = 100, value = 10),
-                                                     sliderInput("homogen_c_n", h3("Number of Participants"), min = 2, max = 300, value = 20),
-                                                     numericInput("homogen_c_p", h3("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
-                                                     radioButtons(inputId = "homogen_c_test_type", label = "Test type", choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
+                                                     sliderInput("homogen_c_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 20),
+                                                     sliderInput("homogen_c_es", h3("Effect Size Magnitude"), min = 0, max = 1, value = .2, step = 0.05)),
+                                              shinydashboard::box(width = 12,
+                                                                  splitLayout(
+                                                                    numericInput(inputId = "homogen_c_p", h4("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
+                                                                    radioButtons(inputId = "homogen_c_test_type", label = h4("Test type"), choices = list("two-tailed", "one-tailed"), selected = "two-tailed"))))),
+
                                    mainPanel(
                                      tabsetPanel(type = "tabs",
                                                  tabPanel("Power Curve", plotOutput("homogen_c_plot", height = "600px"),
@@ -158,20 +174,25 @@ ui <- fluidPage(
                                  sidebarLayout(
                                    sidebarPanel(
                                      titlePanel("Odds Ratio"),
-                                     fluidRow(#column(12, numericInput("homogen_or_es", h3("Effect Size Magnitude"), min = 1, max = 75, value = 1.3, step = 0.)),
-                                              shinydashboard::box(width = 12, title = "2x2 Contingency Table",
-                                                                  splitLayout(
-                                                                    numericInput("homogen_or_a", "Group 1 (Condition Present)", value = 13),
-                                                                    numericInput("homogen_or_b", "Group 2 (Condition Present)", value = 487))),
+                                     fluidRow(column(12,
+                                                     sliderInput("homogen_or_k", h3("Number of Studies"), min = 2, max = 100, value = 10),
+                                                     sliderInput("homogen_or_n", h3("Number of Participants(per study)"), min = 2, max = 300, value = 20),
+                                                     h3("2x2 Contingency Table")),
+                                              column(width = 12,offset = 0,
+                                                     tags$form(
+                                                       class="form-horizontal",
+                                                       tags$div(class="form-group",
+                                                                tags$label(class = "col-sm-4 control-label", `for` = "homogen_or_a", br(),br(), "Present"),
+                                                                column(width = 4, numericInput(inputId = "homogen_or_a", label = HTML("Group 1 <br/> (e.g., Treatment)"), value = 6)),
+                                                                column(width = 4, numericInput(inputId = "homogen_or_b", label = HTML("Group 2 <br/> (e.g., Control)"), value = 5))),
+                                                       tags$div(class="form-group",
+                                                                tags$label(class = "col-sm-4 control-label", `for` = "homogen_or_d", "Absent"),
+                                                                column(width = 4, numericInput(inputId = "homogen_or_c", label = NULL, value = 4)),
+                                                                column(width = 4, numericInput(inputId = "homogen_or_d", label = NULL, value = 5))))),
                                               shinydashboard::box(width = 12,
                                                                   splitLayout(
-                                                                    numericInput("homogen_or_c", "Group 1 (Condition Absent)", value = 10),
-                                                                    numericInput("homogen_or_d", "Group 2 (Condition Absent)", value = 490))),
-                                              column(12,
-                                                     sliderInput("homogen_or_k", h3("Number of Studies"), min = 2, max = 100, value = 10),
-                                                     sliderInput("homogen_or_n", h3("Number of Participants"), min = 2, max = 2000, value = 1000),
-                                                     numericInput("homogen_or_p", h3("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
-                                                     radioButtons("homogen_or_test_type", label = "Test type", choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
+                                                                    numericInput("homogen_or_p", h4("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
+                                                                    radioButtons("homogen_or_test_type", label = h4("Test type"), choices = list("two-tailed", "one-tailed"), selected = "two-tailed"))))),
 
                                    mainPanel(
                                      tabsetPanel(type = "tabs",
@@ -192,16 +213,20 @@ ui <- fluidPage(
                                   sidebarPanel(
                                     titlePanel("Cohen's d"),
                                     fluidRow(column(12,
-                                                    numericInput(inputId = "subgroup_d_n_groups", h3("Number of Groups"), min = 2, max = 10, value = 2)),
-                                             shinydashboard::box(width = 6, title = "Subgroup Effect Sizes",
-                                                                 numericInput("subgroup_d_es1", "Group 1", value = .2, max = 5, step = .1),
-                                                                 numericInput("subgroup_d_es2", "Group 2", value = .4, max = 5, step = .1),
-                                                                 numericInput("subgroup_d_es3", "Group 3", value = NA, max = 5, step = .1),
-                                                                 numericInput("subgroup_d_es4", "Group 4", value = NA, max = 5, step = .1)),
-
+                                                    sliderInput(inputId = "subgroup_d_k", h3("Number of Studies (Total)"), min = 2, max = 50, value = 10),
+                                                    sliderInput(inputId = "subgroup_d_n", h3("Number of Participants (Total)"), min = 2, max = 300, value = 20),
+                                                    numericInput(inputId = "subgroup_d_n_groups", h3("Number of Subgroups"), min = 2, max = 10, value = 2),
+                                                    textOutput("sg_d_k"),
+                                                    textOutput("sg_d_n")),
+                                             dashboardBody( tags$head(tags$style(HTML('.form-group, .selectize-control { margin-bottom: 5px;}.box-body {padding-bottom: 5px;}'))),
+                                                            shinydashboard::box(width = 12, title = "Subgroup Effect Sizes",
+                                                                 splitLayout(
+                                                                   numericInput("sg1_d_es", "Subgroup1", value = .1),
+                                                                   numericInput("sg2_d_es", "Subgroup2", value = .3),
+                                                                   numericInput("sg3_d_es", "Subgroup3", value = NULL),
+                                                                   numericInput("sg4_d_es", "Subgroup4", value = NULL)))),
                                              column(12,
-                                                    sliderInput(inputId = "subgroup_d_n", h3("Number of Participants (total)"), min = 2, max = 300, value = 20),
-                                                    sliderInput(inputId = "subgroup_d_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 10),
+
                                                     numericInput(inputId = "subgroup_d_p", h3("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
                                                     radioButtons(inputId = "subgroup_d_test_type", label = "Test type", choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
                                   mainPanel(
@@ -215,17 +240,21 @@ ui <- fluidPage(
                                   sidebarPanel(
                                     titlePanel("Correlation"),
                                     fluidRow(column(12,
-                                                    numericInput(inputId = "subgroup_c_n_groups", h3("Number of Groups"), min = 2, max = 10, value = 2)),
-                                             shinydashboard::box(width = 6, title = "Subgroup Effect Sizes",
-                                                                 numericInput("subgroup_c_es1", "Group 1", value = .2, max = 5, step = .1),
-                                                                 numericInput("subgroup_c_es2", "Group 2", value = .4, max = 5, step = .1),
-                                                                 numericInput("subgroup_c_es3", "Group 3", value = NA, max = 5, step = .1),
-                                                                 numericInput("subgroup_c_es4", "Group 4", value = NA, max = 5, step = .1)),
-                                             column(12,
-                                                    sliderInput(inputId = "subgroup_c_n", h3("Number of Participants (total)"), min = 2, max = 300, value = 20),
                                                     sliderInput(inputId = "subgroup_c_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 10),
-                                                    numericInput(inputId = "subgroup_c_p", h3("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
-                                                    radioButtons(inputId = "subgroup_c_test_type", label = "Test type", choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
+                                                    sliderInput(inputId = "subgroup_c_n", h3("Number of Participants (total)"), min = 2, max = 300, value = 20),
+                                                    numericInput(inputId = "subgroup_c_n_groups", h3("Number of Groups"), min = 2, max = 10, value = 2),
+                                                    textOutput("sg_c_k"),
+                                                    textOutput("sg_c_n")),
+
+                                             shinydashboard::box(width = 12, title = "Subgroup Effect Sizes",
+                                                                 splitLayout(
+                                                                   numericInput("subgroup_c_es1", "Subgroup1", value = .2, min = .1, max = .9, step = .05),
+                                                                   numericInput("subgroup_c_es2", "Subgroup2", value = .4, min = .1, max = .99, step = .05),
+                                                                   numericInput("subgroup_c_es3", "Subgroup3", value = NULL, min = .1, max = .99, step = .05),
+                                                                   numericInput("subgroup_c_es4", "Subgroup4", value = NULL, min = .1, max = .99, step = .05))),
+                                             column(12,
+                                                    numericInput(inputId = "subgroup_c_p", h4("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
+                                                    radioButtons(inputId = "subgroup_c_test_type", label = h4("Test type"), choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
                                   mainPanel(
                                     tabsetPanel(type = "tabs",
                                                 tabPanel("Power Curve", plotOutput("subgroup_c_plot", height = "600px"),
@@ -237,19 +266,12 @@ ui <- fluidPage(
                                   sidebarPanel(
                                     titlePanel("Odds Ratio"),
                                     fluidRow(column(12,
+                                                    sliderInput(inputId = "subgroup_or_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 20),
+                                                    sliderInput(inputId = "subgroup_or_n", h3("Number of Participants (total)"), min = 2, max = 300, value = 20),
                                                     numericInput(inputId = "subgroup_or_n_groups", h3("Number of Subgroups"), min = 2, max = 10, value = 2),
-                                                    numericInput(inputId = "subgroup_or_n", h3("Number of Participants (total)"), min = 2, max = 300, value = 20),
-                                                    sliderInput(inputId = "subgroup_or_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 20)),
-                                             #shinydashboard::box(width = 12, tit)
-
-
-
-                                             # column(width = 9,
-                                             #        tags$form(
-                                             #          class="form-horizontal",
-                                             #          tags$div(class="form-group",
-                                             #                   tags$label(class = "col-sm-4 control-label", `for` = "sg1_or_name", "Subgroup 1"),
-                                             #                   column(width = 4, textInput("sg1_or_name", NULL, value = "men"))))),
+                                                    textOutput("sg_or_k"),
+                                                    textOutput("sg_or_n"),
+                                             br()),
                                              column(width = 12,offset = 0,
                                                     textInput("sg1_or_name", "Subgroup 1 (e.g., Men)", value = "Men"),
                                                     tags$form(
@@ -258,7 +280,6 @@ ui <- fluidPage(
                                                                tags$label(class = "col-sm-4 control-label", `for` = "sg_1_or_a", br(),br(), "Present"),
                                                                column(width = 4, numericInput(inputId = "sg_1_or_a", label = HTML("Group 1 <br/> (e.g., Treatment)"), value = 6)),
                                                                column(width = 4, numericInput(inputId = "sg_1_or_b", label = HTML("Group 2 <br/> (e.g., Control)"), value = 5))),
-
                                                       tags$div(class="form-group",
                                                                tags$label(class = "col-sm-4 control-label", `for` = "sg_1_or_d", "Absent"),
                                                                column(width = 4, numericInput(inputId = "sg_1_or_c", label = NULL, value = 4)),
@@ -271,7 +292,6 @@ ui <- fluidPage(
                                                                tags$label(class = "col-sm-4 control-label", `for` = "sg_2_or_a", br(),br(), "Present"),
                                                                column(width = 4, numericInput(inputId = "sg_2_or_a", label = HTML("Group 1 <br/> (e.g., Treatment)"), value = 7)),
                                                                column(width = 4, numericInput(inputId = "sg_2_or_b", label = HTML("Group 2 <br/> (e.g., Control)"), value = 5))),
-
                                                       tags$div(class="form-group",
                                                                tags$label(class = "col-sm-4 control-label", `for` = "sg_2_or_d", "Absent"),
                                                                column(width = 4, numericInput(inputId = "sg_2_or_c", label = NULL, value = 3)),
@@ -284,7 +304,6 @@ ui <- fluidPage(
                                                                tags$label(class = "col-sm-4 control-label", `for` = "sg_3_or_a", br(), "Present"),
                                                                column(width = 4, numericInput(inputId = "sg_3_or_a", label = HTML("Group 1 <br/> (e.g., Treatment)"), value = NA)),
                                                                column(width = 4, numericInput(inputId = "sg_3_or_b", label = HTML("Group 2 <br/> (e.g., Control)"), value = NA))),
-
                                                       tags$div(class="form-group",
                                                                tags$label(class = "col-sm-4 control-label", `for` = "sg_3_or_d", "Absent"),
                                                                column(width = 4, numericInput(inputId = "sg_3_or_c", label = NULL, value = NA)),
@@ -297,15 +316,13 @@ ui <- fluidPage(
                                                                tags$label(class = "col-sm-4 control-label", `for` = "sg_4_or_a", br(), "Present"),
                                                                column(width = 4, numericInput(inputId = "sg_4_or_a", label = HTML("Group 1 <br/> (e.g., Treatment)"), value = NA)),
                                                                column(width = 4, numericInput(inputId = "sg_4_or_b", label = HTML("Group 2 <br/> (e.g., Control)"), value = NA))),
-
                                                       tags$div(class="form-group",
                                                                tags$label(class = "col-sm-4 control-label", `for` = "sg_4_or_d", "Absent"),
                                                                column(width = 4, numericInput(inputId = "sg_4_or_c", label = NULL, value = NA)),
                                                                column(width = 4, numericInput(inputId = "sg_4_or_d", label = NULL, value = NA))))),
-
                                              column(12,
-                                                    numericInput(inputId = "subgroup_or_p", h3("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
-                                                    radioButtons(inputId = "subgroup_or_test_type", label = "Test type", choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
+                                                    numericInput(inputId = "subgroup_or_p", h4("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
+                                                    radioButtons(inputId = "subgroup_or_test_type", label = h4("Test type"), choices = list("two-tailed", "one-tailed"), selected = "two-tailed")))),
                                   mainPanel(
                                     tabsetPanel(type = "tabs",
                                                 tabPanel("Power Curve", plotOutput("subgroup_or_plot", height = "600px"),
