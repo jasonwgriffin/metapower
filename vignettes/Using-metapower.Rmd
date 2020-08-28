@@ -81,7 +81,7 @@ plot_homogen_power(homogen_test_power)
 
 ## Example 2: Power analysis for moderation analysis (categorical variables)
 
-Although researchers are primarily interested in conducting meta-analysis to quantify the main effect of a specific phenomenon, It is very common to evaluate the moderation of this overall effect based on a number of study- and/or sample-related characteristics such as task paradigm or age group (e.g., children, adolescents, adults). To compute the statistical power for the detection of categorical moderators, we use the function `mod_power()` with a few additional arguments, mainly:
+Although researchers are primarily interested in conducting meta-analysis to quantify the main effect of a specific phenomenon, It is very common to evaluate the moderation of this overall effect based on a number of study- and/or sample-related characteristics such as task paradigm or age group (e.g., children, adolescents, adults). To compute the statistical power for the detection of categorical moderators, we use the function `subgroup_power()` with a few additional arguments, mainly:
 
 1. Expected number of groups (`n_groups`):
 2. Expected effect size of each group(`effect_sizes`):
@@ -94,7 +94,7 @@ We may expect that face recognition tasks have larger effect sizes then face per
 2. `effect_sizes = c(.2,.5)`
 
 ```{r}
-my_mod <- mod_power(n_groups = 2, 
+my_mod <- subgroup_power(n_groups = 2, 
                     effect_sizes = c(.2,.5), 
                     sample_size = 20,
                     k = 30,
@@ -105,4 +105,4 @@ my_mod <- mod_power(n_groups = 2,
 print(my_mod)
 ```
 
-Given, this set of expected values, we have `r round(my_mod$mod_power$fixed_power_b*100,2)`% to detect between-group differences under a Fixed-Effects model. As expected, moderator effects are much harder to detect and more studies are required, especially when heterogeneity is high.
+Given, this set of expected values, we have `r round(my_mod$subgroup_power$fixed_power_b*100,2)`% to detect between-group differences under a Fixed-Effects model. As expected, moderator effects are much harder to detect and more studies are required, especially when heterogeneity is high.

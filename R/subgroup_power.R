@@ -29,8 +29,8 @@
 #'
 #' @examples
 #'
-#' mod_power(n_groups = 2, effect_sizes = c(.1,.5), sample_size = 20, k = 10, es_type = "d")
-#' mod_power(n_groups = 2, con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)),
+#' subgroup_power(n_groups = 2, effect_sizes = c(.1,.5), sample_size = 20, k = 10, es_type = "d")
+#' subgroup_power(n_groups = 2, con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)),
 #'           sample_size = 20, k = 20, es_type = "OR")
 #'
 #' @importFrom stats pchisq
@@ -40,14 +40,14 @@
 #' @importFrom stats pgamma
 #' @export
 
-mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
+subgroup_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
                       test_type = "two-tailed", p = .05, con_table = NULL) {
 
 
   if(missing(effect_sizes))
     effect_sizes = NULL
   ## Argument Check
-  mod_power_integrity(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table)
+  subgroup_power_integrity(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table)
 
   df_b <- n_groups-1
   df_w <- k-n_groups
@@ -73,7 +73,7 @@ mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
 
     # create a power range of data
 
-    mod_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
+    subgroup_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
                                  overall_effect = overall_effect,
                                  n_groups = n_groups,
                                  n_v = sample_size,
@@ -87,7 +87,7 @@ mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
       variance <- compute_variance(sample_size/n_groups, overall_effect, es_type, con_table)
       group = NULL
       ##
-      mod_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
+      subgroup_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
                                        overall_effect = overall_effect,
                                        n_groups = n_groups,
                                        n_v = sample_size,
@@ -111,7 +111,7 @@ mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
         variance <- mean(d$var) ## find the common variance among all groups
         effect_sizes <- d$log_or ## save the effect sizes in log odds to input in subsequent functions
         ## range df
-        mod_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
+        subgroup_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
                                          overall_effect = overall_effect,
                                          n_groups = n_groups,
                                          n_v = sample_size,
@@ -120,9 +120,9 @@ mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
                                          variance = variance)
   }
 
-  mod_power_list <- list(mod_power = compute_mod_power(n_groups, effect_sizes, variance, overall_effect, sample_size, k, c_alpha_b),
-                         mod_power_range = compute_mod_range(n_groups, effect_sizes, mod_power_range_df),
-                         mod_power_range_df = mod_power_range_df,
+  subgroup_power_list <- list(subgroup_power = compute_subgroup_power(n_groups, effect_sizes, variance, overall_effect, sample_size, k, c_alpha_b),
+                         subgroup_power_range = compute_subgroup_range(n_groups, effect_sizes, subgroup_power_range_df),
+                         subgroup_power_range_df = subgroup_power_range_df,
                          n_groups = n_groups,
                          effect_sizes = effect_sizes,
                          sample_size = sample_size,
@@ -130,6 +130,6 @@ mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
                          es_type = es_type,
                          variance = variance,
                          group = group)
-  attr(mod_power_list, "class") <- "mod_power"
-  return(mod_power_list)
+  attr(subgroup_power_list, "class") <- "subgroup_power"
+  return(subgroup_power_list)
 }

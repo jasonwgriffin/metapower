@@ -1,5 +1,5 @@
 
-compute_mod_power <- function(n_groups, effect_sizes, variance, overall_effect, sample_size, k, c_alpha_b){
+compute_subgroup_power <- function(n_groups, effect_sizes, variance, overall_effect, sample_size, k, c_alpha_b){
 
   df_b <- n_groups-1
   df_w <- k-n_groups
@@ -45,7 +45,7 @@ compute_mod_power <- function(n_groups, effect_sizes, variance, overall_effect, 
   random_lambda_w <- NA
   random_power_w <- NA
 
-  mod_power_list <- data.frame(fixed_power_b = fixed_power_b,
+  subgroup_power_list <- data.frame(fixed_power_b = fixed_power_b,
                            #fixed_power_w = fixed_power_w,
                            random_power_b_0 = random_power_b_0,
                            random_power_b_s = random_power_b_s,

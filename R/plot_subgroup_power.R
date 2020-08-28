@@ -7,15 +7,15 @@
 #' @return Power curve plot for the user specified input parameters
 #'
 
-plot_mod_power <- function(obj){
+plot_subgroup_power <- function(obj){
 
-  if(class(obj) != "mod_power")
-    stop("Object must be of class: mod_power")
+  if(class(obj) != "subgroup_power")
+    stop("Object must be of class: subgroup_power")
 
   ## set aesthetic
   p_aes <- list(geom_hline(yintercept = .80, linetype = "dashed", alpha = .80),
                 geom_line(size = 1.5),
-                scale_x_continuous(limits = c(2,max(obj$mod_power_range$k_v)), breaks = c(seq(2,max(obj$mod_power_range$k_v),by = round(max(obj$mod_power_range$k_v)*.10,0)))),
+                scale_x_continuous(limits = c(2,max(obj$subgroup_power_range$k_v)), breaks = c(seq(2,max(obj$subgroup_power_range$k_v),by = round(max(obj$subgroup_power_range$k_v)*.10,0)))),
                 scale_y_continuous(limits =c(0,1), breaks = c(0,.25,.5,.75,1)),
                 xlab("Number of Studies"),
                 ylab("Power"),
@@ -25,16 +25,16 @@ plot_mod_power <- function(obj){
                       legend.background = element_rect(colour = 'black', fill = 'white', linetype='solid')))
 
   ## random data for plot
-  rand_dat <- obj$mod_power_range %>%
+  rand_dat <- obj$subgroup_power_range %>%
     dplyr::select(c("k_v", dplyr::starts_with("random"))) %>%
     tidyr::pivot_longer(-"k_v", names_to = "power_type", values_to = "power")
 
   rand_dat$power_type <- factor(rand_dat$power_type, levels = c("random_power_b_0","random_power_b_s", "random_power_b_m", "random_power_b_l"))
-  #obj$mod_power_range$es_v <- as.factor(obj$power_range$es_v)
+  #obj$subgroup_power_range$es_v <- as.factor(obj$power_range$es_v)
 
 
   # fixed plot
-  fixed_plot <- ggplot(obj$mod_power_range, aes(x = .data$k_v, y = .data$fixed_power_b)) +
+  fixed_plot <- ggplot(obj$subgroup_power_range, aes(x = .data$k_v, y = .data$fixed_power_b)) +
     p_aes +
     ggtitle("Fixed-Effects Model") +
     labs(linetype = "Effect Size")

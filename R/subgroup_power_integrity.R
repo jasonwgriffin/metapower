@@ -1,4 +1,4 @@
-mod_power_integrity <- function(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table){
+subgroup_power_integrity <- function(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table){
 
 # Argument Integrity Checks
 test_type_options <- c("one-tailed", "two-tailed")
