@@ -2,7 +2,7 @@
 % Please edit documentation in R/mod_power.R
 \name{mod_power}
 \alias{mod_power}
-\title{Compute Power for Categorical Moderation Meta-analysis}
+\title{Compute Power for Subgroup Analysis in Meta-analysis}
 \usage{
 mod_power(
   n_groups,
@@ -16,21 +16,23 @@ mod_power(
 )
 }
 \arguments{
-\item{n_groups}{Number of anticipated groups in moderation analysis}
+\item{n_groups}{Numerical value for the number of subgroups.}
 
-\item{effect_sizes}{Expected effect sizes of for each group.}
+\item{effect_sizes}{Numerical values for Expected effect sizes of for each group.}
 
-\item{sample_size}{Expected number of participants (per group)}
+\item{sample_size}{Numerical value for number of participants (per study)}
 
-\item{k}{Total expected number of studies}
+\item{k}{Numerical value for total number of studies}
 
-\item{es_type}{'Correlation', 'd', or 'OR'}
+\item{es_type}{Character reflecting effect size metric: 'Correlation', 'd', or 'OR'}
 
-\item{test_type}{"two-tailed" or "one-tailed"}
+\item{test_type}{Character value reflecting test type: ("two-tailed" or "one-tailed")}
 
-\item{p}{Significance level (Type I error probability)}
+\item{p}{Numerical value for significance level (Type I error probability). default, p = .05}
 
-\item{con_table}{(Optional) For Odds Ratio effect sizes. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+\item{con_table}{(Optional) List of numerical values for 2x2 contingency tables as a vector in the following format: c(a,b,c,d).
+These should be specified for each subgroup(i.e., n_groups).
+For example: con_table = list(men = c(6,5,4,5),women = c(7,5,3,5))
 
 \tabular{lcc}{
  2x2 Table   \tab Group 1 \tab Group 2 \cr
@@ -39,19 +41,12 @@ mod_power(
 }}
 }
 \value{
-Estimated Power estimates for between and within-groups moderation
+Estimated Power estimates for subgroup differences under fixed- and random-effects models
 }
 \description{
-Computes statistical power for categorical moderator models under fixed- and random-effects models.
+Computes statistical power for different subgroups under fixed- and random-effects models.
 }
 \examples{
-mod_power(
- n_groups = 2,
- effect_sizes = c(.1,.3),
- sample_size = 20,
- k = 20,
- es_type = "d",
- test_type = "two-tailed",
- p = .05)
+mod_power(n_groups = 2, con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)), sample_size = 20, k = 20, es_type = "OR")
 
 }
