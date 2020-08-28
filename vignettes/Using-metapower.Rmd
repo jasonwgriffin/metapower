@@ -62,16 +62,17 @@ str(my_power$power_range)
 
 ## Power for the Test of Homogeneity
 
-For Fixed-Effects Model, the test of homogeneity examines whether the amount of variation among effect sizes is greater than that of sampling error alone. To compute this, simply wrap the same arguments used in `mpower` with `homogen_power`. Since it is hard to justify selecting the standard deviation between a set of studies, `homogen_power` automatically computes power across a range of different standard deviation values (i.e., SD = 1, SD = 2..)
+For Fixed-Effects Model, the test of homogeneity examines whether the amount of variation among effect sizes is greater than that of sampling error alone. To compute this, simply wrap the same arguments used in `mpower` with `homogen_power`. Since it is hard to justify selecting the standard deviation between a set of studies, `homogen_power()` automatically computes power across a range of different standard deviation values (i.e., SD = 1, SD = 2..)
 ```{r}
 (homogen_test_power <- homogen_power(effect_size = .25, sample_size = 20, k = 30, es_type = "d"))
 ```
 
-For Random-Effects models, `homogen_power` computes power across a range of possible heterogeneity values (i.e., *I^2*)
-- *I^2* =  0% (No Heterogeneity)
-- *I^2* = 25% (Low Heterogeneity)
-- *I^2* = 50% (Moderate Heterogeneity)
-- *I^2* = 75% (Large Heterogeneity)
+For Random-Effects models, `homogen_power` computes power across a range of possible heterogeneity values (i.e., $I^2$)
+
+1. $I^2$ =  0% (No Heterogeneity)
+2. $I^2$ = 25% (Low Heterogeneity) 
+3. $I^2$ = 50% (Moderate Heterogeneity)
+4. $I^2$ = 75% (Large Heterogeneity)
 
 We can visualize this across a range with `plot_homogen_power`
 
