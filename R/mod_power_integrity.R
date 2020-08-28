@@ -49,12 +49,16 @@ if(!(es_type %in% es_type_options))
 
 ## effect size
 # d
+
+if(es_type == 'd' & length(effect_sizes) != n_groups)
+  stop("The number of of effect sizes should match the number of groups")
+if(es_type == 'd' & !is.numeric(effect_sizes))
+  stop("Effect sizes must be  numeric")
 if(es_type == 'd' & any(effect_sizes > 10))
   warning("Are you sure at least one effect size is >10?")
 if(es_type == 'd' & missing(effect_sizes))
   stop("Need to specify expected effect sizes per group")
-if(es_type == 'd' & length(effect_sizes) != n_groups)
-  stop("The number of of effect sizes should match the number of groups")
+
 
 
 # Correlation
@@ -69,16 +73,25 @@ if(es_type == 'Correlation' & length(effect_sizes) != n_groups)
 
 # Odds Ratio
 if(es_type == 'OR' & !is.null(effect_sizes))
-  stop("For Odds Ratio, only enter the 2x2 contingency table with con_table = c(a,b,c,d)")
+  stop("For Odds Ratio, only enter the 2x2 contingency table. Remove effect_size argument")
 if(es_type == "OR" & missing(con_table))
-  stop("For Odds Ratio, must enter contigency tables (con_table) for each group in list. see documentation on how to specify this argument")
+  stop("For Odds Ratio, must enter contingency tables (con_table) for each group in a list. see documentation on how to specify this argument")
 if(es_type == "OR" & !missing(con_table)){
-  if(length(con_table) < 2)
-    stop("con_table must reflect a list of 2x2 contingency tables with the form c(a,b,c,d) for each group. See documentation on how to specify this.")
+  if(!is.list(con_table))
+    stop("con_table should be input as a list with each element reflect the group 2x2 tables")
+  if(length(con_table) == 1)
+    stop("Only 1 group 2x2 table is specified")
+  if(length(con_table) != n_groups)
+    stop("con_table must reflect a list of 2x2 contingency tables for each group. See documentation on how to specify this")
+  for (i in 1:length(con_table)){
+    if(!is.numeric(con_table[[i]]))
+      stop("Each element of con_table should be numeric")
+  }
   for (i in 1:length(con_table)){
     if(sample_size != sum(con_table[[i]]))
       stop("Each 2x2 table should yield a total sum of the total sample size")
-    }
+  }
+
 }
 
 ## check the sample size equals the sum of each element of the list
