@@ -35,7 +35,7 @@ ui <- fluidPage(
              navbarMenu("Summary Effect Size", icon = icon("equalizer", lib = "glyphicon"),
                         tags$head(
                           tags$style(HTML(' .navbar {
-                          height: 60px;
+                          height: 50px;
                           font-size: 25px;
                           min-height:60px !important;
                           }
