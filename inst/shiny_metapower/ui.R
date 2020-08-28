@@ -5,7 +5,14 @@ library(metapower)
 
 # Define UI ----
 ui <- fluidPage(
-  navbarPage(img(src = "/metapower_sticker.png", height = 60),
+  list(tags$head(HTML('<link rel="icon", href="metapower_sticker.png",
+                                   type="image/png" />'))),
+  div(style="padding: 1px 0px; width: '100%'",
+      titlePanel(
+        title="", windowTitle="metapoweR"
+      )
+  ),
+  navbarPage(title = div(img(src='metapower_sticker.png',style="margin-top:-10px;padding-right:0px;padding-bottom:0px; padding-top: 0px;", height = 40)),
 
 
              sidebarLayout(
@@ -14,7 +21,7 @@ ui <- fluidPage(
 
                  fluidRow(column(12, align = "center",
                                  h1("Power Analysis for Meta-analysis"),
-                                 div(style="display: inline-block;",img(src="/metapower_sticker.png", height=300, width=300))),
+                                 div(style="display: inline-block;",img(src="metapower_sticker.png", height= '75%', width='75%'))),
                           column(12,
                                  br(),
                                  h2("Install on R:"),
@@ -32,18 +39,19 @@ ui <- fluidPage(
                          )),
 
              ##Summary Effect Size Tab
-             navbarMenu("Summary Effect Size", icon = icon("equalizer", lib = "glyphicon"),
+             navbarMenu(title ="Summary Effect Size", icon = icon("database"),
                         tags$head(
                           tags$style(HTML(' .navbar {
-                          height: 50px;
-                          font-size: 25px;
-                          min-height:60px !important;
+                          padding-top:0px !important;
+                          height: 40px;
+                          font-size: 20px;
+                          min-height:40px !important;
                           }
                         text {padding-top: 30px;}
                       .navbar-nav > li > a, .navbar-brand {
-                            padding-top:1px !important;
+                            padding-top: 10px !important;
                             padding-bottom:1px !important;
-                            height: 60px;
+                            height: 40px;
                             }'))),
 
 
@@ -123,7 +131,7 @@ ui <- fluidPage(
 
 
             ## Test of Homogeneity Tab
-             navbarMenu("Test of Homogeneity", icon = icon("tasks", lib = "glyphicon"),
+             navbarMenu("Test of Homogeneity", icon = icon("chart-bar"),
 
                         ## Cohen's d
                         tabPanel("Cohen's d", fluid = TRUE,#also icon = pretty picture
@@ -205,7 +213,7 @@ ui <- fluidPage(
             ## Subgroup Analysis
             ## Subgroup Analysis
             ## Subgroup Analysis
-            navbarMenu("Subgroup Analysis", icon = icon("tasks", lib = "glyphicon"),
+            navbarMenu("Subgroup Analysis", icon = icon("user-friends"),
 
                        ## Cohen's d
                        tabPanel("Cohen's d", fluid = TRUE,#also icon = pretty picture
