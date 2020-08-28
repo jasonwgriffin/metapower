@@ -52,7 +52,7 @@ devtools::install_github("jasonwgriffin/metapower")
 ## Shiny Application
 
 Check out the simple and easy to use shiny application: [shiny
-metapower](https://jason-griffin.shinyapps.io/shiny_metapower)
+metapower](https://jason-griffin.shinyapps.io/shiny_metapower/)
 
 ## Example
 
