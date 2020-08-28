@@ -27,9 +27,9 @@ Suppose that we plan to meta-analyze all published findings to compute a summary
 
 ...*for our meta-analysis of face recognition deficits in autism*
 
-1. We expect that face recognition deficits in ASD are small (Cohen's d = 0.25)
+1. We expect that face recognition deficits in ASD are small (Cohen's d = 0.2)
 2. Sample sizes in autism research are generally small. We expect the average group size to be 20.
-3. Face recognition is frequently studied in autism; therefore, we expect to find 30 studies.
+3. Face recognition is frequently studied in autism; therefore, we expect to find 10 studies.
 
 To do this with `metapower`, we use the core function `mpower()`
 
@@ -37,16 +37,13 @@ To do this with `metapower`, we use the core function `mpower()`
 my_power <- mpower(effect_size = .2, sample_size = 20, k = 10, es_type = "d")
 ```
 
-Note that we specify this a random-effects model (`model = "random`). 
-For fixed-effects model, use `model = "fixed"`.
-
 ```{r}
 print(my_power)
 ```
 
 The first part of the output shows the expected input values, where the main results are shown in the bottom portion, mainly, `Estimated Power`. Under this set of values, our power to detect a mean difference under a Fixed-Effects model is  `r round(my_power$power$fixed_power*100,2)`%. Furthermore, we can look at the power under a Random-Effects model under various heterogeneity levels (e.g., Low, Moderate, Large). For the output regarding `Estimated Power: Test of Homogeneity`, please see below
 
-Given that power analysis require a lot of assumptions, it is generally advisable to look at power across a range of input values. To visualize the power curve for these set of input parameters, use `power_plot()` to generate a `ggobject` that is modifiable and by default, shows 5x as many studies as the user inputs. 
+Given that power analysis require a lot of assumptions, it is generally advisable to look at power across a range of input values. To visualize the power curve for these set of input parameters, use `plot_mpower()` to generate a `ggobject` that is modifiable and by default, shows 5x as many studies as the user inputs. 
 
 ```{r fig.height=7, fig.width=7, dpi = 300,out.width = "100%", out.height = "100%"}
 plot_mpower(my_power)
@@ -62,12 +59,13 @@ str(my_power$power_range)
 
 ## Power for the Test of Homogeneity
 
-For Fixed-Effects Model, the test of homogeneity examines whether the amount of variation among effect sizes is greater than that of sampling error alone. To compute this, simply wrap the same arguments used in `mpower` with `homogen_power`. Since it is hard to justify selecting the standard deviation between a set of studies, `homogen_power()` automatically computes power across a range of different standard deviation values (i.e., SD = 1, SD = 2..)
+For Fixed-Effects Model, the test of homogeneity examines whether the amount of variation among effect sizes is greater than that of sampling error alone. To compute this, simply wrap the same arguments used in `mpower` with `homogen_power`. Since it is hard to justify selecting the standard deviation between a set of studies, `homogen_power()` automatically computes power across a range of different standard deviation values (i.e., SD = 1, SD = 2.)
+
 ```{r}
 (homogen_test_power <- homogen_power(effect_size = .25, sample_size = 20, k = 30, es_type = "d"))
 ```
 
-For Random-Effects models, `homogen_power` computes power across a range of possible heterogeneity values (i.e., $I^2$)
+For Random-Effects models, `homogen_power()` computes power across a range of possible heterogeneity values (i.e., $I^2$)
 
 1. $I^2$ =  0% (No Heterogeneity)
 2. $I^2$ = 25% (Low Heterogeneity) 
