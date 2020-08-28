@@ -11,7 +11,6 @@ mpower(
   es_type,
   test_type = "two-tailed",
   p = 0.05,
-  i2 = 0.5,
   con_table = NULL
 )
 }
@@ -28,8 +27,6 @@ mpower(
 
 \item{p}{Significance level (Type I error probability)}
 
-\item{i2}{Heterogeneity parameter (I^2 statistic)}
-
 \item{con_table}{(Optional) For Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 
 \tabular{lcc}{
@@ -45,7 +42,7 @@ Estimated Power
 Computes statistical power for meta-analytic under both fixed- and random-effects models.
 }
 \examples{
-mpower(effect_size = .5, sample_size = 10, k = 10, es_type = "d")
+mpower(effect_size = .2, sample_size = 10, k = 10, es_type = "d")
 
 }
 \references{

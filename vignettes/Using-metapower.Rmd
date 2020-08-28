@@ -34,7 +34,7 @@ Suppose that we plan to meta-analyze all published findings to compute a summary
 To do this with `metapower`, we use the core function `mpower()`
 
 ```{r}
-my_power <- mpower(effect_size = .25, sample_size = 20, k = 30, es_type = "d")
+my_power <- mpower(effect_size = .2, sample_size = 20, k = 10, es_type = "d")
 ```
 
 Note that we specify this a random-effects model (`model = "random`). 

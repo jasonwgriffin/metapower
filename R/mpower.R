@@ -12,8 +12,6 @@
 #'
 #' @param test_type "two-tailed" or "one-tailed"
 #'
-#' @param i2 Heterogeneity parameter (I^2 statistic)
-#'
 #' @param p Significance level (Type I error probability)
 #'
 #' @param con_table (Optional) For Odds Ratio. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
@@ -27,7 +25,7 @@
 #' @return Estimated Power
 #'
 #' @examples
-#' mpower(effect_size = .5, sample_size = 10, k = 10, es_type = "d")
+#' mpower(effect_size = .2, sample_size = 10, k = 10, es_type = "d")
 #'
 #' @references
 #'

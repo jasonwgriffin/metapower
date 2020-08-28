@@ -7,12 +7,10 @@ print.mpower <- function(x,...) {
     cat(" Expected Effect Size:             ", x$effect_size, "\n")
     cat(" Expected Sample Size (per group): ", x$sample_size, "\n")
     cat(" Expected Number of Studies:       ", x$k, "\n")
-    cat(" Expected Heterogenity (i2):       ", x$i2, "\n\n")
 
     cat(" Estimated Power: Mean Effect Size \n\n")
 
     cat(" Fixed-Effects Model               ", x$power$fixed_power, "\n")
-    cat(" Random-Effects Model (i2 = ",round(x$i2*100,2),"% ):  ", x$power$random_power, "\n", sep = "")
     cat(" Random-Effects Model (i2 =  0% ): ", x$power$random_power_0, "\n")
     cat(" Random-Effects Model (i2 = 25% ): ", x$power$random_power_25, "\n")
     cat(" Random-Effects Model (i2 = 50% ): ", x$power$random_power_50, "\n")

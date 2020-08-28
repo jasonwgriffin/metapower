@@ -1,22 +1,22 @@
-#' Compute Power for Categorical Moderation Meta-analysis
+#' Compute Power for Subgroup Analysis in Meta-analysis
 #'
-#' Computes statistical power for categorical moderator models under fixed- and random-effects models.
+#' Computes statistical power for different subgroups under fixed- and random-effects models.
 #'
-#' @param n_groups Number of anticipated groups in moderation analysis
+#' @param n_groups Numerical value for the number of subgroups.
 #'
-#' @param effect_sizes  Expected effect sizes of for each group.
+#' @param effect_sizes Numerical values for Expected effect sizes of for each group.
 #'
-#' @param es_type 'Correlation', 'd', or 'OR'
+#' @param es_type Character reflecting effect size metric: 'Correlation', 'd', or 'OR'
 #'
-#' @param sample_size Expected number of participants (per group)
+#' @param sample_size Numerical value for number of participants (per study)
 #'
-#' @param k Total expected number of studies
+#' @param k Numerical value for total number of studies
 #'
-#' @param p Significance level (Type I error probability)
+#' @param p Numerical value for significance level (Type I error probability). default, p = .05
 #'
-#' @param test_type "two-tailed" or "one-tailed"
+#' @param test_type Character value reflecting test type: ("two-tailed" or "one-tailed")
 #'
-#' @param con_table (Optional) For Odds Ratio effect sizes. Expected 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+#' @param con_table (Optional) Numerical values for 2x2 contingency table as a vector in the following format: c(a,b,c,d)
 #'
 #' \tabular{lcc}{
 #'  2x2 Table   \tab Group 1 \tab Group 2 \cr
@@ -24,7 +24,7 @@
 #'  Not Present \tab c       \tab d       \cr
 #'}
 #'
-#' @return Estimated Power estimates for between and within-groups moderation
+#' @return Estimated Power estimates for subgroup differences under fixed- and random-effects models
 #'
 #' @examples
 #' mod_power(
@@ -124,8 +124,6 @@ mod_power <- function(n_groups,
                                          c_alpha_b = c_alpha_b,
                                          c_alpha_w = c_alpha_w,
                                          variance = variance)
-
-
   }
 
   mod_power_list <- list(mod_power = compute_mod_power(n_groups, effect_sizes, variance, overall_effect, sample_size, k, c_alpha_b),

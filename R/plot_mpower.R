@@ -44,8 +44,7 @@ plot_mpower <- function(obj){
       p_aes +
       ggtitle("Random-Effects Model") +
       scale_color_manual(name = "Heterogeneity",
-                         labels = c(bquote(I^2 == .(round(obj$i2*100,2)) * `%`),
-                                    bquote(I^2 == "0%"),
+                         labels = c(bquote(I^2 == "0%"),
                                     bquote(I^2 == "25%"),
                                     bquote(I^2 == "50%"),
                                     bquote(I^2 == "75%")),
