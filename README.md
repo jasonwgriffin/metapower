@@ -52,7 +52,6 @@ devtools::install_github("jasonwgriffin/metapower")
 ## Shiny Application
 
 Check out the simple and easy to use shiny application
-(<https://jason-griffin.shinyapps.io/shiny_metapower/>)
 
 ## Example
 
@@ -78,7 +77,7 @@ plot_mpower(my_power)
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
-See Vignette “Using metapower” for more information.
+See Vignette “Using metapower” for more information..
 
 ## References
 
