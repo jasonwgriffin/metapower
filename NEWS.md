@@ -7,6 +7,7 @@
 * For random-effects models, mpower() now uses a different formula to account for uncertainty in tau2 (see Jackson & Turner, 2017)
 * `mod_power()` was changed to subgroup_power()
 * The subgroup_power() has slightl different arguements to allow more flexibility, especially for Odds Ratio
+* All plot functions were changes to have a preceding plot_. FOr example: `plot_mpower()`; `plot_homogen_power()`; `plot_subgroup_power()`
 
 ### Additions
 
