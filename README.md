@@ -78,7 +78,7 @@ plot_mpower(my_power)
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
-See Vignette “Using metapower” for more information
+See Vignette “Using metapower” for more information.
 
 ## References
 

@@ -78,7 +78,7 @@ All mathematical calculations are derived from @hedges2004, @bornstein2009,@pigo
 
 <div id="refs"></div>
 
-## Issues
+##  Issues
 
 If you encounter a clear bug, please file a minimal reproducible example on [github](https://github.com/jasonwgriffin/metapower/issues).
 
