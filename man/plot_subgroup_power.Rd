@@ -2,16 +2,16 @@
 % Please edit documentation in R/plot_subgroup_power.R
 \name{plot_subgroup_power}
 \alias{plot_subgroup_power}
-\title{Plot Power Curve for Moderator analysis}
+\title{Plot Power Curve for Subgroup analysis}
 \usage{
 plot_subgroup_power(obj)
 }
 \arguments{
-\item{obj}{This should be an mpower object}
+\item{obj}{This should be an subgroup_power object}
 }
 \value{
-Power curve plot for the user specified input parameters
+Power curves to detect subgroup differences for fixed- and random-effects models
 }
 \description{
-Plot Power Curve for Moderator analysis
+Plot Power Curve for Subgroup analysis
 }

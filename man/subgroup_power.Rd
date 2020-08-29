@@ -28,10 +28,10 @@ subgroup_power(
 
 \item{test_type}{Character value reflecting test type: ("two-tailed" or "one-tailed")}
 
-\item{p}{Numerical value for significance level (Type I error probability). default, p = .05}
+\item{p}{Numerical value for significance level (Type I error probability)}
 
 \item{con_table}{(Optional) List of numerical values for 2x2 contingency tables as a vector in the following format: c(a,b,c,d).
-These should be specified for each subgroup(i.e., n_groups).
+These should be specified for each subgroup (i.e., n_groups).
 
 \tabular{lcc}{
  2x2 Table   \tab Group 1 \tab Group 2 \cr

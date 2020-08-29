@@ -1,10 +1,10 @@
-#' Plot Power Curve for Moderator analysis
+#' Plot Power Curve for Subgroup analysis
 #'
 #' @export
 #'
-#' @param obj This should be an mpower object
+#' @param obj This should be an subgroup_power object
 #'
-#' @return Power curve plot for the user specified input parameters
+#' @return Power curves to detect subgroup differences for fixed- and random-effects models
 #'
 
 plot_subgroup_power <- function(obj){
