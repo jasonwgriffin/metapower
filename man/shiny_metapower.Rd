@@ -7,8 +7,6 @@
 shiny_metapower()
 }
 \description{
-@examples
-}
-\details{
-shiny_metapower()
+Calling this functioning simply launches the shiny application for metapower,
+which allows users to easily compute power analysis with a shiny application
 }

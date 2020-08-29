@@ -3,7 +3,7 @@
 #' Calling this functioning simply launches the shiny application for metapower,
 #' which allows users to easily compute power analysis with a shiny application
 #'
-#' @examples
+#' @example
 #' shiny_metapower()
 #'
 #'
