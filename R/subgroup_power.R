@@ -16,8 +16,9 @@
 #'
 #' @param test_type Character value reflecting test type: ("two-tailed" or "one-tailed")
 #'
-#' @param con_table (Optional) List of numerical values for 2x2 contingency tables as a vector in the following format: c(a,b,c,d).
-#' These should be specified for each subgroup (i.e., n_groups).
+#' @param con_table (Optional) List of numerical values for 2x2 contingency
+#'   tables as a vector in the following format: c(a,b,c,d). These should be
+#'   specified for each subgroup (i.e., n_groups).
 #'
 #' \tabular{lcc}{
 #'  2x2 Table   \tab Group 1 \tab Group 2 \cr
@@ -29,9 +30,17 @@
 #'
 #' @examples
 #'
-#' subgroup_power(n_groups = 2, effect_sizes = c(.1,.5), sample_size = 20, k = 10, es_type = "d")
-#' subgroup_power(n_groups = 2, con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)),
-#'           sample_size = 20, k = 20, es_type = "OR")
+#' subgroup_power(n_groups = 2,
+#'                effect_sizes = c(.1,.5),
+#'                sample_size = 20,
+#'                k = 10,
+#'                es_type = "d")
+#'
+#' subgroup_power(n_groups = 2,
+#'                con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)),
+#'                sample_size = 20,
+#'                k = 20,
+#'                es_type = "OR")
 #'
 #' @importFrom stats pchisq
 #' @importFrom stats qchisq

@@ -7,7 +7,7 @@
 plot_subgroup_power(obj)
 }
 \arguments{
-\item{obj}{This should be an subgroup_power object}
+\item{obj}{This should be an 'subgroup_power' object}
 }
 \value{
 Power curves to detect subgroup differences for fixed- and random-effects models
