@@ -37,7 +37,7 @@
 #' Pigott, T. (2012). Advances in Meta-Analysis.
 #' doi: https://dx.doi.org/10.1007/978-1-4614-2278-5
 #'
-#' Jackson, D., Turner, R. (2017). Power analysis for random‐effects meta-analysis, Research Synthesis Methods, 8(3), 290-302
+#' Jackson, D., Turner, R. (2017). Power analysis for random-effects meta-analysis, Research Synthesis Methods, 8(3), 290-302
 #' doi: https://dx.doi.org/10.1002/jrsm.1240
 #'
 #' @importFrom dplyr mutate
