@@ -51,7 +51,8 @@ devtools::install_github("jasonwgriffin/metapower")
 
 ## Shiny Application
 
-Check out the simple and easy to use shiny application
+Check out the simple and easy to use [shiny
+application](https://jason-griffin.shinyapps.io/shiny_metapower/)
 
 ## Example
 
@@ -105,7 +106,7 @@ for moderators in meta-analysis. *Psychological Methods*, *9*(4),
 <div id="ref-jackson2017">
 
 Jackson, D., & Turner, R. (2017). Power analysis for random‐effects
-meta‐analysis. *Research Synthesis Methods*, *8*(3), 290–302.
+meta-analysis. *Research Synthesis Methods*, *8*(3), 290–302.
 <https://doi.org/10.1002/jrsm.1240>
 
 </div>
