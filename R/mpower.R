@@ -55,6 +55,10 @@
 #' @importFrom stats pgamma
 #' @import ggplot2
 #' @import magrittr
+#' @import knitr
+#' @import rlang
+#' @import rmarkdown
+#' @import testthat
 #' @export
 
 mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed", p = .05, con_table = NULL){

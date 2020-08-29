@@ -18,7 +18,6 @@ Imports:
     tidyr (>= 1.0.2),
     testthat (>= 2.3.2),
     rmarkdown (>= 2.1),
-    rlang (>= 0.4.5),
-    shiny (>= 1.5.0)
+    rlang (>= 0.4.5)
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
