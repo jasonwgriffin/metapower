@@ -1,20 +1,20 @@
 #' Compute Power for Meta-analysis
 #'
-#' Computes statistical power under both fixed and random effects models
+#' Computes statistical power for summary effect sizes in meta-analysis.
 #'
-#' @param effect_size  Numerical value of effect size
+#' @param effect_size  Numerical value of effect size.
 #'
-#' @param sample_size Numerical value for number number of participants (per study)
+#' @param sample_size Numerical value for number number of participants (per study).
 #'
-#' @param k Numerical value for total number of studies
+#' @param k Numerical value for total number of studies.
 #'
-#' @param es_type Character reflecting effect size metric: 'Correlation', 'd', or 'OR'
+#' @param es_type Character reflecting effect size metric: 'Correlation', 'd', or 'OR'.
 #'
-#' @param test_type Character value reflecting test type: ("two-tailed" or "one-tailed")
+#' @param test_type Character value reflecting test type: ("two-tailed" or "one-tailed").
 #'
-#' @param p Numerical value for significance level (Type I error probability). default, p = .05
+#' @param p Numerical value for significance level (Type I error probability).
 #'
-#' @param con_table (Optional) Numerical values for 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+#' @param con_table (Optional) Numerical values for 2x2 contingency table as a vector in the following format: c(a,b,c,d).
 #'
 #' \tabular{lcc}{
 #'  2x2 Table   \tab Group 1 \tab Group 2 \cr

@@ -1,5 +1,8 @@
 #' Plot Power Curve for Meta-analysis
 #'
+#' Plots power curves for fixed effects models with various effect size magnitudes. Also plots power curves for various levels
+#' of heterogeneity (e.g., i2 = 75%)
+#'
 #' @export
 #'
 #' @param obj This should be an "mpower" object

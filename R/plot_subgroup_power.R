@@ -1,5 +1,7 @@
 #' Plot Power Curve for Subgroup analysis
 #'
+#' Plots power curves to detect subgroup differences in meta-analysis.
+#'
 #' @export
 #'
 #' @param obj This should be an 'subgroup_power' object

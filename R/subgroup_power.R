@@ -2,19 +2,19 @@
 #'
 #' Computes statistical power for different subgroups under fixed and random effects models.
 #'
-#' @param n_groups Numerical value for the number of subgroups
+#' @param n_groups Numerical value for the number of subgroups.
 #'
 #' @param effect_sizes Numerical values for effect sizes of for each group.
 #'
-#' @param es_type Character reflecting effect size metric: 'Correlation', 'd', or 'OR'
+#' @param es_type Character reflecting effect size metric: 'Correlation', 'd', or 'OR'.
 #'
-#' @param sample_size Numerical value for number of participants (per study)
+#' @param sample_size Numerical value for number of participants (per study).
 #'
-#' @param k Numerical value for total number of studies
+#' @param k Numerical value for total number of studies.
 #'
-#' @param p Numerical value for significance level (Type I error probability)
+#' @param p Numerical value for significance level (Type I error probability).
 #'
-#' @param test_type Character value reflecting test type: ("two-tailed" or "one-tailed")
+#' @param test_type Character value reflecting test type: ("two-tailed" or "one-tailed").
 #'
 #' @param con_table (Optional) List of numerical values for 2x2 contingency
 #'     tables as a vector in the following format: c(a,b,c,d). These should be
@@ -25,7 +25,7 @@
 #'  Present     \tab a       \tab b       \cr
 #'  Not Present \tab c       \tab d       \cr
 #'}
-#' @return Estimated Power estimates for subgroup differences under fixed and random effects models
+#' @return Estimated Power estimates for subgroup differences under fixed- and random-effects models
 #' @examples
 #' subgroup_power(n_groups = 2,
 #'                effect_sizes = c(.1,.5),

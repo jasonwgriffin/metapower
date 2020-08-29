@@ -1,5 +1,8 @@
 #' Plot Power Curve for Test of Homogeneity
 #'
+#' Plots power curves for the test of homogeneity for different levels of within-study variation for fixed effects models.
+#' For random-effects models, power curves are plotted for various levels of heterogeneity.
+#'
 #' @export
 #'
 #' @param obj should be an "homogen_power" object

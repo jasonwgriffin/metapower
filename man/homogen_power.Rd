@@ -15,19 +15,19 @@ homogen_power(
 )
 }
 \arguments{
-\item{effect_size}{Numerical value of effect size}
+\item{effect_size}{Numerical value of effect size.}
 
-\item{sample_size}{Numerical value for number number of participants (per study)}
+\item{sample_size}{Numerical value for number number of participants (per study).}
 
-\item{k}{Numerical value for total number of studies}
+\item{k}{Numerical value for total number of studies.}
 
-\item{es_type}{'Character reflecting effect size metric: 'Correlation', 'd', or 'OR'}
+\item{es_type}{'Character reflecting effect size metric: 'Correlation', 'd', or 'OR'.}
 
-\item{test_type}{Character value reflecting test type: ("two-tailed" or "one-tailed")}
+\item{test_type}{Character value reflecting test type: ("two-tailed" or "one-tailed").}
 
-\item{p}{Numerical value for significance level (Type I error probability). default, p = .05}
+\item{p}{Numerical value for significance level (Type I error probability).}
 
-\item{con_table}{(Optional) Numerical values for 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+\item{con_table}{(Optional) Numerical values for 2x2 contingency table as a vector in the following format: c(a,b,c,d).
 
 \tabular{lcc}{
  2x2 Table   \tab Group 1 \tab Group 2 \cr
@@ -39,7 +39,7 @@ homogen_power(
 Estimated Power to detect differences in homogeneity of effect sizes for fixed and random effects models
 }
 \description{
-Computes statistical power for the Test of Homogeneity for meta-analytic under both fixed- and random-effects models.
+Compute statistical power for the Test of Homogeneity for meta-analysis under both fixed- and random-effects models.
 }
 \examples{
 homogen_power(effect_size = .5, sample_size = 10, k = 10, es_type = "d")
@@ -48,7 +48,7 @@ homogen_power(effect_size = .5, sample_size = 10, k = 10, es_type = "d")
 \references{
 Borenstein, M., Hedges, L. V., Higgins, J. P. T. and Rothstein, H. R.(2009). Introduction to meta-analysis, Chichester, UK: Wiley.
 
-Hedges, L., Pigott, T. (2004). The Power of Statistical Tests for Moderators in Meta-Analysis Psychological Methods  9(4), 426-445.
+Hedges, L., Pigott, T. (2004). The Power of Statistical Tests for Moderators in Meta-Analysis, Psychological Methods, 9(4), 426-445.
 doi: https://dx.doi.org/10.1037/1082-989x.9.4.426
 
 Pigott, T. (2012). Advances in Meta-Analysis.
