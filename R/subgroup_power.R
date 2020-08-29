@@ -38,6 +38,9 @@
 #'                k = 20,
 #'                es_type = "OR")
 #'
+#' @seealso
+#' \url{https://jason-griffin.shinyapps.io/shiny_metapower/}
+#'
 #' @importFrom stats pchisq
 #' @importFrom stats qchisq
 #' @importFrom stats dchisq

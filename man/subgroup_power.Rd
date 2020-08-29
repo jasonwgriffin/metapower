@@ -59,3 +59,6 @@ subgroup_power(n_groups = 2,
                es_type = "OR")
 
 }
+\seealso{
+\url{https://jason-griffin.shinyapps.io/shiny_metapower/}
+}

@@ -54,3 +54,6 @@ doi: https://dx.doi.org/10.1037/1082-989x.9.4.426
 Pigott, T. (2012). Advances in Meta-Analysis.
 doi: https://dx.doi.org/10.1007/978-1-4614-2278-5
 }
+\seealso{
+\url{https://jason-griffin.shinyapps.io/shiny_metapower/}
+}

@@ -27,6 +27,9 @@
 #' @examples
 #' mpower(effect_size = .2, sample_size = 10, k = 10, es_type = "d")
 #'
+#' @seealso
+#' \url{https://jason-griffin.shinyapps.io/shiny_metapower/}
+#'
 #' @references
 #'
 #' Borenstein, M., Hedges, L. V., Higgins, J. P. T. and Rothstein, H. R.(2009). Introduction to meta-analysis, Chichester, UK: Wiley.
