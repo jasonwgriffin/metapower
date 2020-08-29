@@ -10,7 +10,7 @@ plot_subgroup_power(obj)
 \item{obj}{This should be an 'subgroup_power' object}
 }
 \value{
-Power curves to detect subgroup differences for fixed- and random-effects models
+Power curves to detect subgroup differences for fixed and random effects models
 }
 \description{
 Plot Power Curve for Subgroup analysis

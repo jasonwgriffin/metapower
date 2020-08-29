@@ -7,7 +7,7 @@
 plot_mpower(obj)
 }
 \arguments{
-\item{obj}{This should be an mpower object}
+\item{obj}{This should be an "mpower" object}
 }
 \value{
 Power curve plot for the user specified input parameters

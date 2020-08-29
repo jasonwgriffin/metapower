@@ -41,10 +41,10 @@ subgroup_power(
 }}
 }
 \value{
-Estimated Power estimates for subgroup differences under fixed- and random-effects models
+Estimated Power estimates for subgroup differences under fixed and random effects models
 }
 \description{
-Computes statistical power for different subgroups under fixed- and random-effects models.
+Computes statistical power for different subgroups under fixed and random effects models.
 }
 \examples{
 subgroup_power(n_groups = 2,

@@ -7,7 +7,7 @@
 plot_homogen_power(obj)
 }
 \arguments{
-\item{obj}{should be an 'homogen_power' object}
+\item{obj}{should be an "homogen_power" object}
 }
 \value{
 Power curve plot for the user specified input parameters
