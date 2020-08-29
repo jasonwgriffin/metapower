@@ -1,8 +1,10 @@
 #' Launch shiny application of metapower
 #'
-#'  @examples
+#' Calling this functioning simply launches the shiny application for metapower,
+#' which allows users to easily compute power analysis with a shiny application
 #'
-#'  shiny_metapower()
+#' @examples
+#' shiny_metapower()
 #'
 #'
 #' @export
