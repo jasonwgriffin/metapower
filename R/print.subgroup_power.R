@@ -12,7 +12,6 @@ print.subgroup_power <- function(x,...) {
   cat(" Esimated Power to detect subgroup differences \n\n")
 
   cat(" Fixed-Effects Model:                 ", x$subgroup_power$fixed_power_b, "\n")
-  #cat(" Fixed-Effects Model (Within-Group):                          ", x$subgroup_power$fixed_power_w, "\n")
   cat(" Random-Effects Model (i2 = 0%):      ", x$subgroup_power$random_power_b_0, "\n")
   cat(" Random-Effects Model (i2 = 25%):     ", x$subgroup_power$random_power_b_s, "\n")
   cat(" Random-Effects Model (i2 = 50%):     ", x$subgroup_power$random_power_b_m, "\n")
