@@ -65,9 +65,6 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
   mpower_integrity(effect_size, sample_size, k, es_type, test_type, p, con_table)
 
   ## Transform effect sizes condition on the metric
-
-  #effect_size = abs(effect_size)
-
   ## Determine the critical value cut-of based on one or two tailed test and p-value
   if(test_type == "two-tailed"){
     c_alpha <- qnorm(1-(p/2))
