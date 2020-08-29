@@ -2,7 +2,7 @@
 #'
 #' @export
 #'
-#' @param obj This should be an mpower object
+#' @param obj This should be an "mpower" object
 #'
 #' @return Power curve plot for the user specified input parameters
 

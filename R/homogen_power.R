@@ -22,7 +22,7 @@
 #'  Not Present \tab c       \tab d       \cr
 #'}
 #'
-#' @return Estimated Power to detect differences in homogeneity of effect sizes for fixed- and random-effects models
+#' @return Estimated Power to detect differences in homogeneity of effect sizes for fixed and random effects models
 #'
 #' @examples
 #' homogen_power(effect_size = .5, sample_size = 10, k = 10, es_type = "d")

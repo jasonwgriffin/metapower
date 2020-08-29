@@ -1,6 +1,6 @@
 #' Compute Power for Meta-analysis
 #'
-#' Computes statistical power for meta-analytic under both fixed- and random-effects models.
+#' Computes statistical power under both fixed and random effects models
 #'
 #' @param effect_size  Numerical value of effect size
 #'
@@ -31,13 +31,13 @@
 #'
 #' Borenstein, M., Hedges, L. V., Higgins, J. P. T. and Rothstein, H. R.(2009). Introduction to meta-analysis, Chichester, UK: Wiley.
 #'
-#' Hedges, L., Pigott, T. (2004). The Power of Statistical Tests for Moderators in Meta-Analysis Psychological Methods  9(4), 426-445.
+#' Hedges, L., Pigott, T. (2004). The Power of Statistical Tests for Moderators in Meta-Analysis, Psychological Methods, 9(4), 426-445
 #' doi: https://dx.doi.org/10.1037/1082-989x.9.4.426
 #'
 #' Pigott, T. (2012). Advances in Meta-Analysis.
 #' doi: https://dx.doi.org/10.1007/978-1-4614-2278-5
 #'
-#' Jackson, D., Turner, R. (2017). Power analysis for random‐effects meta-analysis Research Synthesis Methods  8(3), 290-302.
+#' Jackson, D., Turner, R. (2017). Power analysis for random‐effects meta-analysis, Research Synthesis Methods, 8(3), 290-302
 #' doi: https://dx.doi.org/10.1002/jrsm.1240
 #'
 #' @importFrom dplyr mutate
