@@ -25,17 +25,13 @@
 #'  Present     \tab a       \tab b       \cr
 #'  Not Present \tab c       \tab d       \cr
 #'}
-#'
 #' @return Estimated Power estimates for subgroup differences under fixed- and random-effects models
-#'
 #' @examples
-#'
 #' subgroup_power(n_groups = 2,
 #'                effect_sizes = c(.1,.5),
 #'                sample_size = 20,
 #'                k = 10,
 #'                es_type = "d")
-#'
 #' subgroup_power(n_groups = 2,
 #'                con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)),
 #'                sample_size = 20,
