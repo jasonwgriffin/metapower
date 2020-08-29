@@ -1,6 +1,6 @@
 #' Compute Power for Subgroup Analysis in Meta-analysis
 #'
-#' Computes statistical power for different subgroups under fixed- and random-effects models.
+#' Computes statistical power for different subgroups under fixed and random effects models.
 #'
 #' @param n_groups Numerical value for the number of subgroups
 #'
@@ -25,7 +25,7 @@
 #'  Present     \tab a       \tab b       \cr
 #'  Not Present \tab c       \tab d       \cr
 #'}
-#' @return Estimated Power estimates for subgroup differences under fixed- and random-effects models
+#' @return Estimated Power estimates for subgroup differences under fixed and random effects models
 #' @examples
 #' subgroup_power(n_groups = 2,
 #'                effect_sizes = c(.1,.5),

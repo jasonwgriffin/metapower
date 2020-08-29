@@ -4,7 +4,7 @@
 #'
 #' @param obj This should be an 'subgroup_power' object
 #'
-#' @return Power curves to detect subgroup differences for fixed- and random-effects models
+#' @return Power curves to detect subgroup differences for fixed and random effects models
 
 plot_subgroup_power <- function(obj){
 

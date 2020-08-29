@@ -2,7 +2,7 @@
 #'
 #' @export
 #'
-#' @param obj should be an 'homogen_power' object
+#' @param obj should be an "homogen_power" object
 #'
 #' @return Power curve plot for the user specified input parameters
 
