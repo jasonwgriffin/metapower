@@ -16,19 +16,19 @@ subgroup_power(
 )
 }
 \arguments{
-\item{n_groups}{Numerical value for the number of subgroups}
+\item{n_groups}{Numerical value for the number of subgroups.}
 
 \item{effect_sizes}{Numerical values for effect sizes of for each group.}
 
-\item{sample_size}{Numerical value for number of participants (per study)}
+\item{sample_size}{Numerical value for number of participants (per study).}
 
-\item{k}{Numerical value for total number of studies}
+\item{k}{Numerical value for total number of studies.}
 
-\item{es_type}{Character reflecting effect size metric: 'Correlation', 'd', or 'OR'}
+\item{es_type}{Character reflecting effect size metric: 'Correlation', 'd', or 'OR'.}
 
-\item{test_type}{Character value reflecting test type: ("two-tailed" or "one-tailed")}
+\item{test_type}{Character value reflecting test type: ("two-tailed" or "one-tailed").}
 
-\item{p}{Numerical value for significance level (Type I error probability)}
+\item{p}{Numerical value for significance level (Type I error probability).}
 
 \item{con_table}{(Optional) List of numerical values for 2x2 contingency
     tables as a vector in the following format: c(a,b,c,d). These should be
@@ -41,7 +41,7 @@ subgroup_power(
 }}
 }
 \value{
-Estimated Power estimates for subgroup differences under fixed and random effects models
+Estimated Power estimates for subgroup differences under fixed- and random-effects models
 }
 \description{
 Computes statistical power for different subgroups under fixed and random effects models.

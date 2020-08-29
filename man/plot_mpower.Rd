@@ -13,5 +13,6 @@ plot_mpower(obj)
 Power curve plot for the user specified input parameters
 }
 \description{
-Plot Power Curve for Meta-analysis
+Plots power curves for fixed effects models with various effect size magnitudes. Also plots power curves for various levels
+of heterogeneity (e.g., i2 = 75%)
 }

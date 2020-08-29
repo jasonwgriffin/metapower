@@ -13,5 +13,5 @@ plot_subgroup_power(obj)
 Power curves to detect subgroup differences for fixed and random effects models
 }
 \description{
-Plot Power Curve for Subgroup analysis
+Plots power curves to detect subgroup differences in meta-analysis.
 }

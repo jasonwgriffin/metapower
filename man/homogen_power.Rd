@@ -36,7 +36,7 @@ homogen_power(
 }}
 }
 \value{
-Estimated Power to detect differences in homogeneity of effect sizes for fixed and random effects models
+Estimated Power to detect differences in homogeneity of effect sizes for fixed- and random-effects models
 }
 \description{
 Compute statistical power for the Test of Homogeneity for meta-analysis under both fixed- and random-effects models.

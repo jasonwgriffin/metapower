@@ -15,19 +15,19 @@ mpower(
 )
 }
 \arguments{
-\item{effect_size}{Numerical value of effect size}
+\item{effect_size}{Numerical value of effect size.}
 
-\item{sample_size}{Numerical value for number number of participants (per study)}
+\item{sample_size}{Numerical value for number number of participants (per study).}
 
-\item{k}{Numerical value for total number of studies}
+\item{k}{Numerical value for total number of studies.}
 
-\item{es_type}{Character reflecting effect size metric: 'Correlation', 'd', or 'OR'}
+\item{es_type}{Character reflecting effect size metric: 'Correlation', 'd', or 'OR'.}
 
-\item{test_type}{Character value reflecting test type: ("two-tailed" or "one-tailed")}
+\item{test_type}{Character value reflecting test type: ("two-tailed" or "one-tailed").}
 
-\item{p}{Numerical value for significance level (Type I error probability). default, p = .05}
+\item{p}{Numerical value for significance level (Type I error probability).}
 
-\item{con_table}{(Optional) Numerical values for 2x2 contingency table as a vector in the following format: c(a,b,c,d)
+\item{con_table}{(Optional) Numerical values for 2x2 contingency table as a vector in the following format: c(a,b,c,d).
 
 \tabular{lcc}{
  2x2 Table   \tab Group 1 \tab Group 2 \cr
@@ -39,7 +39,7 @@ mpower(
 Estimated Power
 }
 \description{
-Computes statistical power under both fixed and random effects models
+Computes statistical power for summary effect sizes in meta-analysis.
 }
 \examples{
 mpower(effect_size = .2, sample_size = 10, k = 10, es_type = "d")
