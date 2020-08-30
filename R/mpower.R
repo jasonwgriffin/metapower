@@ -57,6 +57,8 @@
 #' @importFrom testthat expect_equal
 #' @importFrom testthat expect_error
 #' @importFrom testthat expect_match
+#' @importFrom rlang .data
+#' @importFrom knitr knit
 #' @import ggplot2
 #' @import magrittr
 #' @export
