@@ -53,6 +53,10 @@
 #' @importFrom stats dchisq
 #' @importFrom stats integrate
 #' @importFrom stats pgamma
+#' @importFrom testthat test_that
+#' @importFrom testthat expect_equal
+#' @importFrom testthat expect_error
+#' @importFrom testthat expect_match
 #' @import ggplot2
 #' @import magrittr
 #' @export
