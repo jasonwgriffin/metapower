@@ -273,6 +273,4 @@ server <- function(input, output) {
     print(subgroup_power(n_groups, NULL, sample_size, k, es_type, test_type, p, con_table))
   })
 
-
-
 }
