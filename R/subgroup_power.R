@@ -57,9 +57,11 @@ subgroup_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
   ## Argument Check
   subgroup_power_integrity(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table)
 
+  ## compute degrees of freedom for between and within-study
   df_b <- n_groups-1
   df_w <- k-n_groups
 
+  ## compute critical value for power
   if(test_type == "two-tailed"){
     c_alpha_b <- qchisq(1-(p/2), df_b, 0, lower.tail = TRUE)
     c_alpha_w <- qchisq(1-(p/2), df_w, 0, lower.tail = TRUE)
@@ -118,7 +120,7 @@ subgroup_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
         overall_effect <- mean(d$log_or) # find overall mean
         variance <- mean(d$var) ## find the common variance among all groups
         effect_sizes <- d$log_or ## save the effect sizes in log odds to input in subsequent functions
-        ## range df
+        ## dataframe for applying subgroup_power()
         subgroup_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
                                          overall_effect = overall_effect,
                                          n_groups = n_groups,

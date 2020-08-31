@@ -5,8 +5,8 @@ account: jason-griffin
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2720007
-bundleId: 3573889
+bundleId: 3574126
 url: https://jason-griffin.shinyapps.io/shiny_metapower/
-when: 1598832939.71095
+when: 1598839425.86115
 asMultiple: FALSE
 asStatic: FALSE

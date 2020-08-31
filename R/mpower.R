@@ -77,7 +77,7 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
   } else if (test_type =="one-tailed") {
     c_alpha <- qnorm(1-(p))
   }
-
+  ## range of studies for visualization
   range_factor <- 5
 
   if(es_type == "d"){

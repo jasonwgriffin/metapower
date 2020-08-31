@@ -2,7 +2,7 @@ library(shiny)
 library(shinythemes)
 library(shinydashboard)
 library(metapower)
-options(shiny.sanitize.errors = TRUE)
+options(shiny.sanitize.errors = FALSE)
 # Define UI ----
 ui <- fluidPage(
   list(tags$head(HTML('<link rel="icon", href="metapower_sticker.png",

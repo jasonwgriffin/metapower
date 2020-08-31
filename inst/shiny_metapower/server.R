@@ -186,9 +186,8 @@ server <- function(input, output) {
     sample_size <- input$or_n
     p <- input$or_p
     test_type <- input$or_test_type
-    i2 <- .50
     con_table <- c(input$or_a, input$or_b, input$or_c, input$or_d)
-    metapower::plot_mpower(mpower(NULL,sample_size, k, es_type, test_type, p, i2, con_table))
+    metapower::plot_mpower(mpower(NULL,sample_size, k, es_type, test_type, p, con_table))
   })
   output$or_summary <- renderPrint({
     es_type <- "OR"
@@ -197,9 +196,8 @@ server <- function(input, output) {
     sample_size <- input$or_n
     p <- input$or_p
     test_type <- input$or_test_type
-    i2 <- .50
     con_table <- c(input$or_a, input$or_b, input$or_c, input$or_d)
-    print(mpower(NULL,sample_size, k, es_type, test_type, p, i2, con_table))
+    print(mpower(NULL,sample_size, k, es_type, test_type, p, con_table))
   })
 
   ## Homogen Power
@@ -210,9 +208,8 @@ server <- function(input, output) {
     sample_size <- input$homogen_or_n
     p <- input$homogen_or_p
     test_type <- input$homogen_or_test_type
-    i2 <- .50
     con_table <- c(input$homogen_or_a, input$homogen_or_b, input$homogen_or_c, input$homogen_or_d)
-    metapower::plot_homogen_power(homogen_power(NULL,sample_size, k, es_type, test_type, p, i2, con_table))
+    metapower::plot_homogen_power(homogen_power(NULL,sample_size, k, es_type, test_type, p, con_table))
   })
   output$homogen_or_summary <- renderPrint({
     es_type <- "OR"
@@ -221,9 +218,8 @@ server <- function(input, output) {
     sample_size <- input$homogen_or_n
     p <- input$homogen_or_p
     test_type <- input$homogen_or_test_type
-    i2 <- .50
     con_table <- c(input$homogen_or_a, input$homogen_or_b, input$homogen_or_c, input$homogen_or_d)
-    print(homogen_power(NULL,sample_size, k, es_type, test_type, p, i2, con_table))
+    print(homogen_power(NULL,sample_size, k, es_type, test_type, p, con_table))
   })
 
   ## Subgroup analysis
