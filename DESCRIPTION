@@ -18,5 +18,7 @@ Imports:
     tidyr (>= 1.0.2),
     testthat (>= 2.3.2),
     rlang (>= 0.4.5)
+Suggests:
+    markdown (>= 2.1)
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1

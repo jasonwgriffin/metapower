@@ -72,7 +72,7 @@ server <- function(input, output) {
     sample_size <- input$subgroup_d_n
     p <- input$subgroup_d_p
     test_type <- input$subgroup_d_test_type
-    metapower::plot_mod_power(mod_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p))
+    metapower::plot_subgroup_power(subgroup_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p))
   })
 
   output$subgroup_d_summary <- renderPrint({
@@ -88,7 +88,7 @@ server <- function(input, output) {
     sample_size <- input$subgroup_d_n
     p <- input$subgroup_d_p
     test_type <- input$subgroup_d_test_type
-    print(mod_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p))
+    print(subgroup_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p))
   })
 
 
@@ -157,7 +157,7 @@ server <- function(input, output) {
     sample_size <- input$subgroup_c_n
     p <- input$subgroup_c_p
     test_type <- input$subgroup_c_test_type
-    metapower::plot_mod_power(mod_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p))
+    metapower::plot_subgroup_power(subgroup_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p))
   })
 
   output$subgroup_c_summary <- renderPrint({
@@ -173,7 +173,7 @@ server <- function(input, output) {
     sample_size <- input$subgroup_c_n
     p <- input$subgroup_c_p
     test_type <- input$subgroup_c_test_type
-    print(mod_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p))
+    print(subgroup_power(n_groups, effect_sizes, sample_size, k, es_type, test_type, p))
   })
 
 
@@ -251,7 +251,7 @@ server <- function(input, output) {
     if(input$sg4_or_name != "")
       con_table <- c(con_table, list(group4 = c(input$sg_4_or_a,input$sg_4_or_b,input$sg_4_or_c,input$sg_4_or_d)))
 
-    metapower::plot_mod_power(mod_power(n_groups, NULL, sample_size, k, es_type, test_type, p, con_table))
+    metapower::plot_subgroup_power(subgroup_power(n_groups, NULL, sample_size, k, es_type, test_type, p, con_table))
   })
 
   output$subgroup_or_summary <- renderPrint({
@@ -270,7 +270,7 @@ server <- function(input, output) {
     if(input$sg4_or_name != "")
       con_table <- c(con_table, list(group4 = c(input$sg_4_or_a,input$sg_4_or_b,input$sg_4_or_c,input$sg_4_or_d)))
 
-    print(mod_power(n_groups, NULL, sample_size, k, es_type, test_type, p, con_table))
+    print(subgroup_power(n_groups, NULL, sample_size, k, es_type, test_type, p, con_table))
   })
 
 
