@@ -25,6 +25,8 @@ if(length(sample_size) > 1)
   stop("sample_size must be a single number")
 if(sample_size < 1)
   stop("sample_size must be greater than 0")
+if((sample_size/n_groups)%%1!=0)
+  stop("sample size must be a multiple of n_groups")
 
 # Number of Studies
 if(missing(k))

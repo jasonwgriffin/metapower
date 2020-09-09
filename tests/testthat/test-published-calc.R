@@ -26,8 +26,7 @@ test_that("Check power test from Pigott 2012", {
                                     effect_sizes = c(0,.1,.5),
                                     sample_size = 45,
                                     k = 15,
-                                    es_type = "r",
-                                    test_type = "one-tailed")$subgroup_power$fixed_power_b,2), .83)
+                                    es_type = "r")$subgroup_power$fixed_power_b,2), .83)
 
   ## Random Effects Validation
 
@@ -37,15 +36,13 @@ test_that("Check power test from Pigott 2012", {
                                effect_sizes = c(0,.5),
                                sample_size = 40,
                                k = 20,
-                               es_type = "d",
-                               test_type = "one-tailed")$subgroup_power$fixed_power_b,2), .70)
+                               es_type = "d")$subgroup_power$fixed_power_b,2), .70)
 
   ## Section 17.2.7 - Page 358
   expect_equal(round(subgroup_power(n_groups = 2,
                                     effect_sizes = c(0,.5),
                                     sample_size = 40,
                                     k = 20,
-                                    es_type = "d",
-                                    test_type = "one-tailed")$subgroup_power$random_power_b_l,2), .24)
+                                    es_type = "d")$subgroup_power$random_power_b_l,2), .24)
 
 })
