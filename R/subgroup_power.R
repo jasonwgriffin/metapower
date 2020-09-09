@@ -6,7 +6,7 @@
 #'
 #' @param effect_sizes Numerical values for effect sizes of for each group.
 #'
-#' @param es_type Character reflecting effect size metric: 'Correlation', 'd', or 'OR'.
+#' @param es_type Character reflecting effect size metric: 'r', 'd', or 'or'.
 #'
 #' @param sample_size Numerical value for number of participants (per study).
 #'
@@ -90,7 +90,7 @@ subgroup_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
                                  c_alpha_b = c_alpha_b,
                                  c_alpha_w = c_alpha_w) %>% dplyr::mutate(variance = mapply(compute_variance, .data$n_v, .data$overall_effect, es_type))
 
-    }else if(es_type == "Correlation"){
+    }else if(es_type == "r"){
       effect_sizes <- 0.5*log((1+effect_sizes)/(1-effect_sizes)) ## changes correlation to fisher's z
       effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
       overall_effect <- mean(effect_sizes) # find overall mean
@@ -104,7 +104,7 @@ subgroup_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
                                        c_alpha_b = c_alpha_b,
                                        c_alpha_w = c_alpha_w) %>% dplyr::mutate(variance = mapply(compute_variance, .data$n_v, .data$overall_effect, es_type))
 
-      }else if(es_type == "OR") {
+      }else if(es_type == "or") {
 
         ## gather user inputted group names
         group <- names(con_table)

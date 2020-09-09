@@ -2,7 +2,7 @@ subgroup_power_integrity <- function(n_groups, effect_sizes, sample_size, k, es_
 
 # Argument Integrity Checks
 test_type_options <- c("one-tailed", "two-tailed")
-es_type_options <- c("d","Correlation", "OR")
+es_type_options <- c("d","r", "or")
 
 # n_groups
 if(missing(n_groups))
@@ -62,21 +62,21 @@ if(es_type == 'd' & missing(effect_sizes))
 
 
 # Correlation
-if(es_type == 'Correlation' & any(effect_sizes > 1))
+if(es_type == 'r' & any(effect_sizes > 1))
   stop("Correlations cannot be above 1")
-if(es_type == 'Correlation' & any(effect_sizes < 0))
+if(es_type == 'r' & any(effect_sizes < 0))
   stop("Correlations must be above 0")
-if(es_type == 'Correlation' & missing(effect_sizes))
+if(es_type == 'r' & missing(effect_sizes))
   stop("Need to specify expected effect sizes per group")
-if(es_type == 'Correlation' & length(effect_sizes) != n_groups)
+if(es_type == 'r' & length(effect_sizes) != n_groups)
   stop("The number of of effect sizes should match the number of groups")
 
 # Odds Ratio
-if(es_type == 'OR' & !is.null(effect_sizes))
+if(es_type == 'or' & !is.null(effect_sizes))
   stop("For Odds Ratio, only enter the 2x2 contingency table. Remove effect_size argument")
-if(es_type == "OR" & missing(con_table))
+if(es_type == "or" & missing(con_table))
   stop("For Odds Ratio, must enter contingency tables (con_table) for each group in a list. see documentation on how to specify this argument")
-if(es_type == "OR" & !missing(con_table)){
+if(es_type == "or" & !missing(con_table)){
   if(!is.list(con_table))
     stop("con_table should be input as a list with each element reflect the group 2x2 tables")
   if(length(con_table) == 1)

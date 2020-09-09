@@ -1,7 +1,7 @@
 mpower_integrity <- function(effect_size, sample_size, k, es_type, test_type, p, con_table){
 
 test_type_options <- c("one-tailed", "two-tailed")
-es_type_options <- c("d","Correlation", "OR")
+es_type_options <- c("d","r", "or")
 
 ## sample_size integrity checks
 if(missing(sample_size))
@@ -43,7 +43,7 @@ if(es_type == 'd'){
     warning("Are you sure effect size is >10?")
 }
 ## Correlation
-if(es_type == 'Correlation'){
+if(es_type == 'r'){
   if(is.null(effect_size))
     stop("Need to specify expected effect size")
   if(!(is.numeric(effect_size)))
@@ -56,7 +56,7 @@ if(es_type == 'Correlation'){
     stop("Correlation must be above 0")
 }
 # Odds Ratio
-if(es_type == 'OR'){
+if(es_type == 'or'){
   if(!is.null(effect_size))
     stop("Do not enter an effect size for Odds Ratio. Instead, Enter a 2x2 contingency table")
   if(missing(con_table))

@@ -8,7 +8,7 @@
 #'
 #' @param k Numerical value for total number of studies.
 #'
-#' @param es_type Character reflecting effect size metric: 'Correlation', 'd', or 'OR'.
+#' @param es_type Character reflecting effect size metric: 'r', 'd', or 'or'.
 #'
 #' @param test_type Character value reflecting test type: ("two-tailed" or "one-tailed").
 #'
@@ -90,7 +90,7 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
                      n_v = sample_size,
                      c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
-    } else if (es_type == "Correlation"){
+    } else if (es_type == "r"){
     ## Convert to fishers-z
     effect_size = round(.5*log((1 + effect_size)/(1 - effect_size)),2)
     ## Compute common variance
@@ -109,7 +109,7 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
                                  n_v = sample_size,
                                  c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
-    }else if(es_type == "OR") {
+    }else if(es_type == "or") {
       ## Convert odd ratio to log of odds ratio: log(OR)
 
       effect_size <- round((con_table[1]*con_table[4])/(con_table[2]*con_table[3]),3)

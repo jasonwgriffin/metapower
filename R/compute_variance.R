@@ -4,11 +4,11 @@ compute_variance <- function(sample_size, effect_size, es_type, con_table){
 
     return(round(((sample_size+sample_size)/((sample_size)*(sample_size))) + ((effect_size^2)/(2*(sample_size+sample_size))),5))
 
-    } else if (es_type == "Correlation"){
+    } else if (es_type == "r"){
 
       return(1/(sample_size-3))
 
-      }else if (es_type == "OR"){
+      }else if (es_type == "or"){
         con_table <- data.frame(a = con_table[1],
                                 b = con_table[2],
                                 c = con_table[3],
