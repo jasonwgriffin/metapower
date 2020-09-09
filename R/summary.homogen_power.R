@@ -1,6 +1,6 @@
 #' @export
 
-summary.homogen_power <- function(x,...) {
+summary.homogen_power <- function(obj,...) {
 
   cat("\n Power Analysis for Test of Homogeneity in Meta-analysis \n\n")
 

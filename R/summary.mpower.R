@@ -1,6 +1,6 @@
 #' @export
 
-summary.mpower <- function(x,...) {
+summary.mpower <- function(obj,...) {
   cat("\n Power Analysis for Meta-analysis \n\n")
 
   cat(" Expected Effect Size:             ", x$effect_size, "\n")

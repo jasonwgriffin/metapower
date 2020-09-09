@@ -117,7 +117,7 @@ subgroup_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
         d$log_or <- round(log(d$or),3)  ## Convert to log odds
         d$var <- round((1/d$a) + (1/d$b) + (1/d$c) + (1/d$d),3) ## compute variance of log odds
         effect_diff <- d$log_or - d$log_or[1] ## compute anticipated difference among groups
-        overall_effect <- mean(d$log_or) # find overall mean
+        overall_effect <- mean(d$log_or) ## find overall mean
         variance <- mean(d$var) ## find the common variance among all groups
         effect_sizes <- d$log_or ## save the effect sizes in log odds to input in subsequent functions
         ## dataframe for applying subgroup_power()

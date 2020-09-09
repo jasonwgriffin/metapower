@@ -17,8 +17,8 @@ test_that("Check input error messages for mpower()", {
   expect_error(mpower(effect_size = .5, sample_size = 10, k = c(10,10), es_type = "d"), "k must be a single number")
   expect_error(mpower(effect_size = .5, sample_size = 10, k = 1, es_type = "d"), "k must be greater than 1")
   ## es_type errors
-  expect_error(mpower(effect_size = .5, sample_size = 10, k = 10, es_type = ), "Need to specify effect size as 'd', 'Correlation', or 'OR'")
-  expect_error(mpower(effect_size = .5, sample_size = 10, k = 10, es_type = 1), "Need to specify effect size as 'd', 'Correlation', or 'OR'")
+  expect_error(mpower(effect_size = .5, sample_size = 10, k = 10, es_type = ), "Need to specify effect size as 'd', 'r', or 'or'")
+  expect_error(mpower(effect_size = .5, sample_size = 10, k = 10, es_type = 1), "Need to specify effect size as 'd', 'r', or 'or'")
   ## test_type errors
   expect_error(mpower(effect_size = .5, sample_size = 10, k = 10, es_type = "d", test_type = 1), "Need to specify two-tailed or one-tailed")
 })
@@ -39,14 +39,14 @@ test_that("Check input error messages for subgroup_power()", {
 
 
   # metric errors
-  expect_error(subgroup_power(n_groups = 2, effect_sizes = c(.1,.5), sample_size = 20, k = 20, es_type = "OR"), "For Odds Ratio, only enter the 2x2 contingency table. Remove effect_size argument")
-  expect_error(subgroup_power(n_groups = 2, sample_size = 20, k = 20, es_type = "OR", con_table = c(5,5,5,5)), "con_table should be input as a list with each element reflect the group 2x2 tables")
-  expect_error(subgroup_power(n_groups = 2, sample_size = 20, k = 20, es_type = "OR", con_table = list(g = c(5,5,5,5))), "Only 1 group 2x2 table is specified")
-  expect_error(subgroup_power(n_groups = 2, con_table = list(g1 = c(6,5,4,5), g2 = c("hello")), sample_size = 20, k = 20, es_type = "OR"),"Each element of con_table should be numeric")
+  expect_error(subgroup_power(n_groups = 2, effect_sizes = c(.1,.5), sample_size = 20, k = 20, es_type = "or"), "For Odds Ratio, only enter the 2x2 contingency table. Remove effect_size argument")
+  expect_error(subgroup_power(n_groups = 2, sample_size = 20, k = 20, es_type = "or", con_table = c(5,5,5,5)), "con_table should be input as a list with each element reflect the group 2x2 tables")
+  expect_error(subgroup_power(n_groups = 2, sample_size = 20, k = 20, es_type = "or", con_table = list(g = c(5,5,5,5))), "Only 1 group 2x2 table is specified")
+  expect_error(subgroup_power(n_groups = 2, con_table = list(g1 = c(6,5,4,5), g2 = c("hello")), sample_size = 20, k = 20, es_type = "or"),"Each element of con_table should be numeric")
 })
 
 test_that("check that output is an 'subgroup_power' class", {
-  expect_match(class(subgroup_power(n_groups = 2, con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)), sample_size = 20, k = 20, es_type = "OR")), "subgroup_power")
+  expect_match(class(subgroup_power(n_groups = 2, con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)), sample_size = 20, k = 20, es_type = "or")), "subgroup_power")
 
 })
 

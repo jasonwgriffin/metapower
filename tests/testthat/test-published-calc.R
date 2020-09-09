@@ -16,7 +16,7 @@ test_that("Check power test from Pigott 2012, page 43", {
   #page 46
   expect_equal(round(mpower(sample_size = 2000,
                             k = 9,
-                            es_type = "OR",
+                            es_type = "or",
                             test_type = "one-tailed",
                             con_table = c(26,974,20,980))$power$fixed_power,2), .85)
   #50
@@ -40,7 +40,7 @@ test_that("Check power test from Pigott 2012, page 43", {
                                effect_sizes = c(0,.1,.5),
                                sample_size = 45,
                                k = 15,
-                               es_type = "Correlation",
+                               es_type = "r",
                                test_type = "one-tailed")$subgroup_power$fixed_power_b,2), .83)
   #
   #

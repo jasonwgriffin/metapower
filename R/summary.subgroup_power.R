@@ -1,6 +1,6 @@
 #' @export
 
-summary.subgroup_power <- function(x,...) {
+summary.subgroup_power <- function(obj,...) {
   cat("\n Power Analysis for Subgroup analysis: \n\n")
 
   cat(" Number of Groups:                 ", x$n_groups, "\n")

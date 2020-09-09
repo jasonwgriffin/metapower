@@ -21,7 +21,7 @@ homogen_power(
 
 \item{k}{Numerical value for total number of studies.}
 
-\item{es_type}{'Character reflecting effect size metric: 'Correlation', 'd', or 'OR'.}
+\item{es_type}{'Character reflecting effect size metric: 'r', 'd', or 'or'.}
 
 \item{test_type}{Character value reflecting test type: ("two-tailed" or "one-tailed").}
 
