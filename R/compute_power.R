@@ -12,7 +12,7 @@ compute_power <- function(k, effect_size, variance, c_alpha, test_type){
     random_power_50 <- 1 - (CDF(c_alpha, k, ncp, .50) - CDF(-c_alpha, k, ncp, .50))
     random_power_75 <- 1 - (CDF(c_alpha, k, ncp, .75) - CDF(-c_alpha, k, ncp, .75))
   } else {
-    fixed_power <- 1- pnorm(c_alpha - ncp)
+    fixed_power <- 1 - pnorm(c_alpha - ncp)
     random_power_0 <- 1 - (CDF(c_alpha, k, ncp, 0))
     random_power_25 <- 1 - (CDF(c_alpha, k, ncp, .25))
     random_power_50 <- 1 - (CDF(c_alpha, k, ncp, .50))

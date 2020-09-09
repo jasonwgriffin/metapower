@@ -51,7 +51,6 @@
 subgroup_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
                       test_type = "two-tailed", p = .05, con_table = NULL) {
 
-
   if(missing(effect_sizes))
     effect_sizes = NULL
   ## Argument Check
@@ -75,6 +74,7 @@ subgroup_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
   range_factor <- 5
 
   if(es_type == "d"){
+    sample_size <- sample_size/2
     effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
     overall_effect <- mean(effect_sizes) # find overall mean
     variance <- compute_variance(sample_size/n_groups, overall_effect, es_type, con_table) # compute variance for each group sample_size/2
@@ -86,7 +86,7 @@ subgroup_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
     subgroup_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
                                  overall_effect = overall_effect,
                                  n_groups = n_groups,
-                                 n_v = sample_size,
+                                 n_v = sample_size/n_groups,
                                  c_alpha_b = c_alpha_b,
                                  c_alpha_w = c_alpha_w) %>% dplyr::mutate(variance = mapply(compute_variance, .data$n_v, .data$overall_effect, es_type))
 
