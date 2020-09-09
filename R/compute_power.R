@@ -1,10 +1,16 @@
-compute_power <- function(k, effect_size, variance, c_alpha){
+compute_power <- function(k, effect_size, variance, c_alpha, test_type){
 
   ## Compute Non-centrality parameter
   ncp <- effect_size/(sqrt(variance/k))
 
   ## Fixed power: Formula from Hedges Piggot
-  fixed_power <- (1-pnorm(c_alpha - ncp)) + pnorm(-1*c_alpha - ncp)
+
+  if(test_type =="two-tailed"){
+    fixed_power <- (1-pnorm(c_alpha - ncp)) + pnorm(-1*c_alpha - ncp)
+  } else {
+    fixed_power <- 1-pnorm(c_alpha - ncp)
+  }
+
 
   ## Random Power: Formula from Jackson & Turner (2017
 

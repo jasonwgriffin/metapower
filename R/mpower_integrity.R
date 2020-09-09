@@ -25,9 +25,9 @@ if(k < 2)
 
 ## es_type
 if(missing(es_type))
-  stop("Need to specify effect size as 'd', 'Correlation', or 'OR'")
+  stop("Need to specify effect size as 'd', 'r', or 'or'")
 if(!(es_type %in% es_type_options))
-  stop("Need to specify effect size as 'd', 'Correlation', or 'OR'")
+  stop("Need to specify effect size as 'd', 'r', or 'or'")
 
 ## effect size d
 if(es_type == 'd'){

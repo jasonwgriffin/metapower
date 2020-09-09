@@ -88,7 +88,8 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
                      es_v = rep(c((effect_size/2), effect_size, (effect_size*2)), each = range_factor*k-1),
                      effect_size = effect_size,
                      n_v = sample_size,
-                     c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
+                     c_alpha = c_alpha,
+                     test_type = test_type) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
     } else if (es_type == "r"){
     ## Convert to fishers-z
@@ -107,7 +108,8 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
                                  es_v = rep(c((effect_size/2), effect_size, max), each = range_factor*k-1), ## special for correlation
                                  effect_size = effect_size,
                                  n_v = sample_size,
-                                 c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
+                                 c_alpha = c_alpha,
+                                 test_type = test_type) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
     }else if(es_type == "or") {
       ## Convert odd ratio to log of odds ratio: log(OR)
@@ -124,11 +126,12 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
                                    effect_size = effect_size,
                                    n_v = sample_size,
                                    c_alpha = c_alpha,
+                                   test_type = test_type,
                                    variance = variance)
       }
 # Generate list of relevant variables for output
   power_list <- list(variance = variance,
-                   power = compute_power(k, effect_size, variance, c_alpha),
+                   power = compute_power(k, effect_size, variance, c_alpha, test_type),
                    power_range = compute_power_range(power_range_df),
                    effect_size = effect_size,
                    sample_size = sample_size,
