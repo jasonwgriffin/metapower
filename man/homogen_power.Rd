@@ -4,15 +4,7 @@
 \alias{homogen_power}
 \title{Compute Power for Test of Homogeneity in Meta-analysis}
 \usage{
-homogen_power(
-  effect_size,
-  sample_size,
-  k,
-  es_type,
-  test_type = "two-tailed",
-  p = 0.05,
-  con_table = NULL
-)
+homogen_power(effect_size, sample_size, k, es_type, p = 0.05, con_table = NULL)
 }
 \arguments{
 \item{effect_size}{Numerical value of effect size.}
@@ -22,8 +14,6 @@ homogen_power(
 \item{k}{Numerical value for total number of studies.}
 
 \item{es_type}{'Character reflecting effect size metric: 'r', 'd', or 'or'.}
-
-\item{test_type}{Character value reflecting test type: ("two-tailed" or "one-tailed").}
 
 \item{p}{Numerical value for significance level (Type I error probability).}
 

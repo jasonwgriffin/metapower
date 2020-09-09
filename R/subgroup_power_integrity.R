@@ -1,7 +1,6 @@
-subgroup_power_integrity <- function(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table){
+subgroup_power_integrity <- function(n_groups, effect_sizes, sample_size, k, es_type, p, con_table){
 
 # Argument Integrity Checks
-test_type_options <- c("one-tailed", "two-tailed")
 es_type_options <- c("d","r", "or")
 
 # n_groups
@@ -90,20 +89,6 @@ if(es_type == "or" & !missing(con_table)){
   for (i in 1:length(con_table)){
     if(sample_size != sum(con_table[[i]]))
       stop("Each 2x2 table should yield a total sum of the total sample size")
+    }
   }
-
-}
-
-## check the sample size equals the sum of each element of the list
-
-
-## test_type errors
-if(!(test_type %in% test_type_options))
-  stop("Need to specify two-tailed or one-tailed")
-
-##sd_within
-#if(!is.null(sd_within)){
-#  if(length(sd_within) != n_groups)
-#    stop("The number of of effect sizes should match the number within-group standard deviations")
-  #}
 }

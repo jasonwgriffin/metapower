@@ -10,8 +10,6 @@
 #'
 #' @param es_type 'Character reflecting effect size metric: 'r', 'd', or 'or'.
 #'
-#' @param test_type Character value reflecting test type: ("two-tailed" or "one-tailed").
-#'
 #' @param p Numerical value for significance level (Type I error probability).
 #'
 #' @param con_table (Optional) Numerical values for 2x2 contingency table as a vector in the following format: c(a,b,c,d).
@@ -53,22 +51,15 @@
 #' @import magrittr
 #' @export
 
-homogen_power <- function (effect_size, sample_size, k, es_type, test_type = "two-tailed", p =.05, con_table = NULL){
+homogen_power <- function (effect_size, sample_size, k, es_type, p =.05, con_table = NULL){
 
   if(missing(effect_size))
     effect_size = NULL
   ## check args
-  mpower_integrity(effect_size, sample_size, k, es_type, test_type, p, con_table)
+  homogen_power_integrity(effect_size, sample_size, k, es_type, p, con_table)
 
-
-  df <- k-1
-
-  if(test_type == "two-tailed"){
-    c_alpha <- qchisq(1-(p/2),df,0, lower.tail = TRUE)
-  } else if (test_type =="one-tailed") {
-    c_alpha <- qchisq(1-p,df,0, lower.tail = TRUE)
-  }
-
+  df <- k-1 # between-groups df
+  c_alpha <- qchisq(1-p,df,0, lower.tail = TRUE) # critical value chia-square dist
   range_factor <- 5
 
   if(es_type == "d"){
@@ -117,7 +108,6 @@ homogen_power <- function (effect_size, sample_size, k, es_type, test_type = "tw
                      sample_size = sample_size,
                      k = k,
                      es_type = es_type,
-                     test_type = test_type,
                      p = p)
   attr(power_list, "class") <- "homogen_power"
 

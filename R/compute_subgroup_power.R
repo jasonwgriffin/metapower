@@ -5,22 +5,15 @@ compute_subgroup_power <- function(n_groups, effect_sizes, variance, overall_eff
   df_w <- k-n_groups
 
   ## between groups
-  #fixed_weight_c <- sum(rep(1/variance,sample_size/n_groups))
+
   fixed_weight_c <- sum(rep(1/variance, k/n_groups))
   fixed_lambda_b <- sum(fixed_weight_c*(effect_sizes-overall_effect)^2)
   fixed_power_b <- 1 - pchisq(c_alpha_b,df_b,fixed_lambda_b,lower.tail = TRUE)
-  ##within-groups
-  fixed_weight_w <-1/variance
-  fixed_var_w <- round(sqrt(1/sum(rep(fixed_weight_w,sample_size/n_groups))),2)
 
-  #if(is.null(sd_within)){
-  #  sd_within <- NA
-  #  fixed_lambda_w <- NA
-  #  fixed_power_w <- NA
-  #  } else {
-  #    fixed_lambda_w <- sum(rep(fixed_weight_w*(sd_within*fixed_var_w)^2, sample_size/n_groups))
-  #    fixed_power_w <- 1 - pchisq(c_alpha_w,df_w,fixed_lambda_w,lower.tail = TRUE)
-  #    }
+  ##within-groups
+  #fixed_weight_w <-1/variance
+  #fixed_var_w <- round(sqrt(1/sum(rep(fixed_weight_w,sample_size/n_groups))),2)
+
   tau2_0 <- 0
   tau2_s <- (1/3)*variance # i2 = .25
   tau2_m <- (1)*variance  #i2 = .50
@@ -42,17 +35,10 @@ compute_subgroup_power <- function(n_groups, effect_sizes, variance, overall_eff
   random_power_b_m <- 1 - pchisq(c_alpha_b,df_b,random_lambda_b_m,lower.tail = TRUE)
   random_power_b_l <- 1 - pchisq(c_alpha_b,df_b,random_lambda_b_l,lower.tail = TRUE)
 
-  random_lambda_w <- NA
-  random_power_w <- NA
-
   subgroup_power_list <- data.frame(fixed_power_b = fixed_power_b,
-                           #fixed_power_w = fixed_power_w,
                            random_power_b_0 = random_power_b_0,
                            random_power_b_s = random_power_b_s,
                            random_power_b_m = random_power_b_m,
                            random_power_b_l = random_power_b_l,
-                           #random_weight_b_s =random_weight_b_s,
-                           #fixed_weight_c = fixed_weight_c,
                            fixed_lambda_b = fixed_lambda_b)
-                           #variance = variance)
 }

@@ -14,7 +14,6 @@
 #'
 #' @param p Numerical value for significance level (Type I error probability).
 #'
-#' @param test_type Character value reflecting test type: ("two-tailed" or "one-tailed").
 #'
 #' @param con_table (Optional) List of numerical values for 2x2 contingency
 #'     tables as a vector in the following format: c(a,b,c,d). These should be
@@ -48,27 +47,19 @@
 #' @importFrom stats pgamma
 #' @export
 
-subgroup_power <- function(n_groups, effect_sizes, sample_size, k, es_type,
-                      test_type = "two-tailed", p = .05, con_table = NULL) {
+subgroup_power <- function(n_groups, effect_sizes, sample_size, k, es_type, p = .05, con_table = NULL) {
 
   if(missing(effect_sizes))
     effect_sizes = NULL
   ## Argument Check
-  subgroup_power_integrity(n_groups, effect_sizes, sample_size, k, es_type, test_type, p, con_table)
+  subgroup_power_integrity(n_groups, effect_sizes, sample_size, k, es_type, p, con_table)
 
   ## compute degrees of freedom for between and within-study
   df_b <- n_groups-1
   df_w <- k-n_groups
-
   ## compute critical value for power
-  if(test_type == "two-tailed"){
-    c_alpha_b <- qchisq(1-(p/2), df_b, 0, lower.tail = TRUE)
-    c_alpha_w <- qchisq(1-(p/2), df_w, 0, lower.tail = TRUE)
-
-  }else if(test_type == "one-tailed"){
-    c_alpha_b <- qchisq(1-p, df_b, 0, lower.tail = TRUE)
-    c_alpha_w <- qchisq(1-p, df_w, 0, lower.tail = TRUE)
-  }
+  c_alpha_b <- qchisq(1-p, df_b, 0, lower.tail = TRUE)
+  c_alpha_w <- qchisq(1-p, df_w, 0, lower.tail = TRUE)
 
   ## factor by which range of studies will population power curves
   range_factor <- 5

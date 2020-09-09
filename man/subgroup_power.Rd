@@ -10,7 +10,6 @@ subgroup_power(
   sample_size,
   k,
   es_type,
-  test_type = "two-tailed",
   p = 0.05,
   con_table = NULL
 )
@@ -25,8 +24,6 @@ subgroup_power(
 \item{k}{Numerical value for total number of studies.}
 
 \item{es_type}{Character reflecting effect size metric: 'r', 'd', or 'or'.}
-
-\item{test_type}{Character value reflecting test type: ("two-tailed" or "one-tailed").}
 
 \item{p}{Numerical value for significance level (Type I error probability).}
 
