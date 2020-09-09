@@ -73,6 +73,7 @@ homogen_power <- function (effect_size, sample_size, k, es_type, test_type = "tw
 
   if(es_type == "d"){
 
+    sample_size <- sample_size/2
     variance <- compute_variance(sample_size, effect_size, es_type, con_table)
     # create a power range of data
     homogen_power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k),times = 7),
