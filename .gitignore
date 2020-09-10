@@ -34,7 +34,7 @@ Rplots.pdf
 .DS_Store
 
 # shiny app
-.dcf
+inst/shiny_metapower/rsconnect
 
 #cran comments
 cran-comments.md
