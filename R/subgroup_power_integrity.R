@@ -89,8 +89,8 @@ if(es_type == "or" & !missing(con_table)){
       stop("Each element of con_table should be numeric")
   }
   for (i in 1:length(con_table)){
-    if(sample_size != sum(con_table[[i]]))
-      stop("Each 2x2 table should yield a total sum of the total sample size")
+    if(sample_size/n_groups != sum(con_table[[i]]))
+      stop("Each 2x2 table should sum to the total sample size/number of groups")
     }
   }
 }
