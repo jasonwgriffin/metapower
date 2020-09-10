@@ -34,7 +34,7 @@ Rplots.pdf
 .DS_Store
 
 # shiny app
-/*.dcf
+.dcf
 
 #cran comments
 cran-comments.md
