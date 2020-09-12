@@ -6,7 +6,7 @@ compute_subgroup_power <- function(n_groups, effect_sizes, variance, overall_eff
 
   ## between groups
 
-  fixed_weight_c <- sum(rep(1/variance, k/n_groups))
+  #fixed_weight_c <- sum(rep(1/variance, k/n_groups))
   fixed_weight_c <- sum(rep(1/variance, k))
   fixed_lambda_b <- sum(fixed_weight_c*(effect_sizes-overall_effect)^2)
   fixed_power_b <- 1 - pchisq(c_alpha_b,df_b,fixed_lambda_b,lower.tail = TRUE)

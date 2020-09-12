@@ -21,13 +21,6 @@ test_that("Check power test from Pigott 2012", {
                             test_type = "one-tailed",
                             con_table = c(26,974,20,980))$power$fixed_power,2), .85)
 
-  ## Page 71 - fixed power between study
-  expect_equal(round(subgroup_power(n_groups = 3,
-                                    effect_sizes = c(0,.1,.5),
-                                    sample_size = 45,
-                                    k = 5,
-                                    es_type = "r")$subgroup_power$fixed_power_b,2), .83)
-
   ## Random Effects Validation
 
 
