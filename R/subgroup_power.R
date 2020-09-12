@@ -32,7 +32,7 @@
 #'                es_type = "d")
 #' subgroup_power(n_groups = 2,
 #'                con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)),
-#'                sample_size = 20,
+#'                sample_size = 40,
 #'                k = 20,
 #'                es_type = "or")
 #'
