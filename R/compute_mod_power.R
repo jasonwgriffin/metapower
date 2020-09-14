@@ -7,7 +7,7 @@ compute_mod_power <- function(n_groups, effect_sizes, variance, overall_effect, 
   ## between groups
 
   #fixed_weight_c <- sum(rep(1/variance, k/n_groups))
-  fixed_weight_c <- sum(rep(1/variance, k))
+  fixed_weight_c <- sum(rep(1/variance, k/n_groups))
   fixed_lambda_b <- sum(fixed_weight_c*(effect_sizes-overall_effect)^2)
   fixed_power_b <- 1 - pchisq(c_alpha_b,df_b,fixed_lambda_b,lower.tail = TRUE)
 
@@ -21,10 +21,10 @@ compute_mod_power <- function(n_groups, effect_sizes, variance, overall_effect, 
   tau2_l <- (3)*variance  # i2 = .75
 
   ## between groups
-  random_weight_b_0 <- sum(rep(1/(variance+tau2_0),k))
-  random_weight_b_s <- sum(rep(1/(variance+tau2_s),k))
-  random_weight_b_m <- sum(rep(1/(variance+tau2_m),k))
-  random_weight_b_l <- sum(rep(1/(variance+tau2_l),k))
+  random_weight_b_0 <- sum(rep(1/(variance+tau2_0),k/n_groups))
+  random_weight_b_s <- sum(rep(1/(variance+tau2_s),k/n_groups))
+  random_weight_b_m <- sum(rep(1/(variance+tau2_m),k/n_groups))
+  random_weight_b_l <- sum(rep(1/(variance+tau2_l),k/n_groups))
 
   random_lambda_b_0 <- sum(random_weight_b_0*(effect_sizes-overall_effect)^2)
   random_lambda_b_s <- sum(random_weight_b_s*(effect_sizes-overall_effect)^2)

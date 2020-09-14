@@ -23,18 +23,18 @@
 #'  Present     \tab a       \tab b       \cr
 #'  Not Present \tab c       \tab d       \cr
 #'}
-#' @return Estimated Power estimates for subgroup differences under fixed- and random-effects models
+#' @return Estimated Power estimates for moderator analysis under fixed- and random-effects models
 #' @examples
-#' subgroup_power(n_groups = 2,
-#'                effect_sizes = c(.1,.5),
-#'                sample_size = 20,
-#'                k = 10,
-#'                es_type = "d")
-#' subgroup_power(n_groups = 2,
-#'                con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)),
-#'                sample_size = 40,
-#'                k = 20,
-#'                es_type = "or")
+#' mod_power(n_groups = 2,
+#'           effect_sizes = c(.1,.5),
+#'           sample_size = 20,
+#'           k = 10,
+#'           es_type = "d")
+#' mod_power(n_groups = 2,
+#'           con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)),
+#'           sample_size = 40,
+#'           k = 20,
+#'           es_type = "or")
 #'
 #' @seealso
 #' \url{https://jason-griffin.shinyapps.io/shiny_metapower/}
@@ -67,7 +67,7 @@ mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, p = .05, 
     sample_size <- sample_size/2
     effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
     overall_effect <- mean(effect_sizes) # find overall mean
-    variance <- compute_variance(sample_size/n_groups, overall_effect, es_type, con_table) # compute variance for each group sample_size/2
+    variance <- compute_variance(sample_size, overall_effect, es_type, con_table) # compute variance for each level of the moderator
 
     group = NULL
 
@@ -84,7 +84,7 @@ mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, p = .05, 
       effect_sizes <- 0.5*log((1+effect_sizes)/(1-effect_sizes)) ## changes correlation to fisher's z
       effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
       overall_effect <- mean(effect_sizes) # find overall mean
-      variance <- compute_variance(sample_size/n_groups, overall_effect, es_type, con_table)
+      variance <- compute_variance(sample_size, overall_effect, es_type, con_table)
       group = NULL
       ##
       mod_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
