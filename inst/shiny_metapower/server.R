@@ -87,6 +87,53 @@ server <- function(input, output) {
     print(subgroup_power(n_groups, effect_sizes, sample_size, k, es_type, p))
   })
 
+  ## Moderator Analysis
+
+  ##output text for user
+
+  output$md_d_k <- renderText({
+    paste("Number of studies per group:", input$mod_d_k/input$mod_d_n_groups)
+  })
+  output$md_d_n <- renderText({
+    paste("Number of participants per group:", input$mod_d_n/input$mod_d_n_groups)
+  })
+
+
+  output$mod_d_plot <- renderPlot({
+    es_type <- "d"
+    n_groups <- input$mod_d_n_groups
+    ## gather effect sizes
+    effect_sizes <- c(input$mod_d_es1,input$mod_d_es2)
+
+    if(!is.na(input$mod_d_es3))
+      effect_sizes <- c(effect_sizes,input$mod_d_es3)
+    if(!is.na(input$mod_d_es4))
+      effect_sizes <- c(effect_sizes,input$mod_d_es4)
+
+    k <- input$mod_d_k
+    sample_size <- input$mod_d_n
+    p <- input$mod_d_p
+    metapower::plot_mod_power(mod_power(n_groups, effect_sizes, sample_size, k, es_type, p))
+  })
+
+  output$mod_d_summary <- renderPrint({
+    es_type <- "d"
+    n_groups <- input$mod_d_n_groups
+    effect_sizes <- c(input$mod_d_es1,input$mod_d_es2)
+
+    if(!is.na(input$mod_d_es3))
+      effect_sizes <- c(effect_sizes,input$mod_d_es3)
+    if(!is.na(input$mod_d_es4))
+      effect_sizes <- c(effect_sizes,input$mod_d_es4)
+    k <- input$mod_d_k
+    sample_size <- input$mod_d_n
+    p <- input$mod_d_p
+    print(mod_power(n_groups, effect_sizes, sample_size, k, es_type, p))
+  })
+
+
+
+
 
   ## Correlation
   # Summary Effect Size
@@ -128,7 +175,6 @@ server <- function(input, output) {
   })
 
   ## SUbgroup analysis
-
   output$sg_c_k <- renderText({
     paste("Number of studies per group:", input$subgroup_c_k/input$subgroup_c_n_groups)
   })
@@ -168,6 +214,42 @@ server <- function(input, output) {
     print(subgroup_power(n_groups, effect_sizes, sample_size, k, es_type, p))
   })
 
+  ## Moderator Analysis
+  output$md_c_k <- renderText({
+    paste("Number of studies per group:", input$mod_c_k/input$mod_c_n_groups)
+  })
+
+  output$mod_c_plot <- renderPlot({
+    es_type <- "r"
+    n_groups <- input$mod_c_n_groups
+    ## gather effect sizes
+    effect_sizes <- c(input$mod_c_es1,input$mod_c_es2)
+
+    if(!is.na(input$mod_c_es3))
+      effect_sizes <- c(effect_sizes,input$mod_c_es3)
+    if(!is.na(input$mod_c_es4))
+      effect_sizes <- c(effect_sizes,input$mod_c_es4)
+
+    k <- input$mod_c_k
+    sample_size <- input$mod_c_n
+    p <- input$mod_c_p
+    metapower::plot_mod_power(mod_power(n_groups, effect_sizes, sample_size, k, es_type, p))
+  })
+
+  output$mod_c_summary <- renderPrint({
+    es_type <- "r"
+    n_groups <- input$mod_c_n_groups
+    effect_sizes <- c(input$mod_c_es1,input$mod_c_es2)
+
+    if(!is.na(input$mod_c_es3))
+      effect_sizes <- c(effect_sizes,input$mod_c_es3)
+    if(!is.na(input$mod_c_es4))
+      effect_sizes <- c(effect_sizes,input$mod_c_es4)
+    k <- input$mod_c_k
+    sample_size <- input$mod_c_n
+    p <- input$mod_c_p
+    print(mod_power(n_groups, effect_sizes, sample_size, k, es_type, p))
+  })
 
   ## Odds Ratio
   ## Summary Effect Size
@@ -213,12 +295,8 @@ server <- function(input, output) {
   })
 
   ## Subgroup analysis
-
   output$sg_or_k <- renderText({
     paste("Number of studies per group:", input$subgroup_or_k/input$subgroup_or_n_groups)
-  })
-  output$sg_or_n <- renderText({
-    paste("Number of participants per group:", input$subgroup_or_n/input$subgroup_or_n_groups)
   })
 
   output$subgroup_or_plot <- renderPlot({
@@ -255,6 +333,47 @@ server <- function(input, output) {
       con_table <- c(con_table, list(group4 = c(input$sg_4_or_a,input$sg_4_or_b,input$sg_4_or_c,input$sg_4_or_d)))
 
     print(subgroup_power(n_groups, NULL, sample_size, k, es_type, p, con_table))
+  })
+
+  ## Moderator Analysis
+  output$md_or_k <- renderText({
+    paste("Number of studies per group:", input$mod_or_k/input$mod_or_n_groups)
+  })
+
+  output$mod_or_plot <- renderPlot({
+    es_type <- "or"
+    n_groups <- input$mod_or_n_groups
+    k <- input$mod_or_k
+    sample_size <- input$mod_or_n
+    p <- input$mod_or_p
+    con_table <- list(group1 = c(input$md_1_or_a,input$md_1_or_b,input$md_1_or_c,input$md_1_or_d),
+                      group2 = c(input$md_2_or_a,input$md_2_or_b,input$md_2_or_c,input$md_2_or_d))
+
+    ## check if more than 2 mods, if so add them to list
+    if(input$md3_or_name != "")
+      con_table <- c(con_table, list(group3 = c(input$md_3_or_a,input$md_3_or_b,input$md_3_or_c,input$md_3_or_d)))
+    if(input$md4_or_name != "")
+      con_table <- c(con_table, list(group4 = c(input$md_4_or_a,input$md_4_or_b,input$md_4_or_c,input$md_4_or_d)))
+
+    metapower::plot_mod_power(mod_power(n_groups, NULL, sample_size, k, es_type, p, con_table))
+  })
+
+  output$mod_or_summary <- renderPrint({
+    es_type <- "or"
+    n_groups <- input$mod_or_n_groups
+    k <- input$mod_or_k
+    sample_size <- input$mod_or_n
+    p <- input$mod_or_p
+    con_table <- list(group1 = c(input$md_1_or_a,input$md_1_or_b,input$md_1_or_c,input$md_1_or_d),
+                      group2 = c(input$md_2_or_a,input$md_2_or_b,input$md_2_or_c,input$md_2_or_d))
+
+    ## check if more than 2 mods, if so add them to list
+    if(input$md3_or_name != "")
+      con_table <- c(con_table, list(group3 = c(input$md_3_or_a,input$md_3_or_b,input$md_3_or_c,input$md_3_or_d)))
+    if(input$md4_or_name != "")
+      con_table <- c(con_table, list(group4 = c(input$md_4_or_a,input$md_4_or_b,input$md_4_or_c,input$md_4_or_d)))
+
+    print(mod_power(n_groups, NULL, sample_size, k, es_type, p, con_table))
   })
 
 }
