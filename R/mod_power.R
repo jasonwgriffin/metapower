@@ -16,7 +16,7 @@
 #'
 #' @param con_table (Optional) List of numerical values for 2x2 contingency
 #'     tables as a vector in the following format: c(a,b,c,d). These should be
-#'     specified for each subgroup (i.e., n_groups).
+#'     specified for each group(i.e., n_groups).
 #'
 #' \tabular{lcc}{
 #'  2x2 Table   \tab Group 1 \tab Group 2 \cr
