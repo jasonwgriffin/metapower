@@ -219,7 +219,7 @@ ui <- fluidPage(
                                     titlePanel("Cohen's d"),
                                     fluidRow(column(12,
                                                     sliderInput(inputId = "subgroup_d_k", h3("Number of Studies (Total)"), min = 2, max = 50, value = 20),
-                                                    sliderInput(inputId = "subgroup_d_n", h3("Number of Participants (Total)"), min = 2, max = 300, value = 40),
+                                                    sliderInput(inputId = "subgroup_d_n", h3("Number of Participants (per group)"), min = 2, max = 300, value = 40),
                                                     numericInput(inputId = "subgroup_d_n_groups", h3("Number of Subgroups"), min = 2, max = 10, value = 2),
                                                     textOutput("sg_d_k"),
                                                     textOutput("sg_d_n")),
@@ -245,7 +245,7 @@ ui <- fluidPage(
                                     titlePanel("Correlation"),
                                     fluidRow(column(12,
                                                     sliderInput(inputId = "subgroup_c_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 20),
-                                                    sliderInput(inputId = "subgroup_c_n", h3("Number of Participants (total)"), min = 2, max = 300, value = 40),
+                                                    sliderInput(inputId = "subgroup_c_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 40),
                                                     numericInput(inputId = "subgroup_c_n_groups", h3("Number of Groups"), min = 2, max = 10, value = 2),
                                                     textOutput("sg_c_k"),
                                                     textOutput("sg_c_n")),
@@ -270,7 +270,7 @@ ui <- fluidPage(
                                     titlePanel("Odds Ratio"),
                                     fluidRow(column(12,
                                                     sliderInput(inputId = "subgroup_or_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 20),
-                                                    sliderInput(inputId = "subgroup_or_n", h3("Number of Participants (total)"), min = 2, max = 300, value = 40),
+                                                    sliderInput(inputId = "subgroup_or_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 40),
                                                     numericInput(inputId = "subgroup_or_n_groups", h3("Number of Subgroups"), min = 2, max = 10, value = 2),
                                                     textOutput("sg_or_k"),
                                                     textOutput("sg_or_n"),
@@ -330,5 +330,128 @@ ui <- fluidPage(
                                                 tabPanel("Power Curve", plotOutput("subgroup_or_plot", height = "600px"),
                                                          fluidRow(column(7,
                                                                          helpText("Note: Horizontal dashed line is 80% power.")))),
-                                                tabPanel("Summary", verbatimTextOutput("subgroup_or_summary")))))))
+                                                tabPanel("Summary", verbatimTextOutput("subgroup_or_summary"))))))),
+
+            ## Moderator Analysis
+            ## Moderator Analysis
+            ## Moderator Analysis
+
+            navbarMenu("Moderator Analysis", icon = icon("user-friends"),
+
+                       ## Cohen's d
+                       tabPanel("Cohen's d", fluid = TRUE,#also icon = pretty picture
+                                sidebarLayout(
+                                  sidebarPanel(
+                                    titlePanel("Cohen's d"),
+                                    fluidRow(column(12,
+                                                    sliderInput(inputId = "mod_d_k", h3("Number of Studies (Total)"), min = 2, max = 50, value = 20),
+                                                    sliderInput(inputId = "mod_d_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 40),
+                                                    numericInput(inputId = "mod_d_n_groups", h3("Number of groups"), min = 2, max = 10, value = 2),
+                                                    textOutput("md_d_k")),
+                                             dashboardBody( tags$head(tags$style(HTML('.form-group, .selectize-control { margin-bottom: 5px;}.box-body {padding-bottom: 5px;}'))),
+                                                            shinydashboard::box(width = 12, title = "Group Effect Sizes",
+                                                                                splitLayout(
+                                                                                  numericInput("mod_d_es1", "Group 1", value = .1, step = .1),
+                                                                                  numericInput("mod_d_es2", "Group 2", value = .3, step = .1),
+                                                                                  numericInput("mod_d_es3", "Group 3", value = NULL, step = .1),
+                                                                                  numericInput("mod_d_es4", "Group 4", value = NULL, step = .1)))),
+                                             column(12,
+
+                                                    numericInput(inputId = "mod_d_p", h3("p-value"), min = .0001, max = .05, value = .05, step = 0.01)))),
+                                  mainPanel(
+                                    tabsetPanel(type = "tabs",
+                                                tabPanel("Power Curve", plotOutput("mod_d_plot", height = "600px"),
+                                                         fluidRow(column(7,
+                                                                         helpText("Note: Horizontal dashed line is 80% power.")))),
+                                                tabPanel("Summary", verbatimTextOutput("mod_d_summary")))))),
+                       tabPanel("Correlation", fluid = TRUE,#also icon = pretty picture
+                                sidebarLayout(
+                                  sidebarPanel(
+                                    titlePanel("Correlation"),
+                                    fluidRow(column(12,
+                                                    sliderInput(inputId = "mod_c_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 20),
+                                                    sliderInput(inputId = "mod_c_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 40),
+                                                    numericInput(inputId = "mod_c_n_groups", h3("Number of Groups"), min = 2, max = 10, value = 2),
+                                                    textOutput("md_c_k")),
+
+                                             shinydashboard::box(width = 12, title = "Effect Sizes",
+                                                                 splitLayout(
+                                                                   numericInput("mod_c_es1", "Group 1", value = .2, min = .1, max = .9, step = .05),
+                                                                   numericInput("mod_c_es2", "Group 2", value = .4, min = .1, max = .99, step = .05),
+                                                                   numericInput("mod_c_es3", "Group 3", value = NULL, min = .1, max = .99, step = .05),
+                                                                   numericInput("mod_c_es4", "Group 4", value = NULL, min = .1, max = .99, step = .05))),
+                                             column(12,
+                                                    numericInput(inputId = "mod_c_p", h4("p-value"), min = .0001, max = .05, value = .05, step = 0.01)))),
+                                  mainPanel(
+                                    tabsetPanel(type = "tabs",
+                                                tabPanel("Power Curve", plotOutput("mod_c_plot", height = "600px"),
+                                                         fluidRow(column(7,
+                                                                         helpText("Note: Horizontal dashed line is 80% power.")))),
+                                                tabPanel("Summary", verbatimTextOutput("mod_c_summary")))))),
+                       tabPanel("Odds Ratio", fluid = TRUE,#also icon = pretty picture
+                                sidebarLayout(
+                                  sidebarPanel(
+                                    titlePanel("Odds Ratio"),
+                                    fluidRow(column(12,
+                                                    sliderInput(inputId = "mod_or_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 20),
+                                                    sliderInput(inputId = "mod_or_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 40),
+                                                    numericInput(inputId = "mod_or_n_groups", h3("Number of Groups"), min = 2, max = 10, value = 2),
+                                                    textOutput("md_or_k"),
+                                                    br()),
+                                             column(width = 12,offset = 0,
+                                                    textInput("md1_or_name", "mod 1 (e.g., Men)", value = "Men"),
+                                                    tags$form(
+                                                      class="form-horizontal",
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "md_1_or_a", br(),br(), "Present"),
+                                                               column(width = 4, numericInput(inputId = "md_1_or_a", label = HTML("Group 1 <br/> (e.g., Treatment)"), value = 6)),
+                                                               column(width = 4, numericInput(inputId = "md_1_or_b", label = HTML("Group 2 <br/> (e.g., Control)"), value = 5))),
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "md_1_or_d", "Absent"),
+                                                               column(width = 4, numericInput(inputId = "md_1_or_c", label = NULL, value = 4)),
+                                                               column(width = 4, numericInput(inputId = "md_1_or_d", label = NULL, value = 5))))),
+                                             column(width = 12,offset = 0,
+                                                    textInput("md2_or_name", "mod 2 (e.g., Women)", value = "Women"),
+                                                    tags$form(
+                                                      class="form-horizontal",
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "md_2_or_a", br(),br(), "Present"),
+                                                               column(width = 4, numericInput(inputId = "md_2_or_a", label = HTML("Group 1 <br/> (e.g., Treatment)"), value = 7)),
+                                                               column(width = 4, numericInput(inputId = "md_2_or_b", label = HTML("Group 2 <br/> (e.g., Control)"), value = 5))),
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "md_2_or_d", "Absent"),
+                                                               column(width = 4, numericInput(inputId = "md_2_or_c", label = NULL, value = 3)),
+                                                               column(width = 4, numericInput(inputId = "md_2_or_d", label = NULL, value = 5))))),
+                                             column(width = 12,offset = 0,
+                                                    textInput("md3_or_name", "mod 3:"),
+                                                    tags$form(
+                                                      class="form-horizontal",
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "md_3_or_a", br(), "Present"),
+                                                               column(width = 4, numericInput(inputId = "md_3_or_a", label = HTML("Group 1 <br/> (e.g., Treatment)"), value = NA)),
+                                                               column(width = 4, numericInput(inputId = "md_3_or_b", label = HTML("Group 2 <br/> (e.g., Control)"), value = NA))),
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "md_3_or_d", "Absent"),
+                                                               column(width = 4, numericInput(inputId = "md_3_or_c", label = NULL, value = NA)),
+                                                               column(width = 4, numericInput(inputId = "md_3_or_d", label = NULL, value = NA))))),
+                                             column(width = 12,offset = 0,
+                                                    textInput("md4_or_name", "mod 4:"),
+                                                    tags$form(
+                                                      class="form-horizontal",
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "md_4_or_a", br(), "Present"),
+                                                               column(width = 4, numericInput(inputId = "md_4_or_a", label = HTML("Group 1 <br/> (e.g., Treatment)"), value = NA)),
+                                                               column(width = 4, numericInput(inputId = "md_4_or_b", label = HTML("Group 2 <br/> (e.g., Control)"), value = NA))),
+                                                      tags$div(class="form-group",
+                                                               tags$label(class = "col-sm-4 control-label", `for` = "md_4_or_d", "Absent"),
+                                                               column(width = 4, numericInput(inputId = "md_4_or_c", label = NULL, value = NA)),
+                                                               column(width = 4, numericInput(inputId = "md_4_or_d", label = NULL, value = NA))))),
+                                             column(12,
+                                                    numericInput(inputId = "mod_or_p", h4("p-value"), min = .0001, max = .05, value = .05, step = 0.01)))),
+                                  mainPanel(
+                                    tabsetPanel(type = "tabs",
+                                                tabPanel("Power Curve", plotOutput("mod_or_plot", height = "600px"),
+                                                         fluidRow(column(7,
+                                                                         helpText("Note: Horizontal dashed line is 80% power.")))),
+                                                tabPanel("Summary", verbatimTextOutput("mod_or_summary")))))))
              ))

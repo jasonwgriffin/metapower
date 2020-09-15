@@ -24,6 +24,7 @@ Computation of statistical power for:
     models).
 3.  Test of homogeneity for within-study variance
 4.  Subgroup Analyses
+5.  Moderator Analysis
 
 metapower can currently handle the following designs and effect sizes:
 
@@ -64,15 +65,16 @@ print(my_power)
 #>  Power Analysis for Meta-analysis 
 #> 
 #>  Expected Effect Size:              0.2 
-#>  Expected Sample Size (per group):  20 
+#>  Expected Sample Size (per group):  10 
 #>  Expected Number of Studies:        10 
+#> 
 #>  Estimated Power: Mean Effect Size 
 #> 
-#>  Fixed-Effects Model                0.5140202 
-#>  Random-Effects Model (i2 =  0% ):  0.4548414 
-#>  Random-Effects Model (i2 = 25% ):  0.401282 
-#>  Random-Effects Model (i2 = 50% ):  0.318419 
-#>  Random-Effects Model (i2 = 75% ):  0.2075233
+#>  Fixed-Effects Model                0.2917841 
+#>  Random-Effects Model (i2 =  0% ):  0.2478379 
+#>  Random-Effects Model (i2 = 25% ):  0.2328637 
+#>  Random-Effects Model (i2 = 50% ):  0.1982394 
+#>  Random-Effects Model (i2 = 75% ):  0.1446749
 plot_mpower(my_power)
 ```
 
