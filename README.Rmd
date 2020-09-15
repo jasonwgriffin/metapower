@@ -37,6 +37,7 @@ Computation of statistical power for:
 2. Test of homogeneity for between-group variance (for Random-effects models). 
 3. Test of homogeneity for within-study variance
 4. Subgroup Analyses
+5. Moderator Analysis
 
 metapower can currently handle the following designs and effect sizes:
 
