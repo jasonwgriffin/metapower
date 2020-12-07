@@ -90,7 +90,7 @@ subgroup_power <- function(n_groups, effect_sizes, sample_size, k, es_type, p = 
       subgroup_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
                                        overall_effect = overall_effect,
                                        n_groups = n_groups,
-                                       n_v = sample_size,
+                                       n_v = sample_size/n_groups,
                                        c_alpha_b = c_alpha_b,
                                        c_alpha_w = c_alpha_w) %>% dplyr::mutate(variance = mapply(compute_variance, .data$n_v, .data$overall_effect, es_type))
 
