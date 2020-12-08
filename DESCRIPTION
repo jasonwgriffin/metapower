@@ -21,7 +21,7 @@ Imports:
     testthat (>= 2.3.2),
     rlang (>= 0.4.5)
 Suggests:
-    markdown (>= 2.1),
+    rmarkdown (>= 2.1),
     knitr (>= 1.28)
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
