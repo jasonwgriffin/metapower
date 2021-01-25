@@ -18,7 +18,7 @@ plot_mpower <- function(obj){
   p_aes <- list(geom_hline(yintercept = .80, linetype = "dashed", alpha = .80),
                 geom_line(size = 1.5),
                 scale_x_continuous(limits = c(2,max(obj$power_range$k_v)), breaks = c(seq(2,max(obj$power_range$k_v),by = round(max(obj$power_range$k_v)*.10,0)))),
-                scale_y_continuous(limits =c(0,1), breaks = c(0,.25,.5,.75,1)),
+                scale_y_continuous(limits =c(0,1), breaks = c(0,.20,.40,.60,.80,1)),
                 xlab("Number of Studies"),
                 ylab("Power"),
                 theme_bw(),
@@ -26,29 +26,13 @@ plot_mpower <- function(obj){
                       legend.justification = c(1,0),
                       legend.background = element_rect(colour = 'black', fill = 'white', linetype='solid')))
 
-  ## random data for plot
-  rand_dat <- obj$power_range %>%
-    dplyr::filter(obj$power_range$es_v == obj$effect_size) %>%
-    dplyr::select(c("k_v", dplyr::starts_with("random"))) %>%
-    tidyr::pivot_longer(-"k_v", names_to = "power_type", values_to = "power")
-  obj$power_range$es_v <- as.factor(obj$power_range$es_v)
+  plot_data <- obj$power_range %>%
+    tidyr::pivot_longer(c(fixed_power, random_power), names_to = "power_type", values_to = "power")
 
-
-  # fixed plot
-  fixed_plot <- ggplot(obj$power_range, aes(x = .data$k_v, y = .data$fixed_power, color = .data$es_v)) +
-      p_aes +
-      ggtitle("Fixed-Effects Model") +
-      labs(color = "Effect Size")
-
-  # random plot
-  random_plot <- ggplot(rand_dat, aes(x = .data$k_v, y = .data$power)) +
-    p_aes +
-    geom_point(aes(x = obj$k, y = obj$power$random_power), size = 4, shape = 21, fill = "white", stroke = 1) +
-    ggtitle(paste0("Random-Effects Model (I^2 = ", round(obj$i2*100,2),"%)"))
-
-  #arrange for plotting
-  p <- cowplot::plot_grid(fixed_plot, random_plot, ncol = 1)
-
-  return (p)
+  return(ggplot(plot_data, aes(x = .data$k_v, y = .data$power, color = .data$power_type)) + p_aes +
+           ggtitle("Power Analysis for Summary Effect Size") +
+           scale_color_manual(name = "Model",
+                              labels = c("Fixed Effects", "Random Effects"),
+                              values = c("#993366", "#33CCCC")))
 
 }
