@@ -8,6 +8,7 @@ mpower(
   effect_size,
   study_size,
   k,
+  i2,
   es_type,
   test_type = "two-tailed",
   p = 0.05,
@@ -20,6 +21,8 @@ mpower(
 \item{study_size}{Numerical value for number number of participants (per study).}
 
 \item{k}{Numerical value for total number of studies.}
+
+\item{i2}{Numerical value for Heterogeneity estimate (i^2).}
 
 \item{es_type}{Character reflecting effect size metric: 'r', 'd', or 'or'.}
 
@@ -42,7 +45,7 @@ Estimated Power
 Computes statistical power for summary effect sizes in meta-analysis.
 }
 \examples{
-mpower(effect_size = .2, study_size = 10, k = 10, es_type = "d")
+mpower(effect_size = .2, study_size = 10, k = 10, i2 = .5, es_type = "d")
 
 }
 \references{
