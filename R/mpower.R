@@ -25,7 +25,7 @@
 #' @return Estimated Power
 #'
 #' @examples
-#' mpower(effect_size = .2, study_size = 10, k = 10, es_type = "d")
+#' mpower(effect_size = .2, study_size = 10, k = 10, i2 = .25, es_type = "d")
 #'
 #' @seealso
 #' \url{https://jason-griffin.shinyapps.io/shiny_metapower/}
@@ -63,7 +63,7 @@
 #' @import magrittr
 #' @export
 
-mpower <- function(effect_size, study_size, k, es_type, test_type = "two-tailed", p = .05, con_table = NULL){
+mpower <- function(effect_size, study_size, k, i2, es_type, test_type = "two-tailed", p = .05, con_table = NULL){
 
   if(missing(effect_size))
     effect_size = NULL
@@ -82,7 +82,7 @@ mpower <- function(effect_size, study_size, k, es_type, test_type = "two-tailed"
 
   if(es_type == "d"){
 
-    ## sample size for d reflects total n, assume equal groups
+    ## study_size for d reflects total n
     study_size <- study_size/2
 
     variance <- compute_variance(study_size, effect_size, es_type, con_table)
@@ -91,6 +91,7 @@ mpower <- function(effect_size, study_size, k, es_type, test_type = "two-tailed"
                      es_v = rep(c((effect_size/2), effect_size, (effect_size*2)), each = range_factor*k-1),
                      effect_size = effect_size,
                      n_v = study_size,
+                     i2 = i2,
                      c_alpha = c_alpha,
                      test_type = test_type) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
@@ -111,6 +112,7 @@ mpower <- function(effect_size, study_size, k, es_type, test_type = "two-tailed"
                                  es_v = rep(c((effect_size/2), effect_size, max), each = range_factor*k-1), ## special for correlation
                                  effect_size = effect_size,
                                  n_v = study_size,
+                                 i2 = i2,
                                  c_alpha = c_alpha,
                                  test_type = test_type) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
@@ -128,16 +130,18 @@ mpower <- function(effect_size, study_size, k, es_type, test_type = "two-tailed"
                                    es_v = rep(c((effect_size/2), effect_size, (effect_size*2)), each = range_factor*k-1),
                                    effect_size = effect_size,
                                    n_v = study_size,
+                                   i2 = i2,
                                    c_alpha = c_alpha,
                                    test_type = test_type,
                                    variance = variance)
       }
 # Generate list of relevant variables for output
   power_list <- list(variance = variance,
-                   power = compute_power(k, effect_size, variance, c_alpha, test_type),
+                   power = compute_power(k, effect_size, variance, i2, c_alpha, test_type),
                    power_range = compute_power_range(power_range_df),
                    effect_size = effect_size,
                    study_size = study_size,
+                   i2 = i2,
                    k = k,
                    es_type = es_type,
                    test_type = test_type,
