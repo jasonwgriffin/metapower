@@ -4,7 +4,7 @@
 #'
 #' @param effect_size  Numerical value of effect size.
 #'
-#' @param sample_size Numerical value for number number of participants (per study).
+#' @param study_size Numerical value for number number of participants (per study).
 #'
 #' @param k Numerical value for total number of studies.
 #'
@@ -25,7 +25,7 @@
 #' @return Estimated Power
 #'
 #' @examples
-#' mpower(effect_size = .2, sample_size = 10, k = 10, es_type = "d")
+#' mpower(effect_size = .2, study_size = 10, k = 10, es_type = "d")
 #'
 #' @seealso
 #' \url{https://jason-griffin.shinyapps.io/shiny_metapower/}
@@ -63,12 +63,12 @@
 #' @import magrittr
 #' @export
 
-mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed", p = .05, con_table = NULL){
+mpower <- function(effect_size, study_size, k, es_type, test_type = "two-tailed", p = .05, con_table = NULL){
 
   if(missing(effect_size))
     effect_size = NULL
   ## Check that the arguments are correctly specified
-  mpower_integrity(effect_size, sample_size, k, es_type, test_type, p, con_table)
+  mpower_integrity(effect_size, study_size, k, es_type, test_type, p, con_table)
 
   ## Transform effect sizes condition on the metric
   ## Determine the critical value cut-of based on one or two tailed test and p-value
@@ -83,14 +83,14 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
   if(es_type == "d"){
 
     ## sample size for d reflects total n, assume equal groups
-    sample_size <- sample_size/2
+    study_size <- study_size/2
 
-    variance <- compute_variance(sample_size, effect_size, es_type, con_table)
+    variance <- compute_variance(study_size, effect_size, es_type, con_table)
     # create a power range of data
     power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
                      es_v = rep(c((effect_size/2), effect_size, (effect_size*2)), each = range_factor*k-1),
                      effect_size = effect_size,
-                     n_v = sample_size,
+                     n_v = study_size,
                      c_alpha = c_alpha,
                      test_type = test_type) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
@@ -98,7 +98,7 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
     ## Convert to fishers-z
     effect_size = round(.5*log((1 + effect_size)/(1 - effect_size)),2)
     ## Compute common variance
-    variance <- compute_variance(sample_size, effect_size, es_type, con_table)
+    variance <- compute_variance(study_size, effect_size, es_type, con_table)
     ## Create power range of data
     ### Restrict range based on limitations. For example, a correlation of 1 = fisher's z of 2.64
     if(effect_size*2 >= 2.64){
@@ -110,7 +110,7 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
     power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
                                  es_v = rep(c((effect_size/2), effect_size, max), each = range_factor*k-1), ## special for correlation
                                  effect_size = effect_size,
-                                 n_v = sample_size,
+                                 n_v = study_size,
                                  c_alpha = c_alpha,
                                  test_type = test_type) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
@@ -127,7 +127,7 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
       power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
                                    es_v = rep(c((effect_size/2), effect_size, (effect_size*2)), each = range_factor*k-1),
                                    effect_size = effect_size,
-                                   n_v = sample_size,
+                                   n_v = study_size,
                                    c_alpha = c_alpha,
                                    test_type = test_type,
                                    variance = variance)
@@ -137,7 +137,7 @@ mpower <- function(effect_size, sample_size, k, es_type, test_type = "two-tailed
                    power = compute_power(k, effect_size, variance, c_alpha, test_type),
                    power_range = compute_power_range(power_range_df),
                    effect_size = effect_size,
-                   sample_size = sample_size,
+                   study_size = study_size,
                    k = k,
                    es_type = es_type,
                    test_type = test_type,

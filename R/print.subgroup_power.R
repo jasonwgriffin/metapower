@@ -6,7 +6,7 @@ print.subgroup_power <- function(x,...) {
   cat(" Number of Groups:                 ", x$n_groups, "\n")
   cat(" Groups:                            ", x$group, "\n")
   cat(" Expected Effect Sizes:            ", x$effect_sizes, "\n")
-  cat(" Expected Sample Size (per group): ", x$sample_size, "\n")
+  cat(" Expected Sample Size (per group): ", x$study_size, "\n")
   cat(" Expected Number of Studies:       ", x$k, "\n\n")
 
   cat(" Esimated Power to detect subgroup differences \n\n")

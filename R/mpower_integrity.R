@@ -1,17 +1,17 @@
-mpower_integrity <- function(effect_size, sample_size, k, es_type, test_type, p, con_table){
+mpower_integrity <- function(effect_size, study_size, k, es_type, test_type, p, con_table){
 
 test_type_options <- c("one-tailed", "two-tailed")
 es_type_options <- c("d","r", "or")
 
-## sample_size integrity checks
-if(missing(sample_size))
+## study_size integrity checks
+if(missing(study_size))
   stop("Need to specify expected sample size")
-if(!(is.numeric(sample_size)))
-  stop("sample_size must be numeric")
-if(length(sample_size) > 1)
-  stop("sample_size must be a single number")
-if(sample_size < 1)
-  stop("sample_size must be greater than 0")
+if(!(is.numeric(study_size)))
+  stop("study_size must be numeric")
+if(length(study_size) > 1)
+  stop("study_size must be a single number")
+if(study_size < 1)
+  stop("study_size must be greater than 0")
 
 ## num studies integrity checks
 if(missing(k))
@@ -64,7 +64,7 @@ if(es_type == 'or'){
   if(!missing(con_table)){
     if(length(con_table) != 4)
       stop("con_table must reflect a 2x2 contingency table with the form c(a,b,c,d). see documentation")
-    if(sample_size != sum(con_table))
+    if(study_size != sum(con_table))
       stop("Entered sample size should equal the sum of the contigency table")
   }
 }

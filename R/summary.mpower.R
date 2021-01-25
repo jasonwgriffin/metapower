@@ -4,7 +4,7 @@ summary.mpower <- function(object,...) {
   cat("\n Power Analysis for Meta-analysis \n\n")
 
   cat(" Expected Effect Size:             ", object$effect_size, "\n")
-  cat(" Expected Sample Size (per group): ", object$sample_size, "\n")
+  cat(" Expected Sample Size (per group): ", object$study_size, "\n")
   cat(" Expected Number of Studies:       ", object$k, "\n\n")
 
   cat(" Estimated Power: Mean Effect Size \n\n")

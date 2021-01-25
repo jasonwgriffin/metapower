@@ -8,7 +8,7 @@
 #'
 #' @param es_type Character reflecting effect size metric: 'r', 'd', or 'or'.
 #'
-#' @param sample_size Numerical value for number of participants (per study).
+#' @param study_size Numerical value for number of participants (per study).
 #'
 #' @param k Numerical value for total number of studies.
 #'
@@ -27,12 +27,12 @@
 #' @examples
 #' mod_power(n_groups = 2,
 #'           effect_sizes = c(.1,.5),
-#'           sample_size = 20,
+#'           study_size = 20,
 #'           k = 10,
 #'           es_type = "d")
 #' mod_power(n_groups = 2,
 #'           con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)),
-#'           sample_size = 40,
+#'           study_size = 40,
 #'           k = 20,
 #'           es_type = "or")
 #'
@@ -46,12 +46,12 @@
 #' @importFrom stats pgamma
 #' @export
 
-mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, p = .05, con_table = NULL) {
+mod_power <- function(n_groups, effect_sizes, study_size, k, es_type, p = .05, con_table = NULL) {
 
   if(missing(effect_sizes))
     effect_sizes = NULL
   ## Argument Check
-  mod_power_integrity(n_groups, effect_sizes, sample_size, k, es_type, p, con_table)
+  mod_power_integrity(n_groups, effect_sizes, study_size, k, es_type, p, con_table)
 
   ## compute degrees of freedom for between and within-study
   df_b <- n_groups-1
@@ -64,10 +64,10 @@ mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, p = .05, 
   range_factor <- 5
 
   if(es_type == "d"){
-    sample_size <- sample_size/2
+    study_size <- study_size/2
     effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
     overall_effect <- mean(effect_sizes) # find overall mean
-    variance <- compute_variance(sample_size, overall_effect, es_type, con_table) # compute variance for each level of the moderator
+    variance <- compute_variance(study_size, overall_effect, es_type, con_table) # compute variance for each level of the moderator
 
     group = NULL
 
@@ -76,8 +76,8 @@ mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, p = .05, 
     mod_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
                                  overall_effect = overall_effect,
                                  n_groups = n_groups,
-                                 #n_v = sample_size/n_groups,
-                                 n_v = sample_size,
+                                 #n_v = study_size/n_groups,
+                                 n_v = study_size,
                                  c_alpha_b = c_alpha_b,
                                  c_alpha_w = c_alpha_w) %>% dplyr::mutate(variance = mapply(compute_variance, .data$n_v, .data$overall_effect, es_type))
 
@@ -85,13 +85,13 @@ mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, p = .05, 
       effect_sizes <- 0.5*log((1+effect_sizes)/(1-effect_sizes)) ## changes correlation to fisher's z
       effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
       overall_effect <- mean(effect_sizes) # find overall mean
-      variance <- compute_variance(sample_size, overall_effect, es_type, con_table)
+      variance <- compute_variance(study_size, overall_effect, es_type, con_table)
       group = NULL
       ##
       mod_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
                                        overall_effect = overall_effect,
                                        n_groups = n_groups,
-                                       n_v = sample_size,
+                                       n_v = study_size,
                                        c_alpha_b = c_alpha_b,
                                        c_alpha_w = c_alpha_w) %>% dplyr::mutate(variance = mapply(compute_variance, .data$n_v, .data$overall_effect, es_type))
 
@@ -115,18 +115,18 @@ mod_power <- function(n_groups, effect_sizes, sample_size, k, es_type, p = .05, 
         mod_power_range_df <- data.frame(k_v = seq(from = n_groups, to = range_factor*k, by = n_groups),
                                          overall_effect = overall_effect,
                                          n_groups = n_groups,
-                                         n_v = sample_size,
+                                         n_v = study_size,
                                          c_alpha_b = c_alpha_b,
                                          c_alpha_w = c_alpha_w,
                                          variance = variance)
   }
 
-  mod_power_list <- list(mod_power = compute_mod_power(n_groups, effect_sizes, variance, overall_effect, sample_size, k, c_alpha_b),
+  mod_power_list <- list(mod_power = compute_mod_power(n_groups, effect_sizes, variance, overall_effect, study_size, k, c_alpha_b),
                          mod_power_range = compute_mod_range(n_groups, effect_sizes, mod_power_range_df),
                          mod_power_range_df = mod_power_range_df,
                          n_groups = n_groups,
                          effect_sizes = effect_sizes,
-                         sample_size = sample_size,
+                         study_size = study_size,
                          k = k,
                          es_type = es_type,
                          variance = variance,

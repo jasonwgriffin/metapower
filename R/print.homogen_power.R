@@ -5,7 +5,7 @@ print.homogen_power <- function(x,...) {
   cat("\n Power Analysis for Test of Homogeneity in Meta-analysis \n\n")
 
   cat(" Expected Effect Size:             ", x$effect_size, "\n")
-  cat(" Expected Sample Size (per group): ", x$sample_size, "\n")
+  cat(" Expected Sample Size (per group): ", x$study_size, "\n")
   cat(" Expected Number of Studies:       ", x$k, "\n\n")
 
   cat(" Estimated Power: Test of Homogeneity \n\n")

@@ -1,5 +1,5 @@
 
-compute_subgroup_power <- function(n_groups, effect_sizes, variance, overall_effect, sample_size, k, c_alpha_b){
+compute_subgroup_power <- function(n_groups, effect_sizes, variance, overall_effect, study_size, k, c_alpha_b){
 
   df_b <- n_groups-1
   df_w <- k-n_groups
@@ -13,7 +13,7 @@ compute_subgroup_power <- function(n_groups, effect_sizes, variance, overall_eff
 
   ##within-groups
   #fixed_weight_w <-1/variance
-  #fixed_var_w <- round(sqrt(1/sum(rep(fixed_weight_w,sample_size/n_groups))),2)
+  #fixed_var_w <- round(sqrt(1/sum(rep(fixed_weight_w,study_size/n_groups))),2)
 
   tau2_0 <- 0
   tau2_s <- (1/3)*variance # i2 = .25

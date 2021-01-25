@@ -6,7 +6,7 @@ summary.subgroup_power <- function(object,...) {
   cat(" Number of Groups:                 ", object$n_groups, "\n")
   cat(" Groups:                           ", object$group, "\n")
   cat(" Expected Effect Sizes:            ", object$effect_sizes, "\n")
-  cat(" Expected Sample Size (per group): ", object$sample_size, "\n")
+  cat(" Expected Sample Size (per group): ", object$study_size, "\n")
   cat(" Expected Number of Studies:       ", object$k, "\n\n")
 
   cat(" Esimated Power to detect subgroup differences \n\n")
