@@ -12,6 +12,8 @@
 #'
 #' @param k Numerical value for total number of studies.
 #'
+#' @param i2 Numerical value for Heterogeneity estimate (i^2).
+#'
 #' @param p Numerical value for significance level (Type I error probability).
 #'
 #' @param con_table (Optional) List of numerical values for 2x2 contingency
@@ -29,11 +31,13 @@
 #'                effect_sizes = c(.1,.5),
 #'                study_size = 20,
 #'                k = 10,
+#'                i2 = .5,
 #'                es_type = "d")
 #' subgroup_power(n_groups = 2,
 #'                con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)),
 #'                study_size = 40,
 #'                k = 20,
+#'                i2 = .5,
 #'                es_type = "or")
 #'
 #' @seealso
@@ -46,7 +50,7 @@
 #' @importFrom stats pgamma
 #' @export
 
-subgroup_power <- function(n_groups, effect_sizes, study_size, k, es_type, p = .05, con_table = NULL) {
+subgroup_power <- function(n_groups, effect_sizes, study_size, k, i2 = .50, es_type, p = .05, con_table = NULL) {
 
   if(missing(effect_sizes))
     effect_sizes = NULL
@@ -77,6 +81,7 @@ subgroup_power <- function(n_groups, effect_sizes, study_size, k, es_type, p = .
                                  overall_effect = overall_effect,
                                  n_groups = n_groups,
                                  n_v = study_size/n_groups,
+                                 i2 = i2,
                                  c_alpha_b = c_alpha_b,
                                  c_alpha_w = c_alpha_w) %>% dplyr::mutate(variance = mapply(compute_variance, .data$n_v, .data$overall_effect, es_type))
 
@@ -91,6 +96,7 @@ subgroup_power <- function(n_groups, effect_sizes, study_size, k, es_type, p = .
                                        overall_effect = overall_effect,
                                        n_groups = n_groups,
                                        n_v = study_size/n_groups,
+                                       i2 = i2,
                                        c_alpha_b = c_alpha_b,
                                        c_alpha_w = c_alpha_w) %>% dplyr::mutate(variance = mapply(compute_variance, .data$n_v, .data$overall_effect, es_type))
 
@@ -115,18 +121,20 @@ subgroup_power <- function(n_groups, effect_sizes, study_size, k, es_type, p = .
                                          overall_effect = overall_effect,
                                          n_groups = n_groups,
                                          n_v = study_size,
+                                         i2 = i2,
                                          c_alpha_b = c_alpha_b,
                                          c_alpha_w = c_alpha_w,
                                          variance = variance)
   }
 
-  subgroup_power_list <- list(subgroup_power = compute_subgroup_power(n_groups, effect_sizes, variance, overall_effect, study_size, k, c_alpha_b),
+  subgroup_power_list <- list(subgroup_power = compute_subgroup_power(n_groups, effect_sizes, variance, i2, overall_effect, study_size, k, c_alpha_b),
                          subgroup_power_range = compute_subgroup_range(n_groups, effect_sizes, subgroup_power_range_df),
                          subgroup_power_range_df = subgroup_power_range_df,
                          n_groups = n_groups,
                          effect_sizes = effect_sizes,
                          study_size = study_size,
                          k = k,
+                         i2 = i2,
                          es_type = es_type,
                          variance = variance,
                          group = group)
