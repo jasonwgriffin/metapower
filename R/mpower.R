@@ -68,7 +68,7 @@ mpower <- function(effect_size, study_size, k, i2, es_type, test_type = "two-tai
   if(missing(effect_size))
     effect_size = NULL
   ## Check that the arguments are correctly specified
-  mpower_integrity(effect_size, study_size, k, es_type, test_type, p, con_table)
+  mpower_integrity(effect_size, study_size, k, i2, es_type, test_type, p, con_table)
 
   ## Transform effect sizes condition on the metric
   ## Determine the critical value cut-of based on one or two tailed test and p-value

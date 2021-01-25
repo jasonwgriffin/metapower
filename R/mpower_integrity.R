@@ -1,4 +1,4 @@
-mpower_integrity <- function(effect_size, study_size, k, es_type, test_type, p, con_table){
+mpower_integrity <- function(effect_size, study_size, k, i2, es_type, test_type, p, con_table){
 
 test_type_options <- c("one-tailed", "two-tailed")
 es_type_options <- c("d","r", "or")
@@ -22,6 +22,15 @@ if(length(k) > 1)
   stop("k must be a single number")
 if(k < 2)
   stop("k must be greater than 1")
+
+## i2 - Heterogeneity
+
+if(missing(i2))
+  stop("Need to specify heterogeneity(i2); Small = .25, moderatoe = .50, Large = .75")
+if(i2 > 1)
+  stop("i2 cannot be greater than 1")
+if(i2 < 0)
+  stop("i2 cannot be less than 0")
 
 ## es_type
 if(missing(es_type))
