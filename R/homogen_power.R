@@ -58,7 +58,7 @@ homogen_power <- function (effect_size, study_size, k, i2, es_type, p =.05, con_
   if(missing(effect_size))
     effect_size = NULL
   ## check args
-  homogen_power_integrity(effect_size, study_size, k, es_type, p, con_table)
+  homogen_power_integrity(effect_size, study_size, k, i2, es_type, p, con_table)
 
   df <- k-1 # between-groups df
   c_alpha <- qchisq(1-p,df,0, lower.tail = TRUE) # critical value chia-square dist

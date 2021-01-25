@@ -27,7 +27,7 @@ if(k < 2)
 
 if(missing(i2))
   stop("Need to specify heterogeneity(i2); Small = .25, moderatoe = .50, Large = .75")
-if(i2 > 1)
+if(i2 > .9999)
   stop("i2 cannot be greater than 1")
 if(i2 < 0)
   stop("i2 cannot be less than 0")

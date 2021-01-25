@@ -11,9 +11,7 @@ print.mod_power <- function(x,...) {
 
   cat(" Esimated Power: Moderator Analysis \n\n")
 
-  cat(" Fixed-Effects Model:                 ", x$mod_power$fixed_power_b, "\n")
-  cat(" Random-Effects Model (i2 = 0%):      ", x$mod_power$random_power_b_0, "\n")
-  cat(" Random-Effects Model (i2 = 25%):     ", x$mod_power$random_power_b_s, "\n")
-  cat(" Random-Effects Model (i2 = 50%):     ", x$mod_power$random_power_b_m, "\n")
-  cat(" Random-Effects Model (i2 = 75%):     ", x$mod_power$random_power_b_l, "\n")
+  cat(" Fixed-Effects Model:              ", x$mod_power$fixed_power_b, "\n")
+  cat(" Random-Effects Model (i2 = ",round(x$i2*100,2), "%):   ", x$mod_power$random_power_b, "\n", sep = "")
+
 }

@@ -1,4 +1,4 @@
-homogen_power_integrity <- function(effect_size, study_size, k, es_type, p, con_table){
+homogen_power_integrity <- function(effect_size, study_size, k, i2, es_type, p, con_table){
 
   es_type_options <- c("d","r", "or")
 
@@ -21,6 +21,15 @@ homogen_power_integrity <- function(effect_size, study_size, k, es_type, p, con_
     stop("k must be a single number")
   if(k < 2)
     stop("k must be greater than 1")
+
+  ## i2 - Heterogeneity
+
+  if(missing(i2))
+    stop("Need to specify heterogeneity(i2); Small = .25, moderatoe = .50, Large = .75")
+  if(i2 > .9999)
+    stop("i2 cannot be greater than 1")
+  if(i2 < 0)
+    stop("i2 cannot be less than 0")
 
   ## es_type
   if(missing(es_type))
