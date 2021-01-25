@@ -26,13 +26,13 @@ plot_mpower <- function(obj){
                       legend.justification = c(1,0),
                       legend.background = element_rect(colour = 'black', fill = 'white', linetype='solid')))
 
-  plot_data <- obj$power_range %>%
-    tidyr::pivot_longer(c(fixed_power, random_power), names_to = "power_type", values_to = "power")
-
-  return(ggplot(plot_data, aes(x = .data$k_v, y = .data$power, color = .data$power_type)) + p_aes +
+  return(ggplot(obj$power_range %>% tidyr::pivot_longer(c(fixed_power, random_power), names_to = "power_type", values_to = "power"),
+                aes(x = .data$k_v, y = .data$power, color = .data$power_type)) + p_aes +
+           geom_point(aes(x = obj$k, y = obj$power$fixed_power),shape = 21, size = 3, fill = "white", color = "#993366", stroke = 1) +
+           geom_point(aes(x = obj$k, y = obj$power$random_power),shape = 21, size = 3, fill = "white",color = "#33CCCC", stroke = 1) +
            ggtitle("Power Analysis for Summary Effect Size") +
            scale_color_manual(name = "Model",
-                              labels = c("Fixed Effects", "Random Effects"),
+                              labels = c("Fixed Effects", paste0("Random Effects (I2 = ",round(obj$i2*100,2), "%)")),
                               values = c("#993366", "#33CCCC")))
 
 }
