@@ -8,6 +8,8 @@
 #'
 #' @param k Numerical value for total number of studies.
 #'
+#' @param i2 Numerical value for Heterogeneity estimate (i^2).
+#'
 #' @param es_type Character reflecting effect size metric: 'r', 'd', or 'or'.
 #'
 #' @param test_type Character value reflecting test type: ("two-tailed" or "one-tailed").
@@ -25,7 +27,7 @@
 #' @return Estimated Power
 #'
 #' @examples
-#' mpower(effect_size = .2, study_size = 10, k = 10, i2 = .25, es_type = "d")
+#' mpower(effect_size = .2, study_size = 10, k = 10, i2 = .5, es_type = "d")
 #'
 #' @seealso
 #' \url{https://jason-griffin.shinyapps.io/shiny_metapower/}
