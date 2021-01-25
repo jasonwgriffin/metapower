@@ -55,7 +55,7 @@ subgroup_power <- function(n_groups, effect_sizes, study_size, k, i2 = .50, es_t
   if(missing(effect_sizes))
     effect_sizes = NULL
   ## Argument Check
-  subgroup_power_integrity(n_groups, effect_sizes, study_size, k, es_type, p, con_table)
+  subgroup_power_integrity(n_groups, effect_sizes, study_size, k, i2, es_type, p, con_table)
 
   ## compute degrees of freedom for between and within-study
   df_b <- n_groups-1

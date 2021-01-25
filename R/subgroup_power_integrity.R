@@ -13,9 +13,6 @@ if(length(n_groups) > 1)
 if(n_groups < 2)
   stop("number of groups must be at least 2")
 
-#effect_sizes
-
-
 #study_size
 if(missing(study_size))
   stop("Need to specify expected sample size")
@@ -39,6 +36,15 @@ if(k < 2)
   stop("k must be greater than 1")
 if(k <= n_groups)
   stop("Number of studies must be larger than n_groups")
+
+## i2 - Heterogeneity
+
+if(missing(i2))
+  stop("Need to specify heterogeneity(i2); Small = .25, moderatoe = .50, Large = .75")
+if(i2 > .9999)
+  stop("i2 cannot be greater than 1")
+if(i2 < 0)
+  stop("i2 cannot be less than 0")
 
 ## es_type
 if(missing(es_type))
