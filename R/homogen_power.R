@@ -8,6 +8,8 @@
 #'
 #' @param k Numerical value for total number of studies.
 #'
+#' @param i2 Numerical value for Heterogeneity estimate (i^2).
+#'
 #' @param es_type 'Character reflecting effect size metric: 'r', 'd', or 'or'.
 #'
 #' @param p Numerical value for significance level (Type I error probability).
@@ -22,7 +24,7 @@
 #' @return Estimated Power to detect differences in homogeneity of effect sizes for fixed- and random-effects models
 #'
 #' @examples
-#' homogen_power(effect_size = .5, study_size = 10, k = 10, es_type = "d")
+#' homogen_power(effect_size = .5, study_size = 10, k = 10, i2 = .50, es_type = "d")
 #'
 #' @seealso
 #' \url{https://jason-griffin.shinyapps.io/shiny_metapower/}
@@ -51,7 +53,7 @@
 #' @import magrittr
 #' @export
 
-homogen_power <- function (effect_size, study_size, k, es_type, p =.05, con_table = NULL){
+homogen_power <- function (effect_size, study_size, k, i2, es_type, p =.05, con_table = NULL){
 
   if(missing(effect_size))
     effect_size = NULL
@@ -70,6 +72,7 @@ homogen_power <- function (effect_size, study_size, k, es_type, p =.05, con_tabl
     homogen_power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k),times = 7),
                                          es_v = effect_size,
                                          n_v = study_size,
+                                         i2 = i2,
                                          c_alpha = c_alpha) %>%
       mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
@@ -81,6 +84,7 @@ homogen_power <- function (effect_size, study_size, k, es_type, p =.05, con_tabl
                                          k_v = rep(seq(2,range_factor*k),times = 7),
                                          es_v = effect_size,
                                          n_v = study_size,
+                                         i2 = i2,
                                          c_alpha = c_alpha) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
 
@@ -95,6 +99,7 @@ homogen_power <- function (effect_size, study_size, k, es_type, p =.05, con_tabl
                                          k_v = rep(seq(2,range_factor*k),times = 7),
                                          es_v = effect_size,
                                          n_v = study_size,
+                                         i2 = i2,
                                          c_alpha = c_alpha,
                                          variance = variance)
   }
@@ -102,10 +107,11 @@ homogen_power <- function (effect_size, study_size, k, es_type, p =.05, con_tabl
   # Generate list of relevant variables for output
   power_list <- list(variance = variance,
                      homogen_power_range_df = homogen_power_range_df,
-                     homogen_power = compute_homogen_power(k, effect_size, variance, c_alpha),
+                     homogen_power = compute_homogen_power(k, effect_size, variance, i2, c_alpha),
                      homogen_power_range = compute_homogen_range(homogen_power_range_df),
                      effect_size = effect_size,
                      study_size = study_size,
+                     i2 = i2,
                      k = k,
                      es_type = es_type,
                      p = p)
