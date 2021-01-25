@@ -7,7 +7,7 @@
 subgroup_power(
   n_groups,
   effect_sizes,
-  sample_size,
+  study_size,
   k,
   es_type,
   p = 0.05,
@@ -19,7 +19,7 @@ subgroup_power(
 
 \item{effect_sizes}{Numerical values for effect sizes of for each group.}
 
-\item{sample_size}{Numerical value for number of participants (per study).}
+\item{study_size}{Numerical value for number of participants (per study).}
 
 \item{k}{Numerical value for total number of studies.}
 
@@ -46,12 +46,12 @@ Computes statistical power for different subgroups under fixed and random effect
 \examples{
 subgroup_power(n_groups = 2,
                effect_sizes = c(.1,.5),
-               sample_size = 20,
+               study_size = 20,
                k = 10,
                es_type = "d")
 subgroup_power(n_groups = 2,
                con_table = list(g1 = c(6,5,4,5), g2 = c(8,5,2,5)),
-               sample_size = 40,
+               study_size = 40,
                k = 20,
                es_type = "or")
 

@@ -4,12 +4,12 @@
 \alias{homogen_power}
 \title{Compute Power for Test of Homogeneity in Meta-analysis}
 \usage{
-homogen_power(effect_size, sample_size, k, es_type, p = 0.05, con_table = NULL)
+homogen_power(effect_size, study_size, k, es_type, p = 0.05, con_table = NULL)
 }
 \arguments{
 \item{effect_size}{Numerical value of effect size.}
 
-\item{sample_size}{Numerical value for number number of participants (per study).}
+\item{study_size}{Numerical value for number number of participants (per study).}
 
 \item{k}{Numerical value for total number of studies.}
 
@@ -32,7 +32,7 @@ Estimated Power to detect differences in homogeneity of effect sizes for fixed- 
 Compute statistical power for the Test of Homogeneity for meta-analysis under both fixed- and random-effects models.
 }
 \examples{
-homogen_power(effect_size = .5, sample_size = 10, k = 10, es_type = "d")
+homogen_power(effect_size = .5, study_size = 10, k = 10, es_type = "d")
 
 }
 \references{

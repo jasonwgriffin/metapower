@@ -6,7 +6,7 @@
 \usage{
 mpower(
   effect_size,
-  sample_size,
+  study_size,
   k,
   es_type,
   test_type = "two-tailed",
@@ -17,7 +17,7 @@ mpower(
 \arguments{
 \item{effect_size}{Numerical value of effect size.}
 
-\item{sample_size}{Numerical value for number number of participants (per study).}
+\item{study_size}{Numerical value for number number of participants (per study).}
 
 \item{k}{Numerical value for total number of studies.}
 
@@ -42,7 +42,7 @@ Estimated Power
 Computes statistical power for summary effect sizes in meta-analysis.
 }
 \examples{
-mpower(effect_size = .2, sample_size = 10, k = 10, es_type = "d")
+mpower(effect_size = .2, study_size = 10, k = 10, es_type = "d")
 
 }
 \references{
