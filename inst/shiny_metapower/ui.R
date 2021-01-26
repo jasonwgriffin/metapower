@@ -64,7 +64,8 @@ ui <- fluidPage(
                                                      #select number of studies
                                                      sliderInput(inputId = "d_k", h3("Number of Studies"), min = 2, max = 100, value = 10),
                                                      sliderInput(inputId = "d_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 20),
-                                                     numericInput(inputId = "d_es", h3("Effect Size Magnitude"), min = 0, max = 5, value = 0.3, step = 0.05)),
+                                                     numericInput(inputId = "d_es", h3("Effect Size Magnitude"), min = 0, max = 5, value = 0.3, step = 0.05),
+                                                     sliderInput(inputId = "d_i2", h3("Heterogeneity (I^2)"), min = 0, max = 1, value = 0.5, step = 0.05)),
                                               shinydashboard::box(width = 12,
                                                                          splitLayout(
                                                                            numericInput(inputId = "d_p", h4("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
@@ -86,7 +87,8 @@ ui <- fluidPage(
                                      fluidRow(column(12,
                                                      sliderInput("c_k", h3("Number of Studies"), min = 2, max = 100, value = 10),
                                                      sliderInput("c_n", h3("Number of Participants"), min = 2, max = 300, value = 20),
-                                                     sliderInput("c_es", h3("Effect Size Magnitude"), min = 0, max = 1, value = .2, step = 0.05)),
+                                                     sliderInput("c_es", h3("Effect Size Magnitude"), min = 0, max = 1, value = .2, step = 0.05),
+                                                     sliderInput(inputId = "c_i2", h3("Heterogeneity (I^2)"), min = 0, max = 1, value = 0.5, step = 0.05)),
                                               shinydashboard::box(width = 12,
                                                                          splitLayout(
                                                                            numericInput(inputId = "c_p", h4("p-value"), min = .0001, max = .05, value = .05, step = 0.01),
@@ -106,6 +108,7 @@ ui <- fluidPage(
                                        column(12,
                                               sliderInput("or_k", h3("Number of Studies"), min = 2, max = 100, value = 10),
                                               sliderInput("or_n", h3("Number of Participants(per study)"), min = 2, max = 300, value = 20),
+                                              sliderInput(inputId = "or_i2", h3("Heterogeneity (I^2)"), min = 0, max = 1, value = 0.5, step = 0.05),
                                               h3("2x2 Contingency Table")),
                                        column(width = 12,offset = 0,
                                               tags$form(
@@ -142,7 +145,8 @@ ui <- fluidPage(
                                                      #select number of studies
                                                      sliderInput(inputId = "homogen_d_k", h3("Number of Studies"), min = 2, max = 100, value = 10),
                                                      sliderInput(inputId = "homogen_d_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 20),
-                                                     numericInput(inputId = "homogen_d_es", h3("Effect Size Magnitude"), min = 0, max = 5, value = 0.3, step = 0.05)),
+                                                     numericInput(inputId = "homogen_d_es", h3("Effect Size Magnitude"), min = 0, max = 5, value = 0.3, step = 0.05),
+                                                     sliderInput(inputId = "homogen_d_i2", h3("Heterogeneity (I^2)"), min = 0, max = 1, value = 0.5, step = 0.05)),
                                               shinydashboard::box(width = 12,
                                                                   splitLayout(
                                                                     numericInput(inputId = "homogen_d_p", h4("p-value"), min = .0001, max = .05, value = .05, step = 0.01))))),
@@ -164,7 +168,8 @@ ui <- fluidPage(
                                      fluidRow(column(12,
                                                      sliderInput("homogen_c_k", h3("Number of Studies"), min = 2, max = 100, value = 10),
                                                      sliderInput("homogen_c_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 20),
-                                                     sliderInput("homogen_c_es", h3("Effect Size Magnitude"), min = 0, max = 1, value = .2, step = 0.05)),
+                                                     sliderInput("homogen_c_es", h3("Effect Size Magnitude"), min = 0, max = 1, value = .2, step = 0.05),
+                                                     sliderInput(inputId = "homogen_c_i2", h3("Heterogeneity (I^2)"), min = 0, max = 1, value = 0.5, step = 0.05)),
                                               shinydashboard::box(width = 12,
                                                                   splitLayout(
                                                                     numericInput(inputId = "homogen_c_p", h4("p-value"), min = .0001, max = .05, value = .05, step = 0.01))))),
@@ -183,6 +188,7 @@ ui <- fluidPage(
                                      fluidRow(column(12,
                                                      sliderInput("homogen_or_k", h3("Number of Studies"), min = 2, max = 100, value = 10),
                                                      sliderInput("homogen_or_n", h3("Number of Participants(per study)"), min = 2, max = 300, value = 20),
+                                                     sliderInput("homogen_or_i2", h3("Heterogeneity (I^2)"), min = 0, max = 1, value = 0.5, step = 0.05),
                                                      h3("2x2 Contingency Table")),
                                               column(width = 12,offset = 0,
                                                      tags$form(
@@ -220,6 +226,7 @@ ui <- fluidPage(
                                     fluidRow(column(12,
                                                     sliderInput(inputId = "subgroup_d_k", h3("Number of Studies (Total)"), min = 2, max = 50, value = 20),
                                                     sliderInput(inputId = "subgroup_d_n", h3("Number of Participants (per group)"), min = 2, max = 300, value = 40),
+                                                    sliderInput(inputId = "subgroup_d_i2", h3("Heterogeneity (I^2)"), min = 0, max = 1, value = 0.5, step = 0.05),
                                                     numericInput(inputId = "subgroup_d_n_groups", h3("Number of Subgroups"), min = 2, max = 10, value = 2),
                                                     textOutput("sg_d_k"),
                                                     textOutput("sg_d_n")),
@@ -246,6 +253,7 @@ ui <- fluidPage(
                                     fluidRow(column(12,
                                                     sliderInput(inputId = "subgroup_c_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 20),
                                                     sliderInput(inputId = "subgroup_c_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 40),
+                                                    sliderInput(inputId = "subgroup_c_i2", h3("Heterogeneity (I^2)"), min = 0, max = 1, value = 0.5, step = 0.05),
                                                     numericInput(inputId = "subgroup_c_n_groups", h3("Number of Groups"), min = 2, max = 10, value = 2),
                                                     textOutput("sg_c_k"),
                                                     textOutput("sg_c_n")),
@@ -271,6 +279,7 @@ ui <- fluidPage(
                                     fluidRow(column(12,
                                                     sliderInput(inputId = "subgroup_or_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 20),
                                                     sliderInput(inputId = "subgroup_or_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 40),
+                                                    sliderInput(inputId = "subgroup_or_i2", h3("Heterogeneity (I^2)"), min = 0, max = 1, value = 0.5, step = 0.05),
                                                     numericInput(inputId = "subgroup_or_n_groups", h3("Number of Subgroups"), min = 2, max = 10, value = 2),
                                                     textOutput("sg_or_k"),
                                                     textOutput("sg_or_n"),
@@ -346,6 +355,7 @@ ui <- fluidPage(
                                     fluidRow(column(12,
                                                     sliderInput(inputId = "mod_d_k", h3("Number of Studies (Total)"), min = 2, max = 50, value = 20),
                                                     sliderInput(inputId = "mod_d_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 40),
+                                                    sliderInput(inputId = "mod_d_i2", h3("Heterogeneity (I^2)"), min = 0, max = 1, value = 0.5, step = 0.05),
                                                     numericInput(inputId = "mod_d_n_groups", h3("Number of groups"), min = 2, max = 10, value = 2),
                                                     textOutput("md_d_k")),
                                              dashboardBody( tags$head(tags$style(HTML('.form-group, .selectize-control { margin-bottom: 5px;}.box-body {padding-bottom: 5px;}'))),
@@ -371,6 +381,7 @@ ui <- fluidPage(
                                     fluidRow(column(12,
                                                     sliderInput(inputId = "mod_c_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 20),
                                                     sliderInput(inputId = "mod_c_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 40),
+                                                    sliderInput(inputId = "mod_c_i2", h3("Heterogeneity (I^2)"), min = 0, max = 1, value = 0.5, step = 0.05),
                                                     numericInput(inputId = "mod_c_n_groups", h3("Number of Groups"), min = 2, max = 10, value = 2),
                                                     textOutput("md_c_k")),
 
@@ -395,6 +406,7 @@ ui <- fluidPage(
                                     fluidRow(column(12,
                                                     sliderInput(inputId = "mod_or_k", h3("Number of Studies (total)"), min = 2, max = 50, value = 20),
                                                     sliderInput(inputId = "mod_or_n", h3("Number of Participants (per study)"), min = 2, max = 300, value = 40),
+                                                    sliderInput(inputId = "mod_or_i2", h3("Heterogeneity (I^2)"), min = 0, max = 1, value = 0.5, step = 0.05),
                                                     numericInput(inputId = "mod_or_n_groups", h3("Number of Groups"), min = 2, max = 10, value = 2),
                                                     textOutput("md_or_k"),
                                                     br()),
