@@ -97,7 +97,7 @@ We may expect that face recognition tasks have larger effect sizes then face per
 2. `effect_sizes = c(.2,.5)`
 
 ```{r}
-my_mod <- subgroup_power(n_groups = 2, 
+my_subgroup_power <- subgroup_power(n_groups = 2, 
                     effect_sizes = c(.2,.5), 
                     study_size = 20,
                     k = 30,
@@ -105,8 +105,9 @@ my_mod <- subgroup_power(n_groups = 2,
                     es_type = "d")
 ```
 
-```{r}
-print(my_mod)
+```{r fig.height=7, fig.width=7, dpi = 300,out.width = "100%", out.height = "100%"}
+print(my_subgroup_power)
+plot_subgroup_power(my_subgroup_power)
 ```
 
-Given, this set of expected values, we have `r round(my_mod$subgroup_power$fixed_power_b*100,2)`% to detect between-group differences under a Fixed-Effects model. As expected, moderator effects are much harder to detect and more studies are required, especially when heterogeneity is high.
+Given, this set of expected values, we have `r round(my_subgroup_power$subgroup_power$fixed_power_b*100,2)`% to detect between-group differences under a Fixed-Effects model. As expected, moderator effects are much harder to detect and more studies are required, especially when heterogeneity is high.

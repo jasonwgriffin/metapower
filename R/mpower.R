@@ -90,11 +90,11 @@ mpower <- function(effect_size, study_size, k, i2, es_type, test_type = "two-tai
     variance <- compute_variance(study_size, effect_size, es_type, con_table)
     # create a power range of data
     power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
-                     effect_size = effect_size,
-                     n_v = study_size,
-                     i2 = i2,
-                     c_alpha = c_alpha,
-                     test_type = test_type) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$effect_size, es_type))
+                                 es_v = effect_size,
+                                 n_v = study_size,
+                                 i2 = i2,
+                                 c_alpha = c_alpha,
+                                 test_type = test_type) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
     } else if (es_type == "r"){
     ## Convert to fishers-z
@@ -110,11 +110,11 @@ mpower <- function(effect_size, study_size, k, i2, es_type, test_type = "two-tai
         }
     ## Create power range of data
     power_range_df <- data.frame(k_v = rep(seq(2,range_factor*k), times = 3),
-                                 effect_size = effect_size,
+                                 es_v = effect_size,
                                  n_v = study_size,
                                  i2 = i2,
                                  c_alpha = c_alpha,
-                                 test_type = test_type) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$effect_size, es_type))
+                                 test_type = test_type) %>% mutate(variance = mapply(compute_variance, .data$n_v, .data$es_v, es_type))
 
     }else if(es_type == "or") {
       ## Convert odd ratio to log of odds ratio: log(OR)
