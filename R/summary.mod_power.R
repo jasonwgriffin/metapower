@@ -3,14 +3,14 @@
 summary.mod_power <- function(object,...) {
   cat("\n Power Analysis for Moderator Analysis: \n\n")
 
-  cat(" Number of Groups:                 ", x$n_groups, "\n")
-  cat(" Groups:                            ", x$group, "\n")
-  cat(" Expected Effect Sizes:            ", x$effect_sizes, "\n")
-  cat(" Expected Sample Size (per group): ", x$study_size, "\n")
-  cat(" Expected Number of Studies:       ", x$k, "\n\n")
+  cat(" Number of Groups:                 ", object$n_groups, "\n")
+  cat(" Groups:                            ", object$group, "\n")
+  cat(" Expected Effect Sizes:            ", object$effect_sizes, "\n")
+  cat(" Expected Sample Size (per group): ", object$study_size, "\n")
+  cat(" Expected Number of Studies:       ", object$k, "\n\n")
 
   cat(" Esimated Power: Moderator Analysis \n\n")
 
-  cat(" Fixed-Effects Model:              ", x$mod_power$fixed_power_b, "\n")
-  cat(" Random-Effects Model (i2 = ",round(x$i2*100,2), "%):   ", x$mod_power$random_power_b, "\n", sep = "")
+  cat(" Fixed-Effects Model:              ", object$mod_power$fixed_power_b, "\n")
+  cat(" Random-Effects Model (i2 = ",round(object$i2*100,2), "%):   ", object$mod_power$random_power_b, "\n", sep = "")
 }
