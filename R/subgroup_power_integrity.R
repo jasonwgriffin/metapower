@@ -1,4 +1,4 @@
-subgroup_power_integrity <- function(n_groups, effect_sizes, study_size, k, es_type, p, con_table){
+subgroup_power_integrity <- function(n_groups, effect_sizes, study_size, k, i2, es_type, p, con_table){
 
 # Argument Integrity Checks
 es_type_options <- c("d","r", "or")
@@ -63,8 +63,6 @@ if(es_type == 'd' & any(effect_sizes > 10))
   warning("Are you sure at least one effect size is >10?")
 if(es_type == 'd' & missing(effect_sizes))
   stop("Need to specify expected effect sizes per group")
-
-
 
 # Correlation
 if(es_type == 'r' & any(effect_sizes > 1))

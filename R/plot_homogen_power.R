@@ -39,7 +39,7 @@ plot_homogen_power <- function(obj){
                                       "SD = 5"),
                            values = rev(c("#993366", "#9900CC", "#9966FF", "#6699FF", "#33CCCC")))
 
-      random_plot <- ggplot(obj$homogen_power_range %>% tidyr::pivot_longer(random_power,names_to = "power_type", values_to = "power"), aes(x = .data$k_v, y = .data$power, color = .data$power_type)) +
+      random_plot <- ggplot(obj$homogen_power_range %>% tidyr::pivot_longer("random_power",names_to = "power_type", values_to = "power"), aes(x = .data$k_v, y = .data$power, color = .data$power_type)) +
         geom_line(size = 1)+
         #scale_x_continuous(limits = c(2,max(obj$homo_range$k_v)), breaks = c(seq(2,max(obj$homo_range$k_v),by = round(max(obj$homo_range$k_v)*.10,0)))) +
         p_aes +

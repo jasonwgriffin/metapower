@@ -26,7 +26,7 @@ plot_subgroup_power <- function(obj){
                       legend.background = element_rect(colour = 'black', fill = 'white', linetype='solid')))
 
 
-  return(ggplot(obj$subgroup_power_range %>% tidyr::pivot_longer(c(fixed_power_b, random_power_b), names_to = "power_type", values_to = "power"),
+  return(ggplot(obj$subgroup_power_range %>% tidyr::pivot_longer(c("fixed_power_b", "random_power_b"), names_to = "power_type", values_to = "power"),
                 aes(x = .data$k_v, y = .data$power, color = .data$power_type)) + p_aes +
            geom_point(aes(x = obj$k, y = obj$subgroup_power$fixed_power_b),shape = 21, size = 3, fill = "white", color = "#993366", stroke = 1) +
            geom_point(aes(x = obj$k, y = obj$subgroup_power$random_power_b),shape = 21, size = 3, fill = "white",color = "#33CCCC", stroke = 1) +

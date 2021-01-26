@@ -40,8 +40,8 @@ test_that("Check power test from Pigott 2012", {
                                     effect_sizes = c(0,.5),
                                     study_size = 40,
                                     k = 10,
-                                    i2 = .50,
-                                    es_type = "d")$subgroup_power$random_power_b_l,2), .24)
+                                    i2 = .75,
+                                    es_type = "d")$subgroup_power$random_power_b,2), .24)
 
   ## Pigott 2012 - Page 71 Section 6.2.4
   expect_equal(round(mod_power(n_groups = 3,

@@ -101,6 +101,7 @@ my_mod <- subgroup_power(n_groups = 2,
                     effect_sizes = c(.2,.5), 
                     study_size = 20,
                     k = 30,
+                    i2 = .5,
                     es_type = "d")
 ```
 
