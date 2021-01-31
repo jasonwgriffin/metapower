@@ -24,24 +24,26 @@ Suppose that we plan to meta-analyze all published findings to compute a summary
 1. Expected effect size
 2. Expected sample size per group
 3. Expected number of studies
+4. Expected Degree of heterogeneity (i.e., $I^2$)
 
 ...*for our meta-analysis of face recognition deficits in autism*
 
 1. We expect that face recognition deficits in ASD are small (Cohen's d = 0.2)
 2. Sample sizes in autism research are generally small. We expect the average group size to be 20.
 3. Face recognition is frequently studied in autism; therefore, we expect to find 10 studies.
+4. We anticipate moderate heterogeneity, $I^2$ = .50 
 
 To do this with `metapower`, we use the core function `mpower()`
 
 ```{r}
-my_power <- mpower(effect_size = .2, sample_size = 20, k = 10, es_type = "d")
+my_power <- mpower(effect_size = .2, study_size = 20, k = 10, i2 = .50, es_type = "d")
 ```
 
 ```{r}
 print(my_power)
 ```
 
-The first part of the output shows the expected input values, where the main results are shown in the bottom portion, mainly, `Estimated Power`. Under this set of values, our power to detect a mean difference under a Fixed-Effects model is  `r round(my_power$power$fixed_power*100,2)`%. Furthermore, we can look at the power under a Random-Effects model under various heterogeneity levels (e.g., Low, Moderate, Large). For the output regarding `Estimated Power: Test of Homogeneity`, please see below
+The first part of the output shows the expected input values, where the main results are shown in the bottom portion, mainly, `Estimated Power`. Under this set of values, our power to detect a mean difference under a Fixed-Effects model is  `r round(my_power$power$fixed_power*100,2)`%. Furthermore, we can look at the power under a Random-Effects model. 
 
 Given that power analysis require a lot of assumptions, it is generally advisable to look at power across a range of input values. To visualize the power curve for these set of input parameters, use `plot_mpower()` to generate a `ggobject` that is modifiable and by default, shows 5x as many studies as the user inputs. 
 
@@ -62,20 +64,22 @@ str(my_power$power_range)
 For Fixed-Effects Model, the test of homogeneity examines whether the amount of variation among effect sizes is greater than that of sampling error alone. To compute this, simply wrap the same arguments used in `mpower` with `homogen_power`. Since it is hard to justify selecting the standard deviation between a set of studies, `homogen_power()` automatically computes power across a range of different standard deviation values (i.e., SD = 1, SD = 2.)
 
 ```{r}
-(homogen_test_power <- homogen_power(effect_size = .25, sample_size = 20, k = 30, es_type = "d"))
+(my_homogen_power <- homogen_power(effect_size = .25, study_size = 20, k = 30,i2 = .50, es_type = "d"))
 ```
 
-For Random-Effects models, `homogen_power()` computes power across a range of possible heterogeneity values (i.e., $I^2$)
+For Random-Effects models, `homogen_power()` computes power given the user-specified heterogeneity value (i.e., $I^2$)
+
+In this example, we specified `i2 = .50`, but below are common benchmarks: 
 
 1. $I^2$ =  0% (No Heterogeneity)
 2. $I^2$ = 25% (Low Heterogeneity) 
 3. $I^2$ = 50% (Moderate Heterogeneity)
 4. $I^2$ = 75% (Large Heterogeneity)
 
-We can visualize this across a range with `plot_homogen_power`
+We can visualize power across a range with `plot_homogen_power`
 
 ```{r fig.height=7, fig.width=7, dpi = 300,out.width = "100%", out.height = "100%"}
-plot_homogen_power(homogen_test_power)
+plot_homogen_power(my_homogen_power)
 ```
 
 ## Example 2: Power analysis for moderation analysis (categorical variables)
@@ -93,15 +97,17 @@ We may expect that face recognition tasks have larger effect sizes then face per
 2. `effect_sizes = c(.2,.5)`
 
 ```{r}
-my_mod <- subgroup_power(n_groups = 2, 
+my_subgroup_power <- subgroup_power(n_groups = 2, 
                     effect_sizes = c(.2,.5), 
-                    sample_size = 20,
+                    study_size = 20,
                     k = 30,
+                    i2 = .5,
                     es_type = "d")
 ```
 
-```{r}
-print(my_mod)
+```{r fig.height=7, fig.width=7, dpi = 300,out.width = "100%", out.height = "100%"}
+print(my_subgroup_power)
+plot_subgroup_power(my_subgroup_power)
 ```
 
-Given, this set of expected values, we have `r round(my_mod$subgroup_power$fixed_power_b*100,2)`% to detect between-group differences under a Fixed-Effects model. As expected, moderator effects are much harder to detect and more studies are required, especially when heterogeneity is high.
+Given, this set of expected values, we have `r round(my_subgroup_power$subgroup_power$fixed_power_b*100,2)`% to detect between-group differences under a Fixed-Effects model. As expected, moderator effects are much harder to detect and more studies are required, especially when heterogeneity is high.

@@ -10,19 +10,21 @@ server <- function(input, output) {
     es_type <- "d"
     effect_size <- input$d_es
     k <- input$d_k
-    sample_size <- input$d_n
+    study_size <- input$d_n
+    i2 <- input$d_i2
     p <- input$d_p
     test_type <- input$d_test_type
-    metapower::plot_mpower(mpower(effect_size, sample_size, k, es_type, test_type, p))
+    metapower::plot_mpower(mpower(effect_size, study_size, k, i2, es_type, test_type, p))
   })
   output$d_summary <- renderPrint({
     es_type <- "d"
     effect_size <- input$d_es
     k <- input$d_k
-    sample_size <- input$d_n
+    study_size <- input$d_n
+    i2 <- input$d_i2
     p <- input$d_p
     test_type <- input$d_test_type
-    print(mpower(effect_size, sample_size, k, es_type, test_type, p))
+    print(mpower(effect_size, study_size, k, i2, es_type, test_type, p))
   })
 
   ## Homogen Power
@@ -30,17 +32,19 @@ server <- function(input, output) {
     es_type <- "d"
     effect_size <- input$homogen_d_es
     k <- input$homogen_d_k
-    sample_size <- input$homogen_d_n
+    i2 <- input$homogen_d_i2
+    study_size <- input$homogen_d_n
     p <- input$homogen_d_p
-    metapower::plot_homogen_power(homogen_power(effect_size, sample_size, k, es_type, p))
+    metapower::plot_homogen_power(homogen_power(effect_size, study_size, k, i2, es_type, p))
   })
   output$homogen_d_summary <- renderPrint({
     es_type <- "d"
     effect_size <- input$homogen_d_es
     k <- input$homogen_d_k
-    sample_size <- input$homogen_d_n
+    study_size <- input$homogen_d_n
+    i2 <- input$homogen_d_i2
     p <- input$homogen_d_p
-    print(homogen_power(effect_size, sample_size, k, es_type, p))
+    print(homogen_power(effect_size, study_size, k, i2, es_type, p))
   })
 
   ## SUbgroup analysis
@@ -67,9 +71,10 @@ server <- function(input, output) {
       effect_sizes <- c(effect_sizes,input$sg4_d_es)
 
     k <- input$subgroup_d_k
-    sample_size <- input$subgroup_d_n
+    i2 <- input$subgroup_d_i2
+    study_size <- input$subgroup_d_n
     p <- input$subgroup_d_p
-    metapower::plot_subgroup_power(subgroup_power(n_groups, effect_sizes, sample_size, k, es_type, p))
+    metapower::plot_subgroup_power(subgroup_power(n_groups, effect_sizes, study_size, k, i2, es_type, p))
   })
 
   output$subgroup_d_summary <- renderPrint({
@@ -82,9 +87,10 @@ server <- function(input, output) {
     if(!is.na(input$sg4_d_es))
       effect_sizes <- c(effect_sizes,input$sg4_d_es)
     k <- input$subgroup_d_k
-    sample_size <- input$subgroup_d_n
+    i2 <- input$subgroup_d_i2
+    study_size <- input$subgroup_d_n
     p <- input$subgroup_d_p
-    print(subgroup_power(n_groups, effect_sizes, sample_size, k, es_type, p))
+    print(subgroup_power(n_groups, effect_sizes, study_size, k, i2, es_type, p))
   })
 
   ## Moderator Analysis
@@ -111,9 +117,10 @@ server <- function(input, output) {
       effect_sizes <- c(effect_sizes,input$mod_d_es4)
 
     k <- input$mod_d_k
-    sample_size <- input$mod_d_n
+    i2 <- input$mod_d_i2
+    study_size <- input$mod_d_n
     p <- input$mod_d_p
-    metapower::plot_mod_power(mod_power(n_groups, effect_sizes, sample_size, k, es_type, p))
+    metapower::plot_mod_power(mod_power(n_groups, effect_sizes, study_size, k, i2, es_type, p))
   })
 
   output$mod_d_summary <- renderPrint({
@@ -126,9 +133,10 @@ server <- function(input, output) {
     if(!is.na(input$mod_d_es4))
       effect_sizes <- c(effect_sizes,input$mod_d_es4)
     k <- input$mod_d_k
-    sample_size <- input$mod_d_n
+    i2 <- input$mod_d_i2
+    study_size <- input$mod_d_n
     p <- input$mod_d_p
-    print(mod_power(n_groups, effect_sizes, sample_size, k, es_type, p))
+    print(mod_power(n_groups, effect_sizes, study_size, k, i2, es_type, p))
   })
 
 
@@ -141,19 +149,21 @@ server <- function(input, output) {
     es_type <- "r"
     effect_size <- input$c_es
     k <- input$c_k
-    sample_size <- input$c_n
+    study_size <- input$c_n
+    i2 <- input$c_i2
     p <- input$c_p
     test_type <- input$c_test_type
-    metapower::plot_mpower(mpower(effect_size, sample_size, k, es_type, test_type, p))
+    metapower::plot_mpower(mpower(effect_size, study_size, k, i2, es_type, test_type, p))
   })
   output$c_summary <- renderPrint({
     es_type <- "r"
     effect_size <- input$c_es
     k <- input$c_k
-    sample_size <- input$c_n
+    study_size <- input$c_n
+    i2 <- input$c_i2
     p <- input$c_p
     test_type <- input$c_test_type
-    print(mpower(effect_size, sample_size, k, es_type, test_type, p))
+    print(mpower(effect_size, study_size, k, i2, es_type, test_type, p))
   })
 
   ## Homogen Power
@@ -161,17 +171,19 @@ server <- function(input, output) {
     es_type <- "r"
     effect_size <- input$homogen_c_es
     k <- input$homogen_c_k
-    sample_size <- input$homogen_c_n
+    study_size <- input$homogen_c_n
+    i2 <- input$homogen_c_i2
     p <- input$homogen_c_p
-    metapower::plot_homogen_power(homogen_power(effect_size, sample_size, k, es_type, p))
+    metapower::plot_homogen_power(homogen_power(effect_size, study_size, k, i2, es_type, p))
   })
   output$homogen_c_summary <- renderPrint({
     es_type <- "r"
     effect_size <- input$homogen_c_es
     k <- input$homogen_c_k
-    sample_size <- input$homogen_c_n
+    study_size <- input$homogen_c_n
+    i2 <- input$homogen_c_i2
     p <- input$homogen_c_p
-    print(homogen_power(effect_size, sample_size, k, es_type, p))
+    print(homogen_power(effect_size, study_size, k, i2, es_type, p))
   })
 
   ## SUbgroup analysis
@@ -194,9 +206,11 @@ server <- function(input, output) {
       effect_sizes <- c(effect_sizes,input$subgroup_c_es4)
 
     k <- input$subgroup_c_k
-    sample_size <- input$subgroup_c_n
+    i2 <- input$subgroup_c_i2
+    study_size <- input$subgroup_c_n
+    i2 <- input$subgroup_c_i2
     p <- input$subgroup_c_p
-    metapower::plot_subgroup_power(subgroup_power(n_groups, effect_sizes, sample_size, k, es_type, p))
+    metapower::plot_subgroup_power(subgroup_power(n_groups, effect_sizes, study_size, k, i2, es_type, p))
   })
 
   output$subgroup_c_summary <- renderPrint({
@@ -209,9 +223,10 @@ server <- function(input, output) {
     if(!is.na(input$subgroup_c_es4))
       effect_sizes <- c(effect_sizes,input$subgroup_c_es4)
     k <- input$subgroup_c_k
-    sample_size <- input$subgroup_c_n
+    study_size <- input$subgroup_c_n
+    i2 <- input$subgroup_c_i2
     p <- input$subgroup_c_p
-    print(subgroup_power(n_groups, effect_sizes, sample_size, k, es_type, p))
+    print(subgroup_power(n_groups, effect_sizes, study_size, k, i2, es_type, p))
   })
 
   ## Moderator Analysis
@@ -231,9 +246,10 @@ server <- function(input, output) {
       effect_sizes <- c(effect_sizes,input$mod_c_es4)
 
     k <- input$mod_c_k
-    sample_size <- input$mod_c_n
+    study_size <- input$mod_c_n
+    i2 <- input$mod_c_i2
     p <- input$mod_c_p
-    metapower::plot_mod_power(mod_power(n_groups, effect_sizes, sample_size, k, es_type, p))
+    metapower::plot_mod_power(mod_power(n_groups, effect_sizes, study_size, k, i2, es_type, p))
   })
 
   output$mod_c_summary <- renderPrint({
@@ -246,9 +262,10 @@ server <- function(input, output) {
     if(!is.na(input$mod_c_es4))
       effect_sizes <- c(effect_sizes,input$mod_c_es4)
     k <- input$mod_c_k
-    sample_size <- input$mod_c_n
+    study_size <- input$mod_c_n
+    i2 <- input$mod_c_i2
     p <- input$mod_c_p
-    print(mod_power(n_groups, effect_sizes, sample_size, k, es_type, p))
+    print(mod_power(n_groups, effect_sizes, study_size, k, i2, es_type, p))
   })
 
   ## Odds Ratio
@@ -257,21 +274,23 @@ server <- function(input, output) {
     es_type <- "or"
     effect_size <- input$or_es
     k <- input$or_k
-    sample_size <- input$or_n
+    study_size <- input$or_n
+    i2 <- input$or_i2
     p <- input$or_p
     test_type <- input$or_test_type
     con_table <- c(input$or_a, input$or_b, input$or_c, input$or_d)
-    metapower::plot_mpower(mpower(NULL,sample_size, k, es_type, test_type, p, con_table))
+    metapower::plot_mpower(mpower(NULL,study_size, k, i2, es_type, test_type, p, con_table))
   })
   output$or_summary <- renderPrint({
     es_type <- "or"
     effect_size <- input$or_es
     k <- input$or_k
-    sample_size <- input$or_n
+    study_size <- input$or_n
+    i2 <- input$or_i2
     p <- input$or_p
     test_type <- input$or_test_type
     con_table <- c(input$or_a, input$or_b, input$or_c, input$or_d)
-    print(mpower(NULL,sample_size, k, es_type, test_type, p, con_table))
+    print(mpower(NULL,study_size, k, i2, es_type, test_type, p, con_table))
   })
 
   ## Homogen Power
@@ -279,19 +298,21 @@ server <- function(input, output) {
     es_type <- "or"
     effect_size <- input$homogen_or_es
     k <- input$homogen_or_k
-    sample_size <- input$homogen_or_n
+    study_size <- input$homogen_or_n
+    i2 <- input$homogen_or_i2
     p <- input$homogen_or_p
     con_table <- c(input$homogen_or_a, input$homogen_or_b, input$homogen_or_c, input$homogen_or_d)
-    metapower::plot_homogen_power(homogen_power(NULL,sample_size, k, es_type, p, con_table))
+    metapower::plot_homogen_power(homogen_power(NULL,study_size, k, i2, es_type, p, con_table))
   })
   output$homogen_or_summary <- renderPrint({
     es_type <- "or"
     effect_size <- input$homogen_or_es
     k <- input$homogen_or_k
-    sample_size <- input$homogen_or_n
+    study_size <- input$homogen_or_n
+    i2 <- input$homogen_or_i2
     p <- input$homogen_or_p
     con_table <- c(input$homogen_or_a, input$homogen_or_b, input$homogen_or_c, input$homogen_or_d)
-    print(homogen_power(NULL,sample_size, k, es_type, p, con_table))
+    print(homogen_power(NULL,study_size, k, i2, es_type, p, con_table))
   })
 
   ## Subgroup analysis
@@ -303,7 +324,8 @@ server <- function(input, output) {
     es_type <- "or"
     n_groups <- input$subgroup_or_n_groups
     k <- input$subgroup_or_k
-    sample_size <- input$subgroup_or_n
+    study_size <- input$subgroup_or_n
+    i2 <- input$subgroup_or_i2
     p <- input$subgroup_or_p
     con_table <- list(group1 = c(input$sg_1_or_a,input$sg_1_or_b,input$sg_1_or_c,input$sg_1_or_d),
                       group2 = c(input$sg_2_or_a,input$sg_2_or_b,input$sg_2_or_c,input$sg_2_or_d))
@@ -314,14 +336,15 @@ server <- function(input, output) {
     if(input$sg4_or_name != "")
       con_table <- c(con_table, list(group4 = c(input$sg_4_or_a,input$sg_4_or_b,input$sg_4_or_c,input$sg_4_or_d)))
 
-    metapower::plot_subgroup_power(subgroup_power(n_groups, NULL, sample_size, k, es_type, p, con_table))
+    metapower::plot_subgroup_power(subgroup_power(n_groups, NULL, study_size, k, i2, es_type, p, con_table))
   })
 
   output$subgroup_or_summary <- renderPrint({
     es_type <- "or"
     n_groups <- input$subgroup_or_n_groups
     k <- input$subgroup_or_k
-    sample_size <- input$subgroup_or_n
+    study_size <- input$subgroup_or_n
+    i2 <- input$subgroup_or_i2
     p <- input$subgroup_or_p
     con_table <- list(group1 = c(input$sg_1_or_a,input$sg_1_or_b,input$sg_1_or_c,input$sg_1_or_d),
                       group2 = c(input$sg_2_or_a,input$sg_2_or_b,input$sg_2_or_c,input$sg_2_or_d))
@@ -332,7 +355,7 @@ server <- function(input, output) {
     if(input$sg4_or_name != "")
       con_table <- c(con_table, list(group4 = c(input$sg_4_or_a,input$sg_4_or_b,input$sg_4_or_c,input$sg_4_or_d)))
 
-    print(subgroup_power(n_groups, NULL, sample_size, k, es_type, p, con_table))
+    print(subgroup_power(n_groups, NULL, study_size, k, i2, es_type, p, con_table))
   })
 
   ## Moderator Analysis
@@ -344,7 +367,8 @@ server <- function(input, output) {
     es_type <- "or"
     n_groups <- input$mod_or_n_groups
     k <- input$mod_or_k
-    sample_size <- input$mod_or_n
+    study_size <- input$mod_or_n
+    i2 <- input$mod_or_i2
     p <- input$mod_or_p
     con_table <- list(group1 = c(input$md_1_or_a,input$md_1_or_b,input$md_1_or_c,input$md_1_or_d),
                       group2 = c(input$md_2_or_a,input$md_2_or_b,input$md_2_or_c,input$md_2_or_d))
@@ -355,14 +379,15 @@ server <- function(input, output) {
     if(input$md4_or_name != "")
       con_table <- c(con_table, list(group4 = c(input$md_4_or_a,input$md_4_or_b,input$md_4_or_c,input$md_4_or_d)))
 
-    metapower::plot_mod_power(mod_power(n_groups, NULL, sample_size, k, es_type, p, con_table))
+    metapower::plot_mod_power(mod_power(n_groups, NULL, study_size, k, i2, es_type, p, con_table))
   })
 
   output$mod_or_summary <- renderPrint({
     es_type <- "or"
     n_groups <- input$mod_or_n_groups
     k <- input$mod_or_k
-    sample_size <- input$mod_or_n
+    study_size <- input$mod_or_n
+    i2 <- input$mod_or_i2
     p <- input$mod_or_p
     con_table <- list(group1 = c(input$md_1_or_a,input$md_1_or_b,input$md_1_or_c,input$md_1_or_d),
                       group2 = c(input$md_2_or_a,input$md_2_or_b,input$md_2_or_c,input$md_2_or_d))
@@ -373,7 +398,7 @@ server <- function(input, output) {
     if(input$md4_or_name != "")
       con_table <- c(con_table, list(group4 = c(input$md_4_or_a,input$md_4_or_b,input$md_4_or_c,input$md_4_or_d)))
 
-    print(mod_power(n_groups, NULL, sample_size, k, es_type, p, con_table))
+    print(mod_power(n_groups, NULL, study_size, k, i2, es_type, p, con_table))
   })
 
 }

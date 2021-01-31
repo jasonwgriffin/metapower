@@ -1,4 +1,4 @@
-mod_power_integrity <- function(n_groups, effect_sizes, sample_size, k, es_type, p, con_table){
+mod_power_integrity <- function(n_groups, effect_sizes, study_size, k, i2, es_type, p, con_table){
 
 # Argument Integrity Checks
 es_type_options <- c("d","r", "or")
@@ -16,16 +16,16 @@ if(n_groups < 2)
 #effect_sizes
 
 
-#sample_size
-if(missing(sample_size))
+#study_size
+if(missing(study_size))
   stop("Need to specify expected sample size")
-if(!(is.numeric(sample_size)))
-  stop("sample_size must be numeric")
-if(length(sample_size) > 1)
-  stop("sample_size must be a single number")
-if(sample_size < 1)
-  stop("sample_size must be greater than 0")
-#if((sample_size/n_groups)%%1!=0)
+if(!(is.numeric(study_size)))
+  stop("study_size must be numeric")
+if(length(study_size) > 1)
+  stop("study_size must be a single number")
+if(study_size < 1)
+  stop("study_size must be greater than 0")
+#if((study_size/n_groups)%%1!=0)
 #  stop("sample size must be a multiple of n_groups")
 
 # Number of Studies
@@ -41,6 +41,15 @@ if(k <= n_groups)
   stop("Number of studies must be larger than n_groups")
 if((k/n_groups)%%1!=0)
   stop("k must be a multiple of n_groups")
+
+## i2 - Heterogeneity
+
+if(missing(i2))
+  stop("Need to specify heterogeneity(i2); Small = .25, moderatoe = .50, Large = .75")
+if(i2 > .9999)
+  stop("i2 cannot be greater than 1")
+if(i2 < 0)
+  stop("i2 cannot be less than 0")
 
 ## es_type
 if(missing(es_type))
@@ -89,7 +98,7 @@ if(es_type == "or" & !missing(con_table)){
       stop("Each element of con_table should be numeric")
   }
   for (i in 1:length(con_table)){
-    if(sample_size/n_groups != sum(con_table[[i]]))
+    if(study_size/n_groups != sum(con_table[[i]]))
       stop("Each 2x2 table should sum to the total sample size/number of groups")
     }
   }

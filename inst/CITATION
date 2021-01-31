@@ -5,6 +5,6 @@ citEntry(
   title    = "metapoweR: an R package for computing meta-analytic statistical power",
   author   = "Jason W. Griffin",
   year     = "2020",
-  note     = "R package version 0.2.0",
+  note     = "R package version 0.2.1",
   url      = "https://CRAN.R-project.org/package=metapower",
-  textVersion = "Griffin, J.W. (2020). metapoweR: an R package for computing meta-analytic statistical power. R package version 0.2.0")
+  textVersion = "Griffin, J.W. (2020). metapoweR: an R package for computing meta-analytic statistical power. R package version 0.2.1")
