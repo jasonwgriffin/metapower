@@ -11,6 +11,6 @@ print.mpower <- function(x,...) {
     cat(" Estimated Power: Mean Effect Size \n\n")
 
     cat(" Fixed-Effects Model               ", x$power$fixed_power, "\n")
-    cat(" Random-Effects Model (i2 = ",round(x$i2*100,2), "%):  ", x$power$random_power, "\n", sep = "")
+    cat(" Random-Effects Model (i2 = ",round(x$i2*100,2), "%):   ", x$power$random_power, "\n", sep = "")
 
 }

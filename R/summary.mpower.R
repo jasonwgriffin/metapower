@@ -12,6 +12,6 @@ summary.mpower <- function(object,...) {
   cat(" Estimated Power: Mean Effect Size \n\n")
 
   cat(" Fixed-Effects Model               ", object$power$fixed_power, "\n")
-  cat(" Random-Effects Model (i2 = ",round(object$i2*100,2), "%):  ", object$power$random_power, "\n", sep = "")
+  cat(" Random-Effects Model (i2 = ",round(object$i2*100,2), "%):   ", object$power$random_power, "\n", sep = "")
 
 }
