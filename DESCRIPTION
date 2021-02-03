@@ -1,7 +1,7 @@
 Package: metapower
 Type: Package
 Title: Power Analysis for Meta-Analysis
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: person("Jason", "Griffin", email = "jasongriffin138@gmail.com", role = c("aut", "cre"))
 Description: A simple and effective tool for computing and visualizing statistical power for meta-analysis,
     including power analysis of main effects (Jackson & Turner, 2017)<doi:10.1002/jrsm.1240>, 
