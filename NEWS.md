@@ -1,4 +1,12 @@
 
+# metapower 0.2.2
+
+## Changes
+* For all major functions, the input parameter i2 should now be specified by the user (i2 = .5 by default)
+* All plotting functions plot power curves as a function of model selection (fixed or random effects)
+
+
+
 # metapower 0.2.0
 
 ## Update

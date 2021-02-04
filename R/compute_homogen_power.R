@@ -12,9 +12,10 @@ compute_homogen_power <- function(k, effect_size, variance,i2, c_alpha){
   ##random power
   tau2 <- (i2*variance)/(1 - i2) # calculate tau2
 
-  c <- k*weight- k*weight^2/(k*weight)
+  c <- sum(k*weight) - sum(k*weight^2)/sum(k*weight) ## sum?
   u <- c*tau2+df
-  sd <- 2*df + 4*c*(tau2^2) + 2*(k*(weight^2) - 2*(k*(weight^3)/(k*weight)) + k*(weight^2)^2/(k*(weight^2))) * tau2^4
+  sd <- 2*df + 4*(weight-(weight^2/weight))*tau2 + 2*(weight^2 - 2*((weight^3)/(weight)) + (weight^2)^2/((weight^2))) * tau2^2 # correct formula
+
   r = sd/(2*u)
   s = 2*u^2/sd
 
