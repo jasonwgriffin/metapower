@@ -68,7 +68,6 @@ subgroup_power <- function(n_groups, effect_sizes, study_size, k, i2 = .50, es_t
   range_factor <- 5
 
   if(es_type == "d"){
-    study_size <- study_size/2
     effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
     overall_effect <- mean(effect_sizes) # find overall mean
     variance <- compute_variance(study_size/n_groups, overall_effect, es_type, con_table) # compute variance for each group study_size/2

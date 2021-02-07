@@ -68,7 +68,6 @@ mod_power <- function(n_groups, effect_sizes, study_size, k, i2, es_type, p = .0
   range_factor <- 5
 
   if(es_type == "d"){
-    study_size <- study_size/2 # between group differences
     effect_diff <- effect_sizes - effect_sizes[1] # difference in effects
     overall_effect <- mean(effect_sizes) # find overall mean
     variance <- compute_variance(study_size, overall_effect, es_type, con_table) # compute variance for each level of the moderator

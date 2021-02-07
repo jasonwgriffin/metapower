@@ -2,7 +2,7 @@ compute_variance <- function(study_size, effect_size, es_type, con_table){
 
   if(es_type == "d"){
 
-    return(round(((study_size+study_size)/((study_size)*(study_size))) + ((effect_size^2)/(2*(study_size+study_size))),5))
+    return(round(((study_size/2+study_size/2)/((study_size/2)*(study_size/2))) + ((effect_size^2)/(2*(study_size/2+study_size/2))),5))
 
     } else if (es_type == "r"){
 
