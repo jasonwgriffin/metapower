@@ -5,7 +5,7 @@ summary.mod_power <- function(object,...) {
 
   cat(" Effect Size Metric:               ", object$es_type, "\n")
   cat(" Number of Categorical Groups:     ", object$n_groups, "\n")
-  cat(" Groups:                            ", object$group, "\n")
+  cat(" Groups:                           ", object$group, "\n")
   cat(" Expected Effect Sizes:            ", object$effect_sizes, "\n")
   cat(" Expected Number of Studies:       ", object$k, "\n\n")
 
