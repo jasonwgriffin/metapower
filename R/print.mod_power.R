@@ -3,10 +3,10 @@
 print.mod_power <- function(x,...) {
   cat("\n Power Analysis for Moderator Analysis: \n\n")
 
-  cat(" Number of Groups:                 ", x$n_groups, "\n")
-  cat(" Groups:                            ", x$group, "\n")
+  cat(" Effect Size Metric:               ", x$es_type, "\n")
+  cat(" Number of Categorical Groups:     ", x$n_groups, "\n")
+  cat(" Groups:                           ", x$group, "\n")
   cat(" Expected Effect Sizes:            ", x$effect_sizes, "\n")
-  cat(" Expected Sample Size (per group): ", x$study_size, "\n")
   cat(" Expected Number of Studies:       ", x$k, "\n\n")
 
   cat(" Esimated Power: Moderator Analysis \n\n")

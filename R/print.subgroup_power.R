@@ -3,10 +3,10 @@
 print.subgroup_power <- function(x,...) {
   cat("\n Power Analysis for Subgroup analysis: \n\n")
 
+  cat(" Effect Size Metric:               ", x$es_type, "\n")
   cat(" Number of Subgroups:              ", x$n_groups, "\n")
   cat(" Groups:                           ", x$group, "\n")
   cat(" Expected Effect Sizes:            ", x$effect_sizes, "\n")
-  cat(" Expected Sample Size (per group): ", x$study_size, "\n")
   cat(" Expected Number of Studies:       ", x$k, "\n\n")
 
   cat(" Esimated Power to detect subgroup differences \n\n")
