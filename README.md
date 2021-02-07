@@ -59,22 +59,20 @@ application](https://jason-griffin.shinyapps.io/shiny_metapower/)
 
 ``` r
 library(metapower)
-my_power <- mpower(effect_size = .2, sample_size = 20, k = 10, es_type = "d")
+my_power <- mpower(effect_size = .3, study_size = 20, k = 10, i2 = .50, es_type = "d")
 print(my_power)
 #> 
 #>  Power Analysis for Meta-analysis 
 #> 
-#>  Expected Effect Size:              0.2 
-#>  Expected Sample Size (per group):  10 
+#>  Effect Size Metric:                d 
+#>  Expected Effect Size:              0.3 
+#>  Expected Study Size:               20 
 #>  Expected Number of Studies:        10 
 #> 
 #>  Estimated Power: Mean Effect Size 
 #> 
-#>  Fixed-Effects Model                0.2917841 
-#>  Random-Effects Model (i2 =  0% ):  0.2478379 
-#>  Random-Effects Model (i2 = 25% ):  0.2328637 
-#>  Random-Effects Model (i2 = 50% ):  0.1982394 
-#>  Random-Effects Model (i2 = 75% ):  0.1446749
+#>  Fixed-Effects Model                0.5594533 
+#>  Random-Effects Model (i2 = 50%):   0.3454424
 plot_mpower(my_power)
 ```
 
