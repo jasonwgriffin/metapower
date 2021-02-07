@@ -8,7 +8,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/metapower)](https://CRAN.R-project.org/package=metapower)
 [![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
 [![](http://cranlogs.r-pkg.org/badges/grand-total/metapower?color=blue)](https://cran.r-project.org/package=metapower)
 
