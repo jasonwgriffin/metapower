@@ -33,6 +33,12 @@ metapower can currently handle the following designs and effect sizes:
     Coefficient (via Fisher’s r-to-z transformation)
 6.  Probability of Success/Failure: Odds Ratio
 
+## Tutorial Paper
+
+For detailed information about how to use `metapower`, see [Calculating
+statistical power for meta-analysis using
+metapower](https://www.tqmp.org/RegularArticles/vol17-1/p024/index.html)
+
 ## Installation
 
 You can install the released version of metapower from

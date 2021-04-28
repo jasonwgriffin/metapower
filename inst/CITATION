@@ -2,9 +2,13 @@ citHeader("To cite metapower in publications use:")
 
 citEntry(
   entry    = "Manual",
-  title    = "metapoweR: an R package for computing meta-analytic statistical power",
+  title    = "Calculating statistical power for meta-analysis using metapower",
   author   = "Jason W. Griffin",
-  year     = "2020",
-  note     = "R package version 0.2.1",
+  journal  = "The Quantitative Methods for Psychology",
+  volume   = "17",
+  number   = "1",
+  pages    = "24-39",
+  year     = "2021",
+  doi      = "10.20982/tqmp.17.1.p024",
   url      = "https://CRAN.R-project.org/package=metapower",
-  textVersion = "Griffin, J.W. (2020). metapoweR: an R package for computing meta-analytic statistical power. R package version 0.2.1")
+  textVersion = "Griffin, J. W. (2021). Calculating statistical power for meta-analysis using metapower. The Quantitative Methods for Psychology, 17(1), 24–39. doi:10.20982/tqmp.17.1.p024")
