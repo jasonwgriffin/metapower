@@ -126,6 +126,12 @@ Springer.
 
 </div>
 
+## Citation
+
+Griffin, J. W. (2021). Calculating statistical power for meta-analysis
+using metapower. *The Quantitative Methods for Psychology, 17*(1),
+24–39. <doi:10.20982/tqmp.17.1.p024>
+
 ## Issues
 
 If you encounter a clear bug, please file a minimal reproducible example
